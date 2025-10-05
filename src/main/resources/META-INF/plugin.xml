@@ -1,7 +1,8 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<!-- Plugin Configuration File. Read more:
+https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.martini024.renamerefactoringassist</id>
-    <name>rename-refactoring-assist</name>
+    <id>edu.colorado.rrassist</id>
+    <name>Rename Refactoring Assist</name>
     <vendor>martini024</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -9,7 +10,10 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.martini024.renamerefactoringassist.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.martini024.renamerefactoringassist.startup.MyProjectActivity" />
+        <toolWindow
+            factoryClass="edu.colorado.rrassist.toolWindow.MyToolWindowFactory"
+            id="MyToolWindow" />
+        <postStartupActivity
+            implementation="edu.colorado.rrassist.startup.MyProjectActivity" />
     </extensions>
 </idea-plugin>

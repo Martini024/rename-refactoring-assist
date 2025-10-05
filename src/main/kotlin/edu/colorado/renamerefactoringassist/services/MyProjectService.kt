@@ -1,9 +1,9 @@
-package com.github.martini024.renamerefactoringassist.services
+package edu.colorado.rrassist.services
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import com.github.martini024.renamerefactoringassist.MyBundle
+import edu.colorado.rrassist.MyBundle
 
 @Service(Service.Level.PROJECT)
 class MyProjectService(project: Project) {

@@ -1,4 +1,4 @@
-package com.github.martini024.renamerefactoringassist.toolWindow
+package edu.colorado.rrassist.toolWindow
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.thisLogger
@@ -8,8 +8,8 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
-import com.github.martini024.renamerefactoringassist.MyBundle
-import com.github.martini024.renamerefactoringassist.services.MyProjectService
+import edu.colorado.rrassist.MyBundle
+import edu.colorado.rrassist.services.MyProjectService
 import javax.swing.JButton
 
 

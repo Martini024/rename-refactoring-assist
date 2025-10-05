@@ -1,4 +1,4 @@
-package com.github.martini024.renamerefactoringassist
+package edu.colorado.rrassist
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
