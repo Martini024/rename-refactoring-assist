@@ -6,6 +6,10 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
     <vendor>martini024</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <!-- Require Java language (PSI) -->
+    <depends>com.intellij.modules.java</depends>
+    <!-- If you reference org.jetbrains.kotlin.psi.* anywhere -->
+    <depends>org.jetbrains.kotlin</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
@@ -16,4 +20,11 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
         <postStartupActivity
             implementation="edu.colorado.rrassist.startup.MyProjectActivity" />
     </extensions>
+    <actions>
+        <action id="edu.colorado.rrassist.actions.RenameLocalVariableAction"
+                class="edu.colorado.rrassist.actions.RenameLocalVariableAction" text="Rename Variable"
+                description="Rename the selected local variable with RR-Assist">
+            <add-to-group group-id="RefactoringMenu" anchor="after" relative-to-action="RenameElement"/>
+        </action>
+    </actions>
 </idea-plugin>
