@@ -49,6 +49,10 @@ dependencies {
 
         testFramework(TestFrameworkType.Platform)
     }
+
+    // === LLM client ===
+    // OpenAI Kotlin client
+    implementation("com.aallam.openai:openai-client:4.0.1")
 }
 
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html

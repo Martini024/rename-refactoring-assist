@@ -19,6 +19,11 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
             id="MyToolWindow" />
         <postStartupActivity
             implementation="edu.colorado.rrassist.startup.MyProjectActivity" />
+        <applicationConfigurable
+            instance="edu.colorado.rrassist.settings.RRAssistConfigurable"
+            id="rrassist.settings"
+            displayName="RRAssist / LLM">
+        </applicationConfigurable>
     </extensions>
     <actions>
         <action id="edu.colorado.rrassist.actions.RenameLocalVariableAction"
