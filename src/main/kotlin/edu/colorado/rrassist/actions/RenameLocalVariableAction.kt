@@ -7,10 +7,10 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.psi.*
-import edu.colorado.rrassist.utils.Log.LOG
 import com.intellij.psi.util.PsiUtilBase
 import com.intellij.openapi.editor.Editor
 import com.intellij.refactoring.RefactoringActionHandlerFactory
+import edu.colorado.rrassist.utils.Log
 
 class RenameLocalVariableAction : AnAction() {
 
@@ -58,7 +58,7 @@ class RenameLocalVariableAction : AnAction() {
     """.trimIndent()
 
         println(msg)      // shows in Gradle Run console
-        LOG.info(msg)     // also in idea.log
+        Log.info(msg)     // also in idea.log
     }
 
     /* ---------- Java: ONLY local variables inside a PsiMethod ---------- */

@@ -51,8 +51,11 @@ dependencies {
     }
 
     // === LLM client ===
-    // OpenAI Kotlin client
-    implementation("com.aallam.openai:openai-client:4.0.1")
+    implementation("dev.langchain4j:langchain4j-open-ai:1.7.1")
+    implementation("dev.langchain4j:langchain4j-ollama:1.7.1")
+    implementation("dev.langchain4j:langchain4j:1.7.1")
+
+    implementation("org.slf4j:slf4j-simple:2.0.17")
 }
 
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html

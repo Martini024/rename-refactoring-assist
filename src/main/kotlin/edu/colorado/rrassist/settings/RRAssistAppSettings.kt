@@ -4,21 +4,27 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 
-enum class Provider { OPENAI, OPENAI_COMPATIBLE } // Compatible => Ollama/LMStudio/vLLM/etc.
+enum class Provider(val displayName: String) {
+    OPENAI("OpenAI"),
+    OLLAMA("Ollama");
 
-private const val API_KEY = "API_KEY"
-private const val ORGANIZATION = "ORGANIZATION"
+    override fun toString(): String = displayName
+}
 
 data class RRAssistConfig(
     var provider: Provider = Provider.OPENAI,
     var baseUrl: String = "https://api.openai.com/v1",   // Ollama: http://localhost:11434/v1
     var model: String = "gpt-4o-mini",                   // Ollama example: "llama3.1"
+    var temperature: Double = 0.2,
+    var timeoutSeconds: Int = 60,
     @Transient var apiKey: String = "OPENAI_API_KEY",            // logical name for PasswordSafe
 ) {
     fun updateFrom(other: RRAssistConfig) = apply {
         provider = other.provider
         baseUrl = other.baseUrl
         model = other.model
+        temperature = other.temperature
+        timeoutSeconds = other.timeoutSeconds
         apiKey = ""
     }
 }
