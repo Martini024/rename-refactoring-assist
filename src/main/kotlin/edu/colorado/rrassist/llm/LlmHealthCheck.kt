@@ -19,8 +19,9 @@ class LlmHealthCheck {
             val mark = TimeSource.Monotonic.markNow()
             Log.info("Health check started for provider=${cfg.provider} baseUrl=${cfg.baseUrl} model=${cfg.model}")
 
+//            TODO: timeout is not caught and handled properly
             val success = try {
-                val resp = withTimeout((cfg.timeoutSeconds.toLong() ?: 60L).seconds) {
+                val resp = withTimeout((cfg.timeoutSeconds.toLong()).seconds) {
                     client.chat(probe)  // suspend call: OK
                 }
                 val s = resp.trim().lowercase()

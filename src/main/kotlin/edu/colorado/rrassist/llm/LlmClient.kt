@@ -5,6 +5,8 @@ import dev.langchain4j.data.message.ChatMessage
 import dev.langchain4j.data.message.SystemMessage
 import dev.langchain4j.data.message.UserMessage
 import dev.langchain4j.model.chat.ChatModel
+import dev.langchain4j.model.chat.request.ChatRequest
+import edu.colorado.rrassist.utils.JsonMapperProvider
 
 enum class Role { System, User, Assistant }
 
@@ -17,6 +19,12 @@ interface LlmClient {
         val lc4jMessages = messages.map { it.toLc4j() }
         val response = model.chat(lc4jMessages)
         return response.aiMessage().text()
+    }
+
+    suspend fun <T : Any> chat(request: ChatRequest, type: Class<T>): T {
+        val response = model.chat(request)
+        val output = response.aiMessage().text()
+        return JsonMapperProvider.mapper.readValue(output, type)
     }
 
     private fun ChatMsg.toLc4j(): ChatMessage = when (role) {

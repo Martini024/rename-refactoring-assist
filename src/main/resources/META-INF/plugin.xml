@@ -19,6 +19,10 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
             id="MyToolWindow" />
         <postStartupActivity
             implementation="edu.colorado.rrassist.startup.MyProjectActivity" />
+        <notificationGroup
+                id="RRAssist"
+                isLogByDefault="true"
+                displayType="BALLOON"/>
         <applicationConfigurable
             instance="edu.colorado.rrassist.settings.RRAssistConfigurable"
             id="rrassist.settings"

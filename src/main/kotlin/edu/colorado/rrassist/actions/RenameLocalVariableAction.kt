@@ -1,5 +1,7 @@
 package edu.colorado.rrassist.actions
 
+import com.intellij.notification.NotificationGroupManager
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -9,7 +11,13 @@ import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.psi.*
 import com.intellij.psi.util.PsiUtilBase
 import com.intellij.openapi.editor.Editor
-import com.intellij.refactoring.RefactoringActionHandlerFactory
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNamedElement
+import com.intellij.openapi.util.TextRange
+import edu.colorado.rrassist.services.RenameContext
+import kotlinx.coroutines.*
+import edu.colorado.rrassist.services.RenameSuggestionService
 import edu.colorado.rrassist.utils.Log
 
 class RenameLocalVariableAction : AnAction() {
@@ -22,12 +30,79 @@ class RenameLocalVariableAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
+        val renameSuggestionService = RenameSuggestionService.getInstance()
+
         val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val element: PsiElement = PsiUtilBase.getElementAtCaret(editor) ?: return
 
-        val handler = RefactoringActionHandlerFactory.getInstance().createRenameHandler()
-        // This triggers in-place rename when possible, or falls back to dialog.
-        handler.invoke(project, arrayOf(element), e.dataContext)
+        // Build context (best-effort, keep it lightweight)
+        val symbolName = (element as? PsiNamedElement)?.name ?: element.text.take(64)
+        val languageId = element.language.id
+        val codeSnippet = extractSnippet(editor, element.textRange)
+        val related = collectSiblingNames(element)
+
+        val ctx = RenameContext(
+            symbolName = symbolName,
+            symbolKind = "localVariable",
+            language = languageId,
+            typeHint = null,                 // fill in later if you wire type inference
+            scopeHint = null,                // e.g., nearest function/class — optional
+            filePath = element.containingFile?.virtualFile?.path,
+            projectStyle = null,             // plug your naming rules here later
+            purposeHint = null,
+            codeSnippet = codeSnippet,
+            relatedNames = related
+        )
+
+        // Run suggest() off EDT; then post result back to UI
+        CoroutineScope(Dispatchers.Default).launch {
+            try {
+                val envelope = renameSuggestionService.suggest(ctx, topK = 5)
+                val pretty = envelope.suggestions.joinToString(separator = "<br><br>") { s ->
+                    buildString {
+                        append("• <b>${s.name}</b>")
+                        s.confidence?.let { append(" (${it}%)") }
+                        s.rationale?.let { append("<br>&nbsp;&nbsp;&nbsp;&nbsp;— $it") }
+                    }
+                }.ifBlank { "No suggestions." }
+
+                withContext(Dispatchers.Main) {
+                    notify(project,
+                        title = "Rename Suggestions for \"$symbolName\"",
+                        content = pretty
+                    )
+                }
+            } catch (t: Throwable) {
+                withContext(Dispatchers.Main) {
+                    notify(project, "Rename Suggestions Error", t.message ?: "Unknown error", NotificationType.ERROR)
+                }
+            }
+        }
+    }
+
+    private fun extractSnippet(editor: Editor, range: TextRange, contextChars: Int = 160): String {
+        val doc = editor.document
+        val start = (range.startOffset - contextChars).coerceAtLeast(0)
+        val end = (range.endOffset + contextChars).coerceAtMost(doc.textLength)
+        return doc.getText(TextRange(start, end))
+    }
+
+    private fun collectSiblingNames(element: PsiElement): List<String> {
+        val parent = element.parent ?: return emptyList()
+        return parent.children
+            .asSequence()
+            .filterIsInstance<PsiNamedElement>()
+            .mapNotNull { it.name }
+            .distinct()
+            .take(20)
+            .toList()
+    }
+
+    private fun notify(project: Project, title: String, content: String, type: NotificationType = NotificationType.INFORMATION) {
+        NotificationGroupManager.getInstance()
+            .getNotificationGroup("RRAssist")   // define in plugin.xml or use an existing group
+            .createNotification(title, content, type)
+            .notify(project)
     }
 
     private fun isTargetVariableInsideFunction(e: AnActionEvent): Boolean {
