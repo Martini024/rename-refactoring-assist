@@ -15,7 +15,7 @@ data class RRAssistConfig(
     var provider: Provider = Provider.OPENAI,
     var baseUrl: String = "https://api.openai.com/v1",   // Ollama: http://localhost:11434/v1
     var model: String = "gpt-4o-mini",                   // Ollama example: "llama3.1"
-    var temperature: Double = 0.2,
+    var temperature: Double = 0.5,
     var timeoutSeconds: Int = 60,
     @Transient var apiKey: String = "OPENAI_API_KEY",            // logical name for PasswordSafe
 ) {
