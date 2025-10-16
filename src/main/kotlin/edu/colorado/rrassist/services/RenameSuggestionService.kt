@@ -18,7 +18,7 @@ data class RenameContext(
     val symbolName: String,
     val symbolKind: String,        // e.g., "localVariable", "parameter", "function", "class"
     val language: String,          // e.g., "Kotlin"
-    val typeHint: String? = null,  // e.g., "Int", "MutableList<String>"
+    val type: String? = null,  // e.g., "Int", "MutableList<String>"
     val scopeHint: String? = null, // e.g., "inside for-loop of fetchUsers()"
     val filePath: String? = null,
     val projectStyle: String? = null, // e.g., "lowerCamelCase for locals; UpperCamelCase for classes"
@@ -35,7 +35,7 @@ data class RenameContext(
 data class RenameSuggestion(
     val name: String,
     val rationale: String? = null,
-    val confidence: Int? = null
+    val confidence: Double? = null
 )
 
 @Serializable
@@ -65,8 +65,8 @@ class RenameSuggestionService() {
                         .items( JsonObjectSchema.builder()
                             .addStringProperty("name")
                             .addStringProperty("rationale")
-                            .addIntegerProperty("confidence")
-                            .required("name")
+                            .addNumberProperty("confidence")
+                            .required("name", "rationale", "confidence")
                             .build())
                         .build())
                     .build())
@@ -92,23 +92,23 @@ class RenameSuggestionService() {
         else "(none)"
 
         return """
-        TASK: Propose up to $topK new names for a symbol, respecting style and context.
+        TASK: Propose up to $topK concise, idiomatic ${ctx.language} names for the following symbol.
+        The goal is to make each name clear, consistent, and type-appropriate.
+        DO NOT repeat the original name.
+        Each suggestion must follow ${ctx.projectStyle ?: "idiomatic ${ctx.language}"} conventions.
+        Provide only names that match the symbol's kind and role.
 
-        Target:
-        - symbolName: ${ctx.symbolName}
-        - symbolKind: ${ctx.symbolKind}
-        - language: ${ctx.language}
-        - typeHint: ${ctx.typeHint ?: "(unknown)"}
-        - scopeHint: ${ctx.scopeHint ?: "(none)"}
-        - filePath: ${ctx.filePath ?: "(unknown)"}
-        - purposeHint: ${ctx.purposeHint ?: "(none provided)"}
+        Target Symbol:
+        - name: ${ctx.symbolName}
+        - kind: ${ctx.symbolKind}
+        - type: ${ctx.type ?: "(unknown)"}
+        - scope: ${ctx.scopeHint ?: "(none)"}
+        - file: ${ctx.filePath ?: "(unknown)"}
+        - purpose: ${ctx.purposeHint ?: "(none provided)"}
 
-        Style & Consistency:
-        - projectStyle: ${ctx.projectStyle ?: "(none provided; use idiomatic ${ctx.language})"}
-        - relatedNames: $related
-
-        Code Snippet (may be partial, use only as soft context):
-        ${ctx.codeSnippet ?: "(omitted)"}
+        Context:
+        - related names: $related
+        - snippet: ${ctx.codeSnippet ?: "(omitted)"}
         """.trimIndent()
     }
 

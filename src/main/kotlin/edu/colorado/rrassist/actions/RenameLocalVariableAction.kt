@@ -45,7 +45,7 @@ class RenameLocalVariableAction : AnAction() {
             symbolName = symbolName,
             symbolKind = "localVariable",
             language = languageId,
-            typeHint = null,                 // fill in later if you wire type inference
+            type = null,                 // fill in later if you wire type inference
             scopeHint = null,                // e.g., nearest function/class — optional
             filePath = element.containingFile?.virtualFile?.path,
             projectStyle = null,             // plug your naming rules here later
@@ -61,7 +61,7 @@ class RenameLocalVariableAction : AnAction() {
                 val pretty = envelope.suggestions.joinToString(separator = "<br><br>") { s ->
                     buildString {
                         append("• <b>${s.name}</b>")
-                        s.confidence?.let { append(" (${it}%)") }
+                        s.confidence?.let { append(" (${ "%.2f".format(it * 100) }%)") }
                         s.rationale?.let { append("<br>&nbsp;&nbsp;&nbsp;&nbsp;— $it") }
                     }
                 }.ifBlank { "No suggestions." }
