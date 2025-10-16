@@ -65,7 +65,7 @@ class RenameSuggestionService() {
                         .items( JsonObjectSchema.builder()
                             .addStringProperty("name")
                             .addStringProperty("rationale")
-                            .addNumberProperty("confidence")
+                            .addNumberProperty("confidence", "In range of 0 to 1")
                             .required("name", "rationale", "confidence")
                             .build())
                         .build())
