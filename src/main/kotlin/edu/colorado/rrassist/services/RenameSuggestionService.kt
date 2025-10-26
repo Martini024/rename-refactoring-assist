@@ -38,6 +38,17 @@ data class RenameSuggestion(
     val confidence: Double? = null
 )
 
+fun normalize(s: RenameSuggestion) = s.copy(
+    confidence = when (val c = s.confidence)  {
+        null -> 0.0
+        else -> when {
+            c.isNaN() -> 0.0
+            c > 1.0 && c <= 100.0 -> c / 100.0
+            else -> c.coerceIn(0.0, 1.0)
+        }
+    }
+)
+
 @Serializable
 data class RenameSuggestionsEnvelope(
     val suggestions: List<RenameSuggestion>
@@ -83,7 +94,11 @@ class RenameSuggestionService() {
             .build()
         // Let the model reply with JSON text (per System instructions).
         // We return it raw so the caller gets a JSON string immediately.
-        return llm.chat(request, RenameSuggestionsEnvelope::class.java)
+        val response = llm.chat(request, RenameSuggestionsEnvelope::class.java)
+        val sorted = response.suggestions
+            .map(::normalize)
+            .sortedByDescending { it.confidence }
+        return RenameSuggestionsEnvelope(sorted)
     }
 
     private fun buildUserPrompt(ctx: RenameContext, topK: Int): String {

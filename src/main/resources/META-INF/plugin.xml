@@ -15,8 +15,10 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow
-            factoryClass="edu.colorado.rrassist.toolWindow.MyToolWindowFactory"
-            id="MyToolWindow" />
+            id="Rename Suggestions"
+            anchor="right"
+            factoryClass="edu.colorado.rrassist.toolWindow.RenameSuggestionsToolWindowFactory"
+            icon="AllIcons.Actions.RefactoringBulb" />
         <postStartupActivity
             implementation="edu.colorado.rrassist.startup.MyProjectActivity" />
         <notificationGroup

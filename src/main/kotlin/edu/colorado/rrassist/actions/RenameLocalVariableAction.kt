@@ -14,8 +14,10 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtilBase
 import edu.colorado.rrassist.services.RenameContext
 import edu.colorado.rrassist.services.RenameSuggestionService
+import edu.colorado.rrassist.toolWindow.RenameSuggestionsToolWindowFactory
 import edu.colorado.rrassist.utils.Log
 import kotlinx.coroutines.*
+import java.util.Collections
 
 class RenameLocalVariableAction : AnAction() {
 
@@ -53,23 +55,17 @@ class RenameLocalVariableAction : AnAction() {
             relatedNames = related
         )
 
+        val panel = RenameSuggestionsToolWindowFactory.getPanel(project) ?: return
+        panel.setTargetElement(element)
+        panel.setSuggestions(Collections.emptyList())
+
         // Run suggest() off EDT; then post result back to UI
         CoroutineScope(Dispatchers.Default).launch {
             try {
                 val envelope = renameSuggestionService.suggest(ctx, topK = 5)
-                val pretty = envelope.suggestions.joinToString(separator = "<br><br>") { s ->
-                    buildString {
-                        append("• <b>${s.name}</b>")
-                        s.confidence?.let { append(" (${ "%.2f".format(it * 100) }%)") }
-                        s.rationale?.let { append("<br>&nbsp;&nbsp;&nbsp;&nbsp;— $it") }
-                    }
-                }.ifBlank { "No suggestions." }
 
-                withContext(Dispatchers.Main) {
-                    notify(project,
-                        title = "Rename Suggestions for \"$symbolName\"",
-                        content = pretty
-                    )
+                withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    panel.setSuggestions(envelope.suggestions)
                 }
             } catch (t: Throwable) {
                 withContext(Dispatchers.Main) {
