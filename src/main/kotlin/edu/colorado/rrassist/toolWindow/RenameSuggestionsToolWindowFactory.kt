@@ -68,7 +68,7 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
             add(scrollPane, BorderLayout.CENTER)
 
             val bottom = JPanel(BorderLayout()).apply {
-                border = JBUI.Borders.empty(8, 8)
+                border = JBUI.Borders.empty(8)
                 add(applyButton, BorderLayout.EAST)
             }
             add(bottom, BorderLayout.SOUTH)
@@ -106,6 +106,10 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
             cardsContainer.add(Box.createVerticalGlue())
             cardsContainer.revalidate()
             cardsContainer.repaint()
+
+            applyButton.isVisible = suggestions.isNotEmpty()
+            applyButton.parent?.revalidate()
+            applyButton.parent?.repaint()
         }
 
         private fun runRename(preview: Boolean, newName: String) {
