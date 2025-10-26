@@ -6,7 +6,11 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
@@ -58,21 +62,37 @@ class RenameLocalVariableAction : AnAction() {
         val panel = RenameSuggestionsToolWindowFactory.getPanel(project) ?: return
         panel.setTargetElement(element)
         panel.setSuggestions(Collections.emptyList())
+        panel.beginLoading()
 
-        // Run suggest() off EDT; then post result back to UI
-        CoroutineScope(Dispatchers.Default).launch {
-            try {
-                val envelope = renameSuggestionService.suggest(ctx, topK = 5)
+        ProgressManager.getInstance().run(object : Task.Backgroundable(
+            project,
+            "Generating Rename Suggestions",
+            true
+        ) {
+            override fun run(indicator: ProgressIndicator) {
+                indicator.isIndeterminate = true
 
-                withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    panel.setSuggestions(envelope.suggestions)
+                val suggestions = try {
+                    // Run your suspending call in this background task
+                    runBlocking { renameSuggestionService.suggest(ctx, topK = 5).suggestions }
+                } catch (e: Throwable) {
+                    ApplicationManager.getApplication().invokeLater {
+                        notify(project, "Rename Suggestions Error", e.message ?: "Unknown error", NotificationType.ERROR)
+                    }
+                    emptyList()
                 }
-            } catch (t: Throwable) {
-                withContext(Dispatchers.Main) {
-                    notify(project, "Rename Suggestions Error", t.message ?: "Unknown error", NotificationType.ERROR)
+
+                // Update UI (EDT)
+                ApplicationManager.getApplication().invokeLater {
+                    panel.setSuggestions(suggestions)
                 }
             }
-        }
+
+            override fun onFinished() {
+                // Ensure exactly one endLoading(), on the EDT
+                ApplicationManager.getApplication().invokeLater { panel.endLoading() }
+            }
+        })
     }
 
     private fun extractSnippet(editor: Editor, range: TextRange, contextChars: Int = 160): String {

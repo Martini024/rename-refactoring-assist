@@ -22,7 +22,9 @@ import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import javax.swing.*
 import javax.swing.border.EmptyBorder
-
+import com.intellij.util.ui.AsyncProcessIcon
+import com.intellij.ui.components.panels.NonOpaquePanel
+import java.awt.CardLayout
 
 class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
@@ -45,6 +47,9 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
 
         private var targetPointer: SmartPsiElementPointer<PsiNamedElement>? = null
 
+        // ---------- Simplified: view switcher (CONTENT / LOADING)
+        private val viewSwitcher = JPanel(CardLayout())
+
         // Center: scrollable list of suggestion "cards"
         private val cardsContainer = JPanel().apply {
             layout = BoxLayout(this, BoxLayout.Y_AXIS)
@@ -57,6 +62,15 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
             horizontalScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         }
 
+        // Loading panel (spinner + text)
+        private val loadingPanel = NonOpaquePanel(FlowLayout(FlowLayout.LEFT, 8, 8)).apply {
+            border = JBUI.Borders.empty(8)
+            val spinner = AsyncProcessIcon("rrassist-rename-loading")
+            val label = JBLabel("Generating suggestions…")
+            add(spinner)
+            add(label)
+        }
+
         // Bottom: fixed action row
         private val applyButton = JButton("Apply Rename")
 
@@ -65,7 +79,10 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
         private val cardViews = mutableListOf<SuggestionCard>()
 
         init {
-            add(scrollPane, BorderLayout.CENTER)
+            viewSwitcher.add(scrollPane, "CONTENT")
+            viewSwitcher.add(loadingPanel, "LOADING")
+
+            add(viewSwitcher, BorderLayout.CENTER)
 
             val bottom = JPanel(BorderLayout()).apply {
                 border = JBUI.Borders.empty(8)
@@ -77,6 +94,22 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                 val selected = cardViews.firstOrNull { it.isSelected() } ?: return@addActionListener
                 runRename(preview = false, newName = selected.suggestion.name)
             }
+
+            // Start with content hidden
+            showCard("CONTENT")
+            applyButton.isVisible = false
+        }
+
+        // ---------- Public helpers ----------
+
+        fun beginLoading() {
+            applyButton.isEnabled = false
+            showCard("LOADING")
+        }
+
+        fun endLoading() {
+            showCard("CONTENT")
+            applyButton.isEnabled = cardViews.isNotEmpty()
         }
 
         fun setTargetElement(element: PsiElement) {
@@ -92,6 +125,13 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
             cardViews.clear()
             selectionGroup.clearSelection()
 
+            if (suggestions.isEmpty()) {
+                applyButton.isVisible = false
+                cardsContainer.revalidate()
+                cardsContainer.repaint()
+                return
+            }
+
             // Build new cards
             suggestions.forEachIndexed { idx, s ->
                 val card = SuggestionCard(s)
@@ -102,14 +142,15 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                 if (idx == 0) card.selector.isSelected = true
             }
 
-            // Keep layout responsive
             cardsContainer.add(Box.createVerticalGlue())
             cardsContainer.revalidate()
             cardsContainer.repaint()
 
-            applyButton.isVisible = suggestions.isNotEmpty()
-            applyButton.parent?.revalidate()
-            applyButton.parent?.repaint()
+            showCard("CONTENT")
+            applyButton.isVisible = true
+            applyButton.isEnabled = true
+
+            ensureToolWindowVisible()
         }
 
         private fun runRename(preview: Boolean, newName: String) {
@@ -118,19 +159,23 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                 project,
                 target,
                 newName,
-                /*searchInComments*/ true,
-                /*searchTextOccurrences*/ true
+                true,
+                true
             ).apply {
                 if (preview) setPreviewUsages(true)
             }.run()
         }
 
-        // --- UI: one card --------------------------------------------------------
+        private fun showCard(name: String) {
+            (viewSwitcher.layout as CardLayout).show(viewSwitcher, name)
+        }
 
+        private fun escapeHtml(s: String): String =
+            s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+        // --- Suggestion Card ---
         class SuggestionCard(val suggestion: RenameSuggestion) : JPanel() {
-
             val selector = JRadioButton()
-
             init {
                 layout = BorderLayout()
                 isOpaque = true
@@ -141,10 +186,8 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                 )
                 maximumSize = Dimension(Int.MAX_VALUE, preferredSize.height)
 
-                // --- Header row: selector (left) + name + confidence (right)
                 val header = JPanel(BorderLayout()).apply {
                     isOpaque = false
-
                     val left = JPanel(FlowLayout(FlowLayout.LEFT, 0, 0)).apply {
                         isOpaque = false
                         add(selector)
@@ -152,51 +195,27 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                         val nameLabel = JBLabel("<html><b>${escapeHtml(suggestion.name)}</b></html>")
                         add(nameLabel)
                     }
-
                     val right = JPanel(FlowLayout(FlowLayout.RIGHT, 0, 0)).apply {
                         isOpaque = false
                         val conf = suggestion.confidence?.let { "${"%.0f".format(it * 100)}%" } ?: ""
-                        val confLabel = JBLabel(conf)
-                        add(confLabel)
+                        add(JBLabel(conf))
                     }
-
                     add(left, BorderLayout.WEST)
                     add(right, BorderLayout.EAST)
                 }
 
-                // --- Second row: Preview button + rationale text
-                // --- Body: rationale (top-aligned, wraps to parent width)
                 val body = JPanel(GridBagLayout()).apply {
                     isOpaque = false
-
                     val gbc = GridBagConstraints().apply {
-                        gridx = 0
-                        gridy = 0
+                        gridx = 0; gridy = 0
                         weightx = 1.0
                         fill = GridBagConstraints.HORIZONTAL
                         anchor = GridBagConstraints.NORTHWEST
-                        insets = JBUI.insets(6,4)
+                        insets = JBUI.insets(6, 4)
                     }
-
                     val rationaleText = suggestion.rationale?.takeIf { it.isNotBlank() } ?: "(no rationale)"
-                    val rationaleLabel = JBLabel("<html>${escapeHtml(rationaleText)}</html>").apply {
-                        // allow HTML wrapping; width comes from GridBag fill + weightx
-                        putClientProperty("html.disable", false)
-                        alignmentX = LEFT_ALIGNMENT
-                        alignmentY = TOP_ALIGNMENT
-                    }
-
+                    val rationaleLabel = JBLabel("<html>${escapeHtml(rationaleText)}</html>")
                     add(rationaleLabel, gbc)
-
-                    // Optional spacer to keep NORTH anchoring when parent grows
-                    val spacerGbc = GridBagConstraints().apply {
-                        gridx = 0
-                        gridy = 1
-                        weightx = 1.0
-                        weighty = 0.0
-                        fill = GridBagConstraints.HORIZONTAL
-                    }
-                    add(Box.createGlue(), spacerGbc)
                 }
 
                 add(header, BorderLayout.NORTH)
@@ -207,6 +226,14 @@ class RenameSuggestionsToolWindowFactory: ToolWindowFactory {
                 s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
             fun isSelected(): Boolean = selector.isSelected
+        }
+
+        private fun ensureToolWindowVisible() {
+            SwingUtilities.invokeLater {
+                com.intellij.openapi.wm.ToolWindowManager.getInstance(project)
+                    .getToolWindow("Rename Suggestions")
+                    ?.activate(null, true)
+            }
         }
     }
 }
