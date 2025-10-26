@@ -6,19 +6,16 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.psi.*
-import com.intellij.psi.util.PsiTreeUtil
-import org.jetbrains.kotlin.psi.*
-import com.intellij.psi.util.PsiUtilBase
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiNamedElement
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.*
+import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.PsiUtilBase
 import edu.colorado.rrassist.services.RenameContext
-import kotlinx.coroutines.*
 import edu.colorado.rrassist.services.RenameSuggestionService
 import edu.colorado.rrassist.utils.Log
+import kotlinx.coroutines.*
 
 class RenameLocalVariableAction : AnAction() {
 
@@ -41,11 +38,13 @@ class RenameLocalVariableAction : AnAction() {
         val codeSnippet = extractSnippet(editor, element.textRange)
         val related = collectSiblingNames(element)
 
+        val type = getJavaLocalVariableType(element)
+
         val ctx = RenameContext(
             symbolName = symbolName,
             symbolKind = "localVariable",
             language = languageId,
-            type = null,                 // fill in later if you wire type inference
+            type = type,                 // fill in later if you wire type inference
             scopeHint = null,                // e.g., nearest function/class — optional
             filePath = element.containingFile?.virtualFile?.path,
             projectStyle = null,             // plug your naming rules here later
@@ -113,7 +112,7 @@ class RenameLocalVariableAction : AnAction() {
 
         debugLeaf(leaf)
 
-        return isJavaLocalInMethod(leaf) || isKotlinLocalPropertyInFunction(leaf)
+        return isJavaLocalInMethod(leaf)
     }
 
     private fun debugLeaf(leaf: PsiElement) {
@@ -154,18 +153,10 @@ class RenameLocalVariableAction : AnAction() {
                 && PsiTreeUtil.isAncestor(codeBlock, localVar, /*strict*/ false)
     }
 
-    /* ---------- Kotlin: ONLY local properties (val/var) inside a KtNamedFunction ---------- */
-    private fun isKotlinLocalPropertyInFunction(leaf: PsiElement): Boolean {
-        // Find a Kotlin property (val/var) at/above the caret
-        val ktProperty = PsiTreeUtil.getParentOfType(leaf, KtProperty::class.java)
-            ?: return false
-
-        // Must be inside a named function and within a block body (not class-level or top-level)
-        val fn = PsiTreeUtil.getParentOfType(ktProperty, KtNamedFunction::class.java)
-            ?: return false
-        val inBlock = PsiTreeUtil.getParentOfType(ktProperty, KtBlockExpression::class.java) != null
-
-        return inBlock && PsiTreeUtil.isAncestor(fn, ktProperty, /*strict*/ true)
+    private fun getJavaLocalVariableType(leaf: PsiElement): String? {
+        (leaf.parent as? PsiLocalVariable)?.let { localVar ->
+            return localVar.type.canonicalText
+        }
+        return null
     }
-
 }
