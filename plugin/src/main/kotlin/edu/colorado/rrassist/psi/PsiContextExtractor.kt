@@ -5,11 +5,14 @@ import com.intellij.core.JavaCoreApplicationEnvironment
 import com.intellij.lang.java.JavaLanguage
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import edu.colorado.rrassist.services.RenameContext
+import java.net.HttpURLConnection
+import java.net.URI
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.math.max
@@ -33,35 +36,6 @@ object PsiContextExtractor {
     // --------------------------
 
     /**
-     * Resolve the nearest declaration (local variable / parameter / field) at the given location.
-     * Throws an IllegalStateException with details if not found.
-     */
-    fun extractPsiElement(target: JavaVarTarget): PsiElement {
-        val (_, psiFile, disposer) = createPsiForFile(target.path)
-        try {
-            val offset = target.locator.offset ?: lineColToOffset(
-                text = psiFile.text,
-                line = requireNotNull(target.locator.line) { "line or offset required" },
-                col = requireNotNull(target.locator.column) { "column or offset required" }
-            )
-
-            val leaf = psiFile.findElementAt(offset)
-                ?: error("No PSI leaf at offset=$offset (path=${target.path})")
-
-            // Climb to a declaration
-            val decl = ascendToDeclaration(leaf)
-                ?: error(
-                    "No variable/parameter/field declaration at or near offset=$offset (path=${target.path}). " +
-                            "Leaf=${leaf::class.simpleName}"
-                )
-
-            return decl
-        } finally {
-            Disposer.dispose(disposer)
-        }
-    }
-
-    /**
      * Convert a resolved declaration element into a RenameContext.
      * Accepts PsiLocalVariable, PsiParameter, or PsiField.
      */
@@ -82,18 +56,53 @@ object PsiContextExtractor {
         }
     }
 
+    private fun isUrl(s: String): Boolean = s.startsWith("http://") || s.startsWith("https://")
+
     /**
-     * Convenience: resolve declaration at (file, locator) and directly return RenameContext.
+     * Unified entry: if target.path is a URL (e.g. GitHub blob/raw URL), fetch the text and build a PSI file in-memory;
+     * otherwise open from local disk using your existing createPsiForFile.
      */
-    fun extractFromFileAndLocator(target: JavaVarTarget, project: Project? = null): RenameContext {
-        val (_, psiFile, disposer) = createPsiForFile(target.path, project)
-        try {
-            val text = psiFile.text
-            val offset = target.locator.offset ?: lineColToOffset(
+    fun extractFromPathTarget(target: JavaVarTarget, project: Project? = null): RenameContext {
+        return if (isUrl(target.path)) {
+            extractFromRemotePath(target, project)
+        } else {
+            extractFromLocalPath(target, project)
+        }
+    }
+
+    private fun extractFromRemotePath(target: JavaVarTarget, project: Project? = null): RenameContext {
+        val text = readGithubFile(target.path)
+        val fileName = target.path.substringAfterLast('/')
+
+        val psiFile = PsiFileFactory.getInstance(project ?: error("Project required for PSI"))
+            .createFileFromText(fileName, JavaLanguage.INSTANCE, text)
+
+        val offset = target.locator.offset
+            ?: lineColToOffset(
                 text = text,
                 line = requireNotNull(target.locator.line) { "line or offset required" },
                 col = requireNotNull(target.locator.column) { "column or offset required" }
             )
+
+        val leaf = psiFile.findElementAt(offset)
+            ?: error("No PSI leaf at offset $offset in ${target.path}")
+
+        val decl = ascendToDeclaration(leaf)
+            ?: error("No declaration found near offset $offset")
+
+        return extractRenameContext(decl)
+    }
+
+    private fun extractFromLocalPath(target: JavaVarTarget, project: Project? = null): RenameContext {
+        val (_, psiFile, disposer) = createPsiForFile(target.path, project)
+        try {
+            val text = psiFile.text
+            val offset = target.locator.offset
+                ?: lineColToOffset(
+                    text = text,
+                    line = requireNotNull(target.locator.line) { "line or offset required" },
+                    col = requireNotNull(target.locator.column) { "column or offset required" }
+                )
 
             val leaf = psiFile.findElementAt(offset)
                 ?: error("No PSI leaf at offset=$offset (path=${target.path})")
@@ -106,6 +115,35 @@ object PsiContextExtractor {
             Disposer.dispose(disposer)
         }
     }
+
+    /**
+     * Given a GitHub file URL (raw or "blob" form), fetches the file content as plain text.
+     *
+     * Examples:
+     *   - https://github.com/user/repo/blob/main/src/Foo.java
+     *   - https://raw.githubusercontent.com/user/repo/main/src/Foo.java
+     */
+    fun readGithubFile(url: String): String {
+        val rawUrl = when {
+            // already a raw URL
+            url.contains("raw.githubusercontent.com") -> url
+            // convert "blob" form to "raw" form
+            url.contains("github.com") && url.contains("/blob/") -> {
+                url.replace("github.com", "raw.githubusercontent.com")
+                    .replace("/blob/", "/")
+            }
+            else -> error("Unsupported GitHub URL format: $url")
+        }
+
+        val conn = URI(rawUrl).toURL().openConnection() as HttpURLConnection
+        conn.requestMethod = "GET"
+        conn.connectTimeout = 10_000
+        conn.readTimeout = 10_000
+        conn.setRequestProperty("Accept", "text/plain")
+
+        return conn.inputStream.bufferedReader().use { it.readText() }
+    }
+
 
     // --------------------------
     // Internals
@@ -220,7 +258,7 @@ object PsiContextExtractor {
         return RenameContext(
             symbolName   = p.name,
             symbolKind   = "parameter",
-            language     = "Java",
+            language     = p.language.id,
             type         = p.type.presentableText,
             scopeHint    = "in $methodName(...)",
             filePath     = file.virtualFile?.path ?: file.name,
@@ -238,7 +276,7 @@ object PsiContextExtractor {
         return RenameContext(
             symbolName   = f.name,
             symbolKind   = "field",
-            language     = "Java",
+            language     = f.language.id,
             type         = f.type.presentableText,
             scopeHint    = "in $clsName",
             filePath     = file.virtualFile?.path ?: file.name,

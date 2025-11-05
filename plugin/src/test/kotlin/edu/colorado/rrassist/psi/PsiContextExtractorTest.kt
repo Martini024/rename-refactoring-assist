@@ -66,11 +66,33 @@ class PsiContextExtractorTest : BasePlatformTestCase() {
             locator = SourceLocator(line = line1Based, column = col1Based)
         )
 
-        val ctx: RenameContext = PsiContextExtractor.extractFromFileAndLocator(target, myFixture.project)
+        val ctx: RenameContext = PsiContextExtractor.extractFromPathTarget(target, myFixture.project)
 
         assertEquals("temp", ctx.symbolName)
         assertEquals("JAVA", ctx.language)
         assertTrue(ctx.scopeHint?.contains("run") ?: true)
         assertTrue(ctx.codeSnippet?.contains("temp") ?: true)
+    }
+
+    fun testExtractFromGithubKotlinFile() {
+        val url =
+            "https://raw.githubusercontent.com/Martini024/rename-refactoring-assist/9e2635f3dd72e8511eb5145d3497d104662a6e48/plugin/src/main/kotlin/edu/colorado/rrassist/services/RenameSuggestionService.kt"
+
+        val target = JavaVarTarget(
+            path = url,
+            locator = SourceLocator(line = 91, column = 13)
+        )
+
+        // Project-aware call so we reuse the test fixture's Project (no Core env inside tests)
+        val ctx = PsiContextExtractor.extractFromPathTarget(
+            target = target,
+            project = myFixture.project
+        )
+
+        // Basic sanity checks — it's a Kotlin file
+        assertTrue(ctx.language.equals("Java", ignoreCase = true))
+        assertNotNull("symbolName should be resolved near 91:13", ctx.symbolName)
+        assertEquals("request", ctx.symbolName)
+        assertTrue(ctx.codeSnippet?.isNotBlank() == true)
     }
 }
