@@ -1,16 +1,16 @@
 package edu.colorado.rrassist.psi
 
-import com.intellij.core.CoreProjectEnvironment
 import com.intellij.core.JavaCoreApplicationEnvironment
+import com.intellij.core.JavaCoreProjectEnvironment
 import com.intellij.lang.java.JavaLanguage
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import edu.colorado.rrassist.services.RenameContext
+import kotlinx.serialization.Serializable
 import java.net.HttpURLConnection
 import java.net.URI
 import java.nio.file.Files
@@ -18,12 +18,14 @@ import java.nio.file.Path
 import kotlin.math.max
 import kotlin.math.min
 
+@Serializable
 data class SourceLocator(
     val line: Int? = null,
     val column: Int? = null,
     val offset: Int? = null
 )
 
+@Serializable
 data class JavaVarTarget(
     val path: String,
     val locator: SourceLocator
@@ -74,23 +76,30 @@ object PsiContextExtractor {
         val text = readGithubFile(target.path)
         val fileName = target.path.substringAfterLast('/')
 
-        val psiFile = PsiFileFactory.getInstance(project ?: error("Project required for PSI"))
-            .createFileFromText(fileName, JavaLanguage.INSTANCE, text)
+        val tempDir = Files.createTempDirectory("rrassist-psi-test")
+        val javaPath = tempDir.resolve(fileName)
+        Files.writeString(javaPath, text)
 
-        val offset = target.locator.offset
-            ?: lineColToOffset(
-                text = text,
-                line = requireNotNull(target.locator.line) { "line or offset required" },
-                col = requireNotNull(target.locator.column) { "column or offset required" }
-            )
+        val (_, psiFile, disposer) = createPsiForFile(javaPath.toString(), project)
 
-        val leaf = psiFile.findElementAt(offset)
-            ?: error("No PSI leaf at offset $offset in ${target.path}")
+        try {
+            val offset = target.locator.offset
+                ?: lineColToOffset(
+                    text = text,
+                    line = requireNotNull(target.locator.line) { "line or offset required" },
+                    col = requireNotNull(target.locator.column) { "column or offset required" }
+                )
 
-        val decl = ascendToDeclaration(leaf)
-            ?: error("No declaration found near offset $offset")
+            val leaf = psiFile.findElementAt(offset)
+                ?: error("No PSI leaf at offset $offset in ${target.path}")
 
-        return extractRenameContext(decl)
+            val decl = ascendToDeclaration(leaf)
+                ?: error("No declaration found near offset $offset")
+
+            return extractRenameContext(decl)
+        } finally {
+            Disposer.dispose(disposer)
+        }
     }
 
     private fun extractFromLocalPath(target: JavaVarTarget, project: Project? = null): RenameContext {
@@ -178,7 +187,7 @@ object PsiContextExtractor {
 
         val disposable: Disposable = Disposer.newDisposable("rrassist-psi")
         val appEnv = JavaCoreApplicationEnvironment(disposable)
-        val projEnv = CoreProjectEnvironment(disposable, appEnv)
+        val projEnv = JavaCoreProjectEnvironment(disposable, appEnv)
         val project: MockProject = projEnv.project
 
         val psiFile = PsiFileFactory.getInstance(project)
@@ -240,7 +249,8 @@ object PsiContextExtractor {
             symbolName   = v.name,
             symbolKind   = "localVariable",
             language     = v.language.id,
-            type         = v.type.presentableText,
+//            type         = v.type.presentableText,
+            type = null,
             scopeHint    = scopeHint,
             filePath     = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",

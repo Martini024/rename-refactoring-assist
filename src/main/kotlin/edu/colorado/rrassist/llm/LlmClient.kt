@@ -13,7 +13,7 @@ enum class Role { System, User, Assistant }
 data class ChatMsg(val role: Role, val content: String)
 
 interface LlmClient {
-     val model: ChatModel
+    val model: ChatModel
 
     suspend fun chat(messages: List<ChatMsg>): String {
         val lc4jMessages = messages.map { it.toLc4j() }

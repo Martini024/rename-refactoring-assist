@@ -1,0 +1,10 @@
+[
+  {
+    "path": "https://raw.githubusercontent.com/Martini024/rename-refactoring-assist/9e2635f3dd72e8511eb5145d3497d104662a6e48/plugin/src/main/kotlin/edu/colorado/rrassist/services/RenameSuggestionService.kt",
+    "locator": {
+      "line": 91,
+      "column": 13,
+      "offset": null
+    }
+  }
+]
