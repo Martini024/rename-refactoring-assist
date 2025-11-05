@@ -12,11 +12,10 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtilBase
-import edu.colorado.rrassist.services.RenameContext
+import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestionService
 import edu.colorado.rrassist.toolWindow.RenameSuggestionsToolWindowFactory
 import edu.colorado.rrassist.utils.Log
@@ -38,26 +37,7 @@ class RenameLocalVariableAction : AnAction() {
         val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val element: PsiElement = PsiUtilBase.getElementAtCaret(editor) ?: return
 
-        // Build context (best-effort, keep it lightweight)
-        val symbolName = (element as? PsiNamedElement)?.name ?: element.text.take(64)
-        val languageId = element.language.id
-        val codeSnippet = extractSnippet(editor, element.textRange)
-        val related = collectSiblingNames(element)
-
-        val type = getJavaLocalVariableType(element)
-
-        val ctx = RenameContext(
-            symbolName = symbolName,
-            symbolKind = "localVariable",
-            language = languageId,
-            type = type,                 // fill in later if you wire type inference
-            scopeHint = null,                // e.g., nearest function/class — optional
-            filePath = element.containingFile?.virtualFile?.path,
-            projectStyle = null,             // plug your naming rules here later
-            purposeHint = null,
-            codeSnippet = codeSnippet,
-            relatedNames = related
-        )
+        val ctx = PsiContextExtractor.extractRenameContext(element)
 
         val panel = RenameSuggestionsToolWindowFactory.getPanel(project) ?: return
         panel.setTargetElement(element)
@@ -93,24 +73,6 @@ class RenameLocalVariableAction : AnAction() {
                 ApplicationManager.getApplication().invokeLater { panel.endLoading() }
             }
         })
-    }
-
-    private fun extractSnippet(editor: Editor, range: TextRange, contextChars: Int = 160): String {
-        val doc = editor.document
-        val start = (range.startOffset - contextChars).coerceAtLeast(0)
-        val end = (range.endOffset + contextChars).coerceAtMost(doc.textLength)
-        return doc.getText(TextRange(start, end))
-    }
-
-    private fun collectSiblingNames(element: PsiElement): List<String> {
-        val parent = element.parent ?: return emptyList()
-        return parent.children
-            .asSequence()
-            .filterIsInstance<PsiNamedElement>()
-            .mapNotNull { it.name }
-            .distinct()
-            .take(20)
-            .toList()
     }
 
     private fun notify(project: Project, title: String, content: String, type: NotificationType = NotificationType.INFORMATION) {
@@ -167,12 +129,5 @@ class RenameLocalVariableAction : AnAction() {
 
         return PsiTreeUtil.isAncestor(enclosingMethod.body, localVar, /*strict*/ true)
                 && PsiTreeUtil.isAncestor(codeBlock, localVar, /*strict*/ false)
-    }
-
-    private fun getJavaLocalVariableType(leaf: PsiElement): String? {
-        (leaf.parent as? PsiLocalVariable)?.let { localVar ->
-            return localVar.type.canonicalText
-        }
-        return null
     }
 }
