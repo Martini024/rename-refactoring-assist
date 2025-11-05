@@ -5,3 +5,4 @@ plugins {
 rootProject.name = "rename-refactoring-assist"
 
 include(":plugin")
+include(":cli")
