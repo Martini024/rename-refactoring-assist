@@ -63,7 +63,7 @@ class PsiContextExtractorTest : BasePlatformTestCase() {
 
         val target = JavaVarTarget(
             path = javaPath.toString(),
-            locator = SourceLocator(line = line1Based, column = col1Based)
+            locators = listOf(SourceLocator(line = line1Based, column = col1Based))
         )
 
         val ctx: RenameContext = PsiContextExtractor.extractFromPathTarget(target, myFixture.project)
@@ -80,7 +80,7 @@ class PsiContextExtractorTest : BasePlatformTestCase() {
 
         val target = JavaVarTarget(
             path = url,
-            locator = SourceLocator(line = 91, column = 13)
+            locators = listOf(SourceLocator(line = 91, column = 13))
         )
 
         // Project-aware call so we reuse the test fixture's Project (no Core env inside tests)
