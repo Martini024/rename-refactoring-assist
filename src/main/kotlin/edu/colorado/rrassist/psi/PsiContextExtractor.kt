@@ -13,6 +13,7 @@ import com.intellij.psi.*
 import com.intellij.psi.augment.PsiAugmentProvider
 import com.intellij.psi.util.PsiTreeUtil
 import edu.colorado.rrassist.services.RenameContext
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.net.HttpURLConnection
 import java.net.URI
@@ -32,7 +33,11 @@ data class SourceLocator(
 @Serializable
 data class JavaVarTarget(
     val path: String,
-    val locator: SourceLocator
+    val locators: List<SourceLocator>,
+    @SerialName("old_name")
+    val oldName: String? = null,
+    @SerialName("new_name")
+    val newName: String? = null,
 )
 
 object PsiContextExtractor {
@@ -84,46 +89,31 @@ object PsiContextExtractor {
         val javaPath = tempDir.resolve(fileName)
         Files.writeString(javaPath, text)
 
-        val (_, psiFile, disposer) = createPsiForFile(javaPath.toString(), project)
-
-        try {
-            val offset = target.locator.offset
-                ?: lineColToOffset(
-                    text = text,
-                    line = requireNotNull(target.locator.line) { "line or offset required" },
-                    col = requireNotNull(target.locator.column) { "column or offset required" }
-                )
-
-            val leaf = psiFile.findElementAt(offset)
-                ?: error("No PSI leaf at offset $offset in ${target.path}")
-
-            val decl = ascendToDeclaration(leaf)
-                ?: error("No declaration found near offset $offset")
-
-            return extractRenameContext(decl)
-        } finally {
-            Disposer.dispose(disposer)
-        }
+        return extractFromLocalPath(JavaVarTarget(path = javaPath.toString(), locators = target.locators))
     }
 
     private fun extractFromLocalPath(target: JavaVarTarget, project: Project? = null): RenameContext {
         val (_, psiFile, disposer) = createPsiForFile(target.path, project)
         try {
             val text = psiFile.text
-            val offset = target.locator.offset
-                ?: lineColToOffset(
-                    text = text,
-                    line = requireNotNull(target.locator.line) { "line or offset required" },
-                    col = requireNotNull(target.locator.column) { "column or offset required" }
-                )
 
-            val leaf = psiFile.findElementAt(offset)
-                ?: error("No PSI leaf at offset=$offset (path=${target.path})")
+            // locatorList is now a list of SourceLocator
+            for (loc in target.locators) {
+                val offset = loc.offset
+                    ?: lineColToOffset(
+                        text = text,
+                        line = requireNotNull(loc.line) { "line or offset required" },
+                        col = requireNotNull(loc.column) { "column or offset required" }
+                    )
 
-            val decl = ascendToDeclaration(leaf)
-                ?: error("No declaration at or near offset=$offset (path=${target.path})")
+                val leaf = psiFile.findElementAt(offset) ?: continue
+                val decl = ascendToDeclaration(leaf) ?: continue
 
-            return extractRenameContext(decl)
+                // If we successfully found a valid declaration, return immediately
+                return extractRenameContext(decl)
+            }
+
+            error("No valid declaration found in any locator (path=${target.path})")
         } finally {
             Disposer.dispose(disposer)
         }
