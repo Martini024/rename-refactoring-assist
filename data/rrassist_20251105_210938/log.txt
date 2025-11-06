@@ -1,0 +1,43 @@
+> Task :runWithCompileClasspath
+🔍 Loaded 956 targets from src/test/testData/input.json
+WARN: Attempt to load key 'psi.sleep.in.validity.check' for not yet loaded registry
+WARN: Attempt to load key 'psi.incremental.reparse.depth.limit' for not yet loaded registry
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@28fa700e]
+SLF4J(W): Found provider [org.slf4j.jul.JULServiceProvider@3d526ad9]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [org.slf4j.simple.SimpleServiceProvider@28fa700e]
+📦 Processed 10/956 | ✅ 10 | ❌ 0 | ⏱ 104s elapsed | Last item 10s
+📦 Processed 20/956 | ✅ 20 | ❌ 0 | ⏱ 190s elapsed | Last item 7s
+📦 Processed 30/956 | ✅ 30 | ❌ 0 | ⏱ 262s elapsed | Last item 5s
+📦 Processed 40/956 | ✅ 40 | ❌ 0 | ⏱ 352s elapsed | Last item 6s
+📦 Processed 50/956 | ✅ 50 | ❌ 0 | ⏱ 427s elapsed | Last item 9s
+📦 Processed 60/956 | ✅ 60 | ❌ 0 | ⏱ 506s elapsed | Last item 9s
+📦 Processed 70/956 | ✅ 68 | ❌ 2 | ⏱ 568s elapsed | Last item 0s
+WARN: Attempt to load key 'platform.random.idempotence.check.rate' for not yet loaded registry
+📦 Processed 80/956 | ✅ 77 | ❌ 3 | ⏱ 655s elapsed | Last item 7s
+📦 Processed 90/956 | ✅ 86 | ❌ 4 | ⏱ 745s elapsed | Last item 6s
+📦 Processed 100/956 | ✅ 96 | ❌ 4 | ⏱ 845s elapsed | Last item 6s
+📦 Processed 110/956 | ✅ 106 | ❌ 4 | ⏱ 937s elapsed | Last item 8s
+📦 Processed 120/956 | ✅ 116 | ❌ 4 | ⏱ 1020s elapsed | Last item 7s
+📦 Processed 130/956 | ✅ 126 | ❌ 4 | ⏱ 1109s elapsed | Last item 14s
+📦 Processed 140/956 | ✅ 136 | ❌ 4 | ⏱ 1194s elapsed | Last item 8s
+📦 Processed 150/956 | ✅ 146 | ❌ 4 | ⏱ 1284s elapsed | Last item 7s
+📦 Processed 160/956 | ✅ 155 | ❌ 5 | ⏱ 1369s elapsed | Last item 12s
+📦 Processed 170/956 | ✅ 164 | ❌ 6 | ⏱ 1455s elapsed | Last item 10s
+📦 Processed 180/956 | ✅ 171 | ❌ 9 | ⏱ 1509s elapsed | Last item 6s
+📦 Processed 190/956 | ✅ 179 | ❌ 11 | ⏱ 1583s elapsed | Last item 8s
+
+> Task :runWithCompileClasspath FAILED
+
+Execution failed for task ':runWithCompileClasspath'.
+> Build cancelled while executing task ':runWithCompileClasspath'
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+BUILD FAILED in 26m 40s
+6 actionable tasks: 4 executed, 2 up-to-date
+Configuration cache entry reused.
