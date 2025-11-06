@@ -148,8 +148,8 @@ tasks {
     }
 
     withType<JavaExec> {
-        environment("LLM_LOG_REQUEST", "true")
-        environment("LLM_LOG_RESPONSE", "true")
+        environment("LLM_LOG_REQUEST", "false")
+        environment("LLM_LOG_RESPONSE", "false")
     }
 }
 

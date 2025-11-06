@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 /**
  * Minimal context we’ll feed to the LLM. Add/remove fields as you like.
  */
+@Serializable
 data class RenameContext(
     val symbolName: String,
     val symbolKind: String,        // e.g., "localVariable", "parameter", "function", "class"
