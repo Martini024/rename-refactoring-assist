@@ -1,18 +1,22 @@
 package edu.colorado.rrassist.psi
 
+import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.core.JavaCoreApplicationEnvironment
 import com.intellij.core.JavaCoreProjectEnvironment
 import com.intellij.lang.java.JavaLanguage
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
+import com.intellij.psi.augment.PsiAugmentProvider
 import com.intellij.psi.util.PsiTreeUtil
 import edu.colorado.rrassist.services.RenameContext
 import kotlinx.serialization.Serializable
 import java.net.HttpURLConnection
 import java.net.URI
+import java.net.URLEncoder
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.math.max
@@ -143,8 +147,9 @@ object PsiContextExtractor {
             }
             else -> error("Unsupported GitHub URL format: $url")
         }
+        val encoded = rawUrl.replace("^", "%5E")
 
-        val conn = URI(rawUrl).toURL().openConnection() as HttpURLConnection
+        val conn = URI(encoded).toURL().openConnection() as HttpURLConnection
         conn.requestMethod = "GET"
         conn.connectTimeout = 10_000
         conn.readTimeout = 10_000
@@ -187,6 +192,10 @@ object PsiContextExtractor {
 
         val disposable: Disposable = Disposer.newDisposable("rrassist-psi")
         val appEnv = JavaCoreApplicationEnvironment(disposable)
+        val rootArea = Extensions.getRootArea()
+        JavaCoreApplicationEnvironment.registerExtensionPoint(
+            rootArea, PsiAugmentProvider.EP_NAME, PsiAugmentProvider::class.java
+        )
         val projEnv = JavaCoreProjectEnvironment(disposable, appEnv)
         val project: MockProject = projEnv.project
 
@@ -249,8 +258,7 @@ object PsiContextExtractor {
             symbolName   = v.name,
             symbolKind   = "localVariable",
             language     = v.language.id,
-//            type         = v.type.presentableText,
-            type = null,
+            type         = v.type.presentableText,
             scopeHint    = scopeHint,
             filePath     = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",
