@@ -3,6 +3,7 @@ package edu.colorado.rrassist.settings
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
+import edu.colorado.rrassist.services.RenameSuggestionService
 
 enum class Provider(val displayName: String) {
     OPENAI("OpenAI"),
@@ -30,26 +31,29 @@ data class RRAssistConfig(
 }
 
 @State(name = "RRAssistAppSettings", storages = [Storage("rrassist_app_settings.xml")])
-@Service(Service.Level.APP)
 class RRAssistAppSettings : PersistentStateComponent<RRAssistConfig> {
     private var state: RRAssistConfig = RRAssistConfig()
+
+    init {
+        state.apiKey = Secrets.load(SecretKey.API_KEY).orEmpty()
+    }
 
     override fun getState(): RRAssistConfig = state
     override fun loadState(newState: RRAssistConfig) {
         XmlSerializerUtil.copyBean(newState, state)
 
         val key = newState.apiKey.trim()
-        state.apiKey = ""
-
         if (key.isNotEmpty()) {
+            state.apiKey = key
             ApplicationManager.getApplication().executeOnPooledThread {
                 val stored = Secrets.load(SecretKey.API_KEY).orEmpty()
-                if (key != stored) {
-                    Secrets.save(SecretKey.API_KEY, key)
-                }
+                if (stored != key) Secrets.save(SecretKey.API_KEY, key)
             }
+        } else {
+            state.apiKey = Secrets.load(SecretKey.API_KEY).orEmpty()
         }
+        RenameSuggestionService.getInstance().updateLlmClient()
     }
 
-    companion object { fun getInstance() = service<RRAssistAppSettings>() }
+    companion object { fun getInstance() = RRAssistAppSettings() }
 }

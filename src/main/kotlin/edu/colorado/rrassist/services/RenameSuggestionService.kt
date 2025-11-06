@@ -8,6 +8,7 @@ import dev.langchain4j.model.chat.request.ResponseFormat
 import dev.langchain4j.model.chat.request.ResponseFormatType
 import dev.langchain4j.model.chat.request.json.*
 import edu.colorado.rrassist.llm.LlmFactory
+import edu.colorado.rrassist.settings.RRAssistAppSettings
 import edu.colorado.rrassist.settings.RRAssistConfig
 import kotlinx.serialization.Serializable
 
@@ -58,7 +59,12 @@ data class RenameSuggestionsEnvelope(
 
 @Service(Service.Level.APP)
 class RenameSuggestionService(cfg: RRAssistConfig? = null) {
-    private val llm = LlmFactory.create(cfg)
+    private var llm = LlmFactory.create(cfg ?: RRAssistAppSettings.getInstance().state)
+
+    fun updateLlmClient() {
+        llm = LlmFactory.create(RRAssistAppSettings.getInstance().state)
+        print("updateLlmClient: ${RRAssistAppSettings.getInstance().state}")
+    }
 
     suspend fun suggest(context: RenameContext, topK: Int = 5): RenameSuggestionsEnvelope {
         val sys = SystemMessage(
