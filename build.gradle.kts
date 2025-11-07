@@ -53,10 +53,10 @@ dependencies {
     }
 
     // === LLM client ===
-    implementation("dev.langchain4j:langchain4j-open-ai:1.7.1")
-    implementation("dev.langchain4j:langchain4j-ollama:1.7.1")
-    implementation("dev.langchain4j:langchain4j:1.7.1")
-    implementation("dev.langchain4j:langchain4j-http-client-jdk:1.7.1")
+    implementation("dev.langchain4j:langchain4j-open-ai:1.8.0")
+    implementation("dev.langchain4j:langchain4j-ollama:1.8.0")
+    implementation("dev.langchain4j:langchain4j:1.8.0")
+    implementation("dev.langchain4j:langchain4j-http-client-jdk:1.8.0")
 
     implementation("org.slf4j:slf4j-simple:2.0.17")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.20.+")
