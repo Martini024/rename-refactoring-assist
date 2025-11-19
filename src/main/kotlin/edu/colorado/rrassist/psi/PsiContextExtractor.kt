@@ -1,6 +1,5 @@
 package edu.colorado.rrassist.psi
 
-import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.core.JavaCoreApplicationEnvironment
 import com.intellij.core.JavaCoreProjectEnvironment
 import com.intellij.lang.java.JavaLanguage
@@ -12,12 +11,11 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
 import com.intellij.psi.augment.PsiAugmentProvider
 import com.intellij.psi.util.PsiTreeUtil
-import edu.colorado.rrassist.services.RenameContext
+import edu.colorado.rrassist.stratigies.RenameContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.net.HttpURLConnection
 import java.net.URI
-import java.net.URLEncoder
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.math.max
@@ -56,8 +54,8 @@ object PsiContextExtractor {
 
         return when (element) {
             is PsiLocalVariable -> makeContextFromLocal(file, element)
-            is PsiParameter     -> makeContextFromParameter(file, element)
-            is PsiField         -> makeContextFromField(file, element)
+            is PsiParameter -> makeContextFromParameter(file, element)
+            is PsiField -> makeContextFromField(file, element)
             else -> {
                 // If caller passed a non-declaration leaf, try to ascend just in case.
                 val decl = ascendToDeclaration(element)
@@ -135,6 +133,7 @@ object PsiContextExtractor {
                 url.replace("github.com", "raw.githubusercontent.com")
                     .replace("/blob/", "/")
             }
+
             else -> error("Unsupported GitHub URL format: $url")
         }
         val encoded = rawUrl.replace("^", "%5E")
@@ -225,8 +224,8 @@ object PsiContextExtractor {
         // Fast checks
         when (e) {
             is PsiLocalVariable -> return e
-            is PsiParameter     -> return e
-            is PsiField         -> return e
+            is PsiParameter -> return e
+            is PsiField -> return e
         }
         // Climb
         return PsiTreeUtil.getParentOfType(
@@ -245,15 +244,15 @@ object PsiContextExtractor {
         val related = collectRelatedNames(v)
 
         return RenameContext(
-            symbolName   = v.name,
-            symbolKind   = "localVariable",
-            language     = v.language.id,
-            type         = v.type.presentableText,
-            scopeHint    = scopeHint,
-            filePath     = file.virtualFile?.path ?: file.name,
+            symbolName = v.name,
+            symbolKind = "localVariable",
+            language = v.language.id,
+            type = v.type.presentableText,
+            scopeHint = scopeHint,
+            filePath = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",
-            purposeHint  = null,
-            codeSnippet  = snippetAround(file, v, contextLines = 6),
+            purposeHint = null,
+            codeSnippet = snippetAround(file, v, contextLines = 6),
             relatedNames = related
         )
     }
@@ -264,15 +263,15 @@ object PsiContextExtractor {
         val related = collectRelatedNames(p)
 
         return RenameContext(
-            symbolName   = p.name,
-            symbolKind   = "parameter",
-            language     = p.language.id,
-            type         = p.type.presentableText,
-            scopeHint    = "in $methodName(...)",
-            filePath     = file.virtualFile?.path ?: file.name,
+            symbolName = p.name,
+            symbolKind = "parameter",
+            language = p.language.id,
+            type = p.type.presentableText,
+            scopeHint = "in $methodName(...)",
+            filePath = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",
-            purposeHint  = null,
-            codeSnippet  = snippetAround(file, p, contextLines = 6),
+            purposeHint = null,
+            codeSnippet = snippetAround(file, p, contextLines = 6),
             relatedNames = related
         )
     }
@@ -282,15 +281,15 @@ object PsiContextExtractor {
         val related = collectRelatedNames(f)
 
         return RenameContext(
-            symbolName   = f.name,
-            symbolKind   = "field",
-            language     = f.language.id,
-            type         = f.type.presentableText,
-            scopeHint    = "in $clsName",
-            filePath     = file.virtualFile?.path ?: file.name,
+            symbolName = f.name,
+            symbolKind = "field",
+            language = f.language.id,
+            type = f.type.presentableText,
+            scopeHint = "in $clsName",
+            filePath = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",
-            purposeHint  = null,
-            codeSnippet  = snippetAround(file, f, contextLines = 6),
+            purposeHint = null,
+            codeSnippet = snippetAround(file, f, contextLines = 6),
             relatedNames = related
         )
     }

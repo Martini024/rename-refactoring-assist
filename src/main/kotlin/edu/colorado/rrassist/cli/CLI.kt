@@ -3,11 +3,12 @@ package edu.colorado.rrassist.cli
 import edu.colorado.rrassist.psi.JavaVarTarget
 import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.psi.SourceLocator
-import edu.colorado.rrassist.services.RenameContext
 import edu.colorado.rrassist.services.RenameSuggestion
 import edu.colorado.rrassist.settings.RRAssistConfig
 import edu.colorado.rrassist.services.RenameSuggestionService
+import edu.colorado.rrassist.services.StrategyType
 import edu.colorado.rrassist.settings.Provider
+import edu.colorado.rrassist.stratigies.RenameContext
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
@@ -91,7 +92,7 @@ suspend fun main(args: Array<String>) {
     val total = targets.size
     println("🔍 Loaded $total targets from $inputPath")
 
-    val rename = RenameSuggestionService(cfg)
+    val rename = RenameSuggestionService(StrategyType.DEFAULT_LLM, cfg)
 
     val startTime = Clock.System.now()
     var successCount = 0
@@ -217,7 +218,8 @@ private fun parseArgs(args: Array<String>): Map<String, String> {
 // -----------------------------
 // Safe shutdown handling
 // -----------------------------
-@Volatile private var arraysClosed = false
+@Volatile
+private var arraysClosed = false
 
 private fun safeEndArrays(okOut: BufferedWriter, errOut: BufferedWriter) {
     if (!arraysClosed) {
@@ -225,10 +227,12 @@ private fun safeEndArrays(okOut: BufferedWriter, errOut: BufferedWriter) {
             if (!arraysClosed) {
                 try {
                     endJsonArray(okOut)
-                } catch (_: Exception) {}
+                } catch (_: Exception) {
+                }
                 try {
                     endJsonArray(errOut)
-                } catch (_: Exception) {}
+                } catch (_: Exception) {
+                }
                 arraysClosed = true
             }
         }
@@ -242,8 +246,14 @@ private fun registerShutdownHooks(okOut: BufferedWriter, errOut: BufferedWriter)
             okOut.flush()
             errOut.flush()
             safeEndArrays(okOut, errOut)
-            try { okOut.close() } catch (_: Exception) {}
-            try { errOut.close() } catch (_: Exception) {}
+            try {
+                okOut.close()
+            } catch (_: Exception) {
+            }
+            try {
+                errOut.close()
+            } catch (_: Exception) {
+            }
             println("✅ JSON arrays closed.")
         } catch (ex: Exception) {
             println("⚠️  Failed to close JSON properly: ${ex.message}")
