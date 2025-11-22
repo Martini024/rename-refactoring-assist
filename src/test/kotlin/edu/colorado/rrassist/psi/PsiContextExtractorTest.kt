@@ -1,9 +1,9 @@
 package edu.colorado.rrassist.psi
 
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import edu.colorado.rrassist.stratigies.RenameContext
 import java.nio.file.Files
 import java.nio.file.Path
-import edu.colorado.rrassist.services.RenameContext
 
 class PsiContextExtractorTest : BasePlatformTestCase() {
 

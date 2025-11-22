@@ -57,7 +57,12 @@ class RenameLocalVariableAction : AnAction() {
                     runBlocking { renameSuggestionService.suggest(ctx, topK = 5).suggestions }
                 } catch (e: Throwable) {
                     ApplicationManager.getApplication().invokeLater {
-                        notify(project, "Rename Suggestions Error", e.message ?: "Unknown error", NotificationType.ERROR)
+                        notify(
+                            project,
+                            "Rename Suggestions Error",
+                            e.message ?: "Unknown error",
+                            NotificationType.ERROR
+                        )
                     }
                     emptyList()
                 }
@@ -75,7 +80,12 @@ class RenameLocalVariableAction : AnAction() {
         })
     }
 
-    private fun notify(project: Project, title: String, content: String, type: NotificationType = NotificationType.INFORMATION) {
+    private fun notify(
+        project: Project,
+        title: String,
+        content: String,
+        type: NotificationType = NotificationType.INFORMATION
+    ) {
         NotificationGroupManager.getInstance()
             .getNotificationGroup("RRAssist")   // define in plugin.xml or use an existing group
             .createNotification(title, content, type)
@@ -84,9 +94,9 @@ class RenameLocalVariableAction : AnAction() {
 
     private fun isTargetVariableInsideFunction(e: AnActionEvent): Boolean {
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return false
-        val file   = e.getData(CommonDataKeys.PSI_FILE) ?: return false
+        val file = e.getData(CommonDataKeys.PSI_FILE) ?: return false
         val offset = editor.caretModel.offset
-        val leaf   = file.findElementAt(offset) ?: return false
+        val leaf = file.findElementAt(offset) ?: return false
 
         debugLeaf(leaf)
 

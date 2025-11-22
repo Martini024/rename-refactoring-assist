@@ -6,10 +6,12 @@ import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.JBColor
 import com.intellij.ui.dsl.builder.*
 import edu.colorado.rrassist.llm.LlmHealthCheck
+import edu.colorado.rrassist.services.RenameSuggestionService
 import javax.swing.JComponent
 
 class RRAssistConfigurable : Configurable {
     private val settings = RRAssistAppSettings.getInstance()
+    private val service = RenameSuggestionService.getInstance()
     private var local = settings.state.copy()
     private lateinit var panel: DialogPanel
     private var isModified = false
@@ -85,8 +87,10 @@ class RRAssistConfigurable : Configurable {
     override fun apply() {
         panel.apply()
         settings.loadState(local)
+        service.updateLlmClient()
         isModified = false
     }
+
     override fun reset() {
         local.updateFrom(settings.state)
         panel.reset()
