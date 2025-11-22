@@ -11,7 +11,7 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
 import com.intellij.psi.augment.PsiAugmentProvider
 import com.intellij.psi.util.PsiTreeUtil
-import edu.colorado.rrassist.stratigies.RenameContext
+import edu.colorado.rrassist.strategies.RenameContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.net.HttpURLConnection
@@ -237,6 +237,30 @@ object PsiContextExtractor {
     }
 
     // -------- Context builders --------
+    private fun collectConflictsForLocal(v: PsiLocalVariable): List<String> {
+        val method = PsiTreeUtil.getParentOfType(v, PsiMethod::class.java) ?: return emptyList()
+        val body = method.body ?: return emptyList()
+
+        val names = mutableSetOf<String>()
+
+        // parameters are also names you can't reuse
+        method.parameterList.parameters.forEach { p ->
+            p.name?.let(names::add)
+        }
+
+        // locals in the same body (excluding the variable itself)
+        body.accept(object : JavaRecursiveElementVisitor() {
+            override fun visitLocalVariable(var2: PsiLocalVariable) {
+                if (var2 !== v) {
+                    var2.name?.let(names::add)
+                }
+                super.visitLocalVariable(var2)
+            }
+        })
+
+        return names.toList()
+    }
+
 
     private fun makeContextFromLocal(file: PsiFile, v: PsiLocalVariable): RenameContext {
         val method = PsiTreeUtil.getParentOfType(v, PsiMethod::class.java)
@@ -250,11 +274,33 @@ object PsiContextExtractor {
             type = v.type.presentableText,
             scopeHint = scopeHint,
             filePath = file.virtualFile?.path ?: file.name,
+            offset = v.textOffset,
             projectStyle = "lowerCamelCase",
             purposeHint = null,
             codeSnippet = snippetAround(file, v, contextLines = 6),
-            relatedNames = related
+            relatedNames = related,
+            conflictNames = collectConflictsForLocal(v)
         )
+    }
+
+    private fun collectConflictsForParameter(param: PsiParameter): List<String> {
+        val method = PsiTreeUtil.getParentOfType(param, PsiMethod::class.java) ?: return emptyList()
+        val names = mutableSetOf<String>()
+
+        // other parameters
+        method.parameterList.parameters
+            .filter { it !== param }
+            .forEach { it.name?.let(names::add) }
+
+        // locals in the body
+        method.body?.accept(object : JavaRecursiveElementVisitor() {
+            override fun visitLocalVariable(variable: PsiLocalVariable) {
+                variable.name?.let(names::add)
+                super.visitLocalVariable(variable)
+            }
+        })
+
+        return names.toList()
     }
 
     private fun makeContextFromParameter(file: PsiFile, p: PsiParameter): RenameContext {
@@ -269,11 +315,24 @@ object PsiContextExtractor {
             type = p.type.presentableText,
             scopeHint = "in $methodName(...)",
             filePath = file.virtualFile?.path ?: file.name,
+            offset = p.textOffset,
             projectStyle = "lowerCamelCase",
             purposeHint = null,
             codeSnippet = snippetAround(file, p, contextLines = 6),
-            relatedNames = related
+            relatedNames = related,
+            conflictNames = collectConflictsForParameter(p)
         )
+    }
+
+    private fun collectConflictsForField(field: PsiField): List<String> {
+        val cls = PsiTreeUtil.getParentOfType(field, PsiClass::class.java) ?: return emptyList()
+        val names = mutableSetOf<String>()
+
+        cls.fields
+            .filter { it !== field }
+            .forEach { it.name?.let(names::add) }
+
+        return names.toList()
     }
 
     private fun makeContextFromField(file: PsiFile, f: PsiField): RenameContext {
@@ -290,7 +349,8 @@ object PsiContextExtractor {
             projectStyle = "lowerCamelCase",
             purposeHint = null,
             codeSnippet = snippetAround(file, f, contextLines = 6),
-            relatedNames = related
+            relatedNames = related,
+            conflictNames = collectConflictsForField(f)
         )
     }
 

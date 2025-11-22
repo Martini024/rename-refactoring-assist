@@ -8,7 +8,7 @@ import edu.colorado.rrassist.settings.RRAssistConfig
 import edu.colorado.rrassist.services.RenameSuggestionService
 import edu.colorado.rrassist.services.StrategyType
 import edu.colorado.rrassist.settings.Provider
-import edu.colorado.rrassist.stratigies.RenameContext
+import edu.colorado.rrassist.strategies.RenameContext
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable

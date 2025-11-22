@@ -28,7 +28,7 @@ https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
         <applicationConfigurable
             instance="edu.colorado.rrassist.settings.RRAssistConfigurable"
             id="rrassist.settings"
-            displayName="RRAssist / LLM">
+            displayName="RRAssist / LLM">RefactoringEventTracker
         </applicationConfigurable>
     </extensions>
     <actions>

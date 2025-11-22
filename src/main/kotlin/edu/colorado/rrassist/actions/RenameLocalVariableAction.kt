@@ -17,6 +17,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtilBase
 import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestionService
+import edu.colorado.rrassist.services.StrategyType
 import edu.colorado.rrassist.toolWindow.RenameSuggestionsToolWindowFactory
 import edu.colorado.rrassist.utils.Log
 import kotlinx.coroutines.*
@@ -33,6 +34,7 @@ class RenameLocalVariableAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val renameSuggestionService = RenameSuggestionService.getInstance()
+        renameSuggestionService.setStrategy(StrategyType.HISTORY_FIRST)
 
         val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val element: PsiElement = PsiUtilBase.getElementAtCaret(editor) ?: return

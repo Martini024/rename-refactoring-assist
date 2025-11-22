@@ -5,9 +5,10 @@ import com.intellij.openapi.components.service
 import edu.colorado.rrassist.llm.LlmFactory
 import edu.colorado.rrassist.settings.RRAssistAppSettings
 import edu.colorado.rrassist.settings.RRAssistConfig
-import edu.colorado.rrassist.stratigies.DefaultRenameStrategy
-import edu.colorado.rrassist.stratigies.RenameContext
-import edu.colorado.rrassist.stratigies.RenameSuggestionStrategy
+import edu.colorado.rrassist.strategies.DefaultRenameStrategy
+import edu.colorado.rrassist.strategies.HistoryFirstStrategy
+import edu.colorado.rrassist.strategies.RenameContext
+import edu.colorado.rrassist.strategies.RenameSuggestionStrategy
 import kotlinx.serialization.Serializable
 
 /**
@@ -23,6 +24,7 @@ data class RenameSuggestion(
 
 enum class StrategyType {
     DEFAULT_LLM,
+    HISTORY_FIRST
 }
 
 @Serializable
@@ -32,13 +34,20 @@ data class RenameSuggestionsEnvelope(
 
 @Service(Service.Level.APP)
 class RenameSuggestionService(
-    strategyType: StrategyType = StrategyType.DEFAULT_LLM, cfg: RRAssistConfig? = null
+    strategyType: StrategyType = StrategyType.HISTORY_FIRST, cfg: RRAssistConfig? = null
 ) {
     private var llm = LlmFactory.create(cfg ?: RRAssistAppSettings.getInstance().state)
 
-    private val strategy: RenameSuggestionStrategy = when (strategyType) {
-        StrategyType.DEFAULT_LLM ->
-            DefaultRenameStrategy(llm)  // your LLM strategy
+    private var strategy: RenameSuggestionStrategy = createStrategy(strategyType)
+
+    private fun createStrategy(type: StrategyType): RenameSuggestionStrategy =
+        when (type) {
+            StrategyType.DEFAULT_LLM -> DefaultRenameStrategy(llm)
+            StrategyType.HISTORY_FIRST -> HistoryFirstStrategy(llm)
+        }
+
+    fun setStrategy(strategy: StrategyType) {
+        this.strategy = createStrategy(strategy)
     }
 
     fun updateLlmClient() {

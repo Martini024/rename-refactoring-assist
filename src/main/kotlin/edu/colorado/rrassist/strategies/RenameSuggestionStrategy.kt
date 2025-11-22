@@ -1,4 +1,4 @@
-package edu.colorado.rrassist.stratigies
+package edu.colorado.rrassist.strategies
 
 import dev.langchain4j.data.message.SystemMessage
 import dev.langchain4j.data.message.UserMessage
@@ -19,16 +19,18 @@ import kotlin.isNaN
  */
 @Serializable
 data class RenameContext(
-    val symbolName: String,
-    val symbolKind: String,        // e.g., "localVariable", "parameter", "function", "class"
-    val language: String,          // e.g., "Kotlin"
-    val type: String? = null,  // e.g., "Int", "MutableList<String>"
-    val scopeHint: String? = null, // e.g., "inside for-loop of fetchUsers()"
-    val filePath: String? = null,
-    val projectStyle: String? = null, // e.g., "lowerCamelCase for locals; UpperCamelCase for classes"
-    val purposeHint: String? = null,  // short natural-language purpose, if known
-    val codeSnippet: String? = null,  // small excerpt around the symbol
-    val relatedNames: List<String> = emptyList() // names of nearby vars/functions to keep consistent
+    var symbolName: String,
+    var symbolKind: String,        // e.g., "localVariable", "parameter", "function", "class"
+    var language: String,          // e.g., "Kotlin"
+    var type: String,  // e.g., "Int", "MutableList<String>"
+    var scopeHint: String? = null, // e.g., "inside for-loop of fetchUsers()"
+    var filePath: String,
+    var offset: Int = 0,
+    var projectStyle: String? = null, // e.g., "lowerCamelCase for locals; UpperCamelCase for classes"
+    var purposeHint: String? = null,  // short natural-language purpose, if known
+    var codeSnippet: String? = null,  // small excerpt around the symbol
+    var relatedNames: List<String> = emptyList(), // names of nearby vars/functions to keep consistent
+    var conflictNames: List<String> = emptyList()
 )
 
 interface RenameSuggestionStrategy {
@@ -42,7 +44,31 @@ interface RenameSuggestionStrategy {
             """.trimIndent()
     }
 
-    fun buildUserPrompt(context: RenameContext, topK: Int = 5): String
+    fun buildUserPrompt(context: RenameContext, topK: Int): String {
+        val related = if (context.relatedNames.isNotEmpty())
+            context.relatedNames.joinToString()
+        else "(none)"
+
+        return """
+        TASK: Propose up to $topK concise, idiomatic ${context.language} names for the following symbol.
+        The goal is to make each name clear, consistent, and type-appropriate.
+        DO NOT repeat the original name.
+        Each suggestion must follow ${context.projectStyle ?: "idiomatic ${context.language}"} conventions.
+        Provide only names that match the symbol's kind and role.
+
+        Target Symbol:
+        - name: ${context.symbolName}
+        - kind: ${context.symbolKind}
+        - type: ${context.type ?: "(unknown)"}
+        - scope: ${context.scopeHint ?: "(none)"}
+        - file: ${context.filePath ?: "(unknown)"}
+        - purpose: ${context.purposeHint ?: "(none provided)"}
+
+        Context:eac
+        - related names: $related
+        - snippet: ${context.codeSnippet ?: "(omitted)"}
+        """.trimIndent()
+    }
 
     suspend fun suggest(context: RenameContext, topK: Int = 5): RenameSuggestionsEnvelope {
         return invokeLlm(context, topK)
