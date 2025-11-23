@@ -64,7 +64,6 @@ class RefactoringEventTracker : RefactoringEventListener {
             afterConventions = afterConvention,
             filePath = filePath,
             type = dataType,
-            offset = offset
         )
 
         HistoryFirstStrategy.addHistory(historyEntry)

@@ -118,20 +118,16 @@ class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionStrate
         fun List<RenameHistory>.splitByType(): Pair<List<RenameHistory>, List<RenameHistory>> =
             this.partition { it.type == currentType }
 
-        // Helper: sort by physical distance (offset difference)
-        fun List<RenameHistory>.sortedByDistance(): List<RenameHistory> =
-            this.sortedBy { abs(it.offset - currentOffset) }
-
         // 2) For each file group, split by data type
         val (inFileSameType, inFileOtherType) = inFileRS.splitByType()
         val (outsideSameType, outsideOtherType) = outsideRS.splitByType()
 
         // 3) Sort each bucket by distance and concatenate in CARER order
         val ranked = buildList {
-            addAll(inFileSameType.sortedByDistance())
-            addAll(inFileOtherType.sortedByDistance())
-            addAll(outsideSameType.sortedByDistance())
-            addAll(outsideOtherType.sortedByDistance())
+            addAll(inFileSameType)
+            addAll(inFileOtherType)
+            addAll(outsideSameType)
+            addAll(outsideOtherType)
         }
 
         // 4) Store the ranked list back into the context
