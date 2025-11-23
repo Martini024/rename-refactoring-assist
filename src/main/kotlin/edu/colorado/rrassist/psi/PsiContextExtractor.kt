@@ -35,14 +35,30 @@ data class JavaVarTarget(
     @SerialName("old_name")
     val oldName: String? = null,
     @SerialName("new_name")
-    val newName: String? = null,
-)
+    val newName: String? = null
+) {
+    fun commitId(): String? {
+        // Extract whatever appears after /blob/
+        val regex = Regex("""/blob/([^/]+)""")
+        val match = regex.find(path) ?: return null
+        return match.groupValues[1]
+    }
+}
 
 object PsiContextExtractor {
 
     // --------------------------
     // Public API
     // --------------------------
+
+    fun getPsiElementName(element: PsiElement): String? {
+        return when (element) {
+            is PsiLocalVariable -> element.name
+            is PsiParameter -> element.name
+            is PsiField -> element.name
+            else -> null
+        }
+    }
 
     /**
      * Convert a resolved declaration element into a RenameContext.

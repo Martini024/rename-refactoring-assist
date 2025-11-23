@@ -5,8 +5,9 @@ import com.intellij.openapi.components.service
 import edu.colorado.rrassist.llm.LlmFactory
 import edu.colorado.rrassist.settings.RRAssistAppSettings
 import edu.colorado.rrassist.settings.RRAssistConfig
-import edu.colorado.rrassist.strategies.DefaultRenameStrategy
+import edu.colorado.rrassist.strategies.MethodLevelLlmStrategy
 import edu.colorado.rrassist.strategies.HistoryFirstStrategy
+import edu.colorado.rrassist.strategies.HistoryOnlyStrategy
 import edu.colorado.rrassist.strategies.RenameContext
 import edu.colorado.rrassist.strategies.RenameSuggestionStrategy
 import kotlinx.serialization.Serializable
@@ -23,8 +24,20 @@ data class RenameSuggestion(
 )
 
 enum class StrategyType {
-    DEFAULT_LLM,
-    HISTORY_FIRST
+    METHOD_LEVEL_LLM,
+    HISTORY_FIRST_METHOD_LEVEL,
+    HISTORY_ONLY,
+    FILE_LEVEL_LLM,
+    HISTORY_FIRST_FILE_LLM;
+
+    fun isHistoryBased(): Boolean =
+        when (this) {
+            HISTORY_FIRST_METHOD_LEVEL,
+            HISTORY_ONLY,
+            HISTORY_FIRST_FILE_LLM -> true
+
+            else -> false
+        }
 }
 
 @Serializable
@@ -34,7 +47,7 @@ data class RenameSuggestionsEnvelope(
 
 @Service(Service.Level.APP)
 class RenameSuggestionService(
-    strategyType: StrategyType = StrategyType.HISTORY_FIRST, cfg: RRAssistConfig? = null
+    strategyType: StrategyType = StrategyType.HISTORY_FIRST_METHOD_LEVEL, cfg: RRAssistConfig? = null
 ) {
     private var llm = LlmFactory.create(cfg ?: RRAssistAppSettings.getInstance().state)
 
@@ -42,8 +55,11 @@ class RenameSuggestionService(
 
     private fun createStrategy(type: StrategyType): RenameSuggestionStrategy =
         when (type) {
-            StrategyType.DEFAULT_LLM -> DefaultRenameStrategy(llm)
-            StrategyType.HISTORY_FIRST -> HistoryFirstStrategy(llm)
+            StrategyType.METHOD_LEVEL_LLM -> MethodLevelLlmStrategy(llm)
+            StrategyType.HISTORY_FIRST_METHOD_LEVEL -> HistoryFirstStrategy(llm)
+            StrategyType.HISTORY_ONLY -> HistoryOnlyStrategy(llm)
+            StrategyType.FILE_LEVEL_LLM -> TODO()
+            StrategyType.HISTORY_FIRST_FILE_LLM -> TODO()
         }
 
     fun setStrategy(strategy: StrategyType) {

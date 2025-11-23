@@ -34,7 +34,7 @@ class RenameLocalVariableAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val renameSuggestionService = RenameSuggestionService.getInstance()
-        renameSuggestionService.setStrategy(StrategyType.HISTORY_FIRST)
+        renameSuggestionService.setStrategy(StrategyType.HISTORY_FIRST_METHOD_LEVEL)
 
         val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val element: PsiElement = PsiUtilBase.getElementAtCaret(editor) ?: return

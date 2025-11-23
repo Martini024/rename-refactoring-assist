@@ -1,12 +1,9 @@
 package edu.colorado.rrassist.strategies
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiLocalVariable
 import com.intellij.psi.codeStyle.NameUtil
-import com.intellij.refactoring.listeners.RefactoringElementListener
-import com.intellij.refactoring.rename.RenamePsiElementProcessor
-import com.intellij.usageView.UsageInfo
 import edu.colorado.rrassist.llm.LlmClient
+import edu.colorado.rrassist.psi.JavaVarTarget
+import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestion
 import edu.colorado.rrassist.services.RenameSuggestionsEnvelope
 import kotlin.math.abs
@@ -87,26 +84,85 @@ data class RenameHistory(
     val afterConventions: Enum<NamingConvention>,
     val filePath: String,
     val type: String,
-    val offset: Int
+    val commitId: String? = null
 )
 
-private const val THRESHOLD_HIGH: Double = 0.75
-private const val THRESHOLD_LOW: Double = 0.4
 
-class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionStrategy {
+open class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionStrategy {
+
     companion object {
-        private val renameHistories = mutableListOf<RenameHistory>()
+        protected const val THRESHOLD_HIGH: Double = 0.75
+        protected const val THRESHOLD_LOW: Double = 0.4
+
+        @JvmStatic
+        protected val renameHistories = mutableListOf<RenameHistory>()
+
+        @JvmStatic
+        private val historiesByCommit: MutableMap<String?, MutableList<RenameHistory>> =
+            mutableMapOf()
 
         fun addHistory(entry: RenameHistory) {
             // latest first
             renameHistories.add(0, entry)
+        }
+
+        fun buildHistory(targets: List<JavaVarTarget>) {
+            targets.forEach { t ->
+                // 1. Safe extraction of context
+                val ctx: RenameContext? = try {
+                    PsiContextExtractor.extractFromPathTarget(t)
+                } catch (e: Throwable) {
+                    // Log and skip this target
+                    println("⚠️ Failed to extract context for ${t.path}: ${e.message}")
+                    null
+                }
+
+                if (ctx == null) return@forEach
+
+                val before = t.oldName
+                val after = t.newName
+                if (before.isNullOrBlank() || after.isNullOrBlank() || before == after) {
+                    return@forEach
+                }
+
+                val history = RenameHistory(
+                    beforeName = before,
+                    afterName = after,
+                    beforeConventions = NamingConvention.detect(before),
+                    afterConventions = NamingConvention.detect(after),
+                    filePath = ctx.filePath,
+                    type = ctx.type,
+                    commitId = t.commitId()
+                )
+
+                // 6. Add to global history + commit index
+                val list = historiesByCommit.getOrPut(history.commitId) { mutableListOf() }
+                list.add(0, history)
+            }
+
+        }
+
+        fun useCommitHistory(commitId: String?, ctx: RenameContext) {
+            if (commitId == null) {
+                renameHistories.clear()
+                return
+            }
+            val listForCommit = historiesByCommit[commitId].orEmpty()
+            renameHistories.clear()
+            renameHistories.addAll(
+                listForCommit.filter { hist ->
+                    !(hist.filePath == ctx.filePath &&
+                            hist.beforeName == ctx.symbolName &&
+                            hist.type == ctx.type)
+                }
+            )
         }
     }
 
     private var rankedHistories: List<RenameHistory> = emptyList()
     private val historyEngine = HistoryPatternEngine()
 
-    private fun rankHistory(context: RenameContext) {
+    protected fun rankHistory(context: RenameContext) {
         val currentFile = context.filePath
         val currentType = context.type
         val currentOffset = context.offset
@@ -195,14 +251,22 @@ class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionStrate
         return score.coerceIn(0.0, 1.0)
     }
 
-    private fun suggestFromHistory(context: RenameContext): RenameSuggestion? {
+    protected fun suggestFromHistory(context: RenameContext): RenameSuggestion? {
         var bestSuggestionConf = 0.0
         var bestSuggestionName: String? = null
         for (renameHistory in renameHistories) {
             val suggestionName = applyHistoryPattern(renameHistory, context)
-            if (suggestionName == null || context.conflictNames.contains(suggestionName)) continue
+            if (renameHistory.afterName == context.symbolName ||
+                suggestionName == null ||
+                context.conflictNames.contains(suggestionName) ||
+                suggestionName == context.symbolName
+            ) continue
             val score = scoreSuggestion(renameHistory, context, suggestionName)
             if (score >= THRESHOLD_HIGH) {
+                println(
+                    "HIGH MATCH for symbol='${context.symbolName}': " +
+                            "suggestion='$suggestionName', history=${renameHistory.beforeName} ${renameHistory.afterName}, score=$score,"
+                )
                 return RenameSuggestion(name = suggestionName, confidence = score)
             }
             if (score > bestSuggestionConf && score >= THRESHOLD_LOW) {

@@ -8,6 +8,7 @@ import edu.colorado.rrassist.settings.RRAssistConfig
 import edu.colorado.rrassist.services.RenameSuggestionService
 import edu.colorado.rrassist.services.StrategyType
 import edu.colorado.rrassist.settings.Provider
+import edu.colorado.rrassist.strategies.HistoryFirstStrategy
 import edu.colorado.rrassist.strategies.RenameContext
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
@@ -50,12 +51,15 @@ suspend fun main(args: Array<String>) {
         System.err.println(
             """
             Usage:
-              ./gradlew :cli:run --args="--input input.json [--outputDir out_dir] [--topK 5] 
+              ./gradlew run --args="--input input.json [--outputDir out_dir] [--topK 5] 
                                      [--provider OPENAI|OLLAMA] [--baseUrl URL] [--model MODEL]
-                                     [--temperature 0.5] [--timeout 60] [--apiKey sk-...]"
+                                     [--temperature 0.5] [--timeout 60] [--apiKey sk-...] 
+                                     [--strategies STRAT1,STRAT2,...]"
             
             Notes:
               - If --outputDir is not provided, output will be written to the same directory as the input file.
+              - --strategies is a comma-separated list of StrategyType names (e.g. METHOD_LEVEL_LLM,HISTORY_ONLY).
+                If omitted, METHOD_LEVEL_LLM is used.
             """.trimIndent()
         )
         return
@@ -63,17 +67,6 @@ suspend fun main(args: Array<String>) {
 
     val inputPath = opts["input"]!!
     val baseOutputDir = opts["outputDir"] ?: File(inputPath).parent ?: "."
-
-    // Timestamped run folder under outputDir
-    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val timestamp = "%04d%02d%02d_%02d%02d%02d".format(
-        now.year, now.monthNumber, now.dayOfMonth, now.hour, now.minute, now.second
-    )
-    val runDir: Path = Paths.get(baseOutputDir, "rrassist_$timestamp")
-    Files.createDirectories(runDir)
-
-    val resultsPath = runDir.resolve("results.json")
-    val errorsPath = runDir.resolve("errors.json")
 
     val topK = opts["topK"]?.toIntOrNull() ?: 5
 
@@ -92,87 +85,31 @@ suspend fun main(args: Array<String>) {
     val total = targets.size
     println("🔍 Loaded $total targets from $inputPath")
 
-    val rename = RenameSuggestionService(StrategyType.DEFAULT_LLM, cfg)
+    val strategies: List<StrategyType> = parseStrategies(opts)
 
-    val startTime = Clock.System.now()
-    var successCount = 0
-    var errorCount = 0
-
-    resultsPath.toFile().bufferedWriter().use { okOut ->
-        errorsPath.toFile().bufferedWriter().use { errOut ->
-            registerShutdownHooks(okOut, errOut)
-
-            startJsonArray(okOut)
-            startJsonArray(errOut)
-
-            var firstOk = true
-            var firstErr = true
-
-            for ((idx, t) in targets.withIndex()) {
-                val itemStart = Clock.System.now()
-                var ctx: RenameContext? = null
-                try {
-                    ctx = PsiContextExtractor.extractFromPathTarget(t)
-                    val envelope = rename.suggest(ctx, topK)
-
-                    val perTargetOk = PerTargetOutput(
-                        path = t.path,
-                        locators = t.locators,
-                        oldName = t.oldName,
-                        newName = t.newName,
-                        ctx = ctx,
-                        suggestions = envelope.suggestions.map {
-                            RenameSuggestion(name = it.name, rationale = it.rationale, confidence = it.confidence)
-                        },
-                        error = null
-                    )
-
-                    writeArrayItem(okOut, json.encodeToString(perTargetOk), firstOk)
-                    if (firstOk) firstOk = false
-                    successCount++
-                } catch (e: Exception) {
-                    val perTargetErr = PerTargetOutput(
-                        path = t.path,
-                        locators = t.locators,
-                        oldName = t.oldName,
-                        newName = t.newName,
-                        ctx = ctx,
-                        suggestions = null,
-                        error = e.message ?: e::class.java.name
-                    )
-                    writeArrayItem(errOut, json.encodeToString(perTargetErr), firstErr)
-                    if (firstErr) firstErr = false
-                    errorCount++
-                }
-
-                val itemTime = (Clock.System.now() - itemStart).inWholeSeconds
-                if ((idx + 1) % 10 == 0 || idx == total - 1) {
-                    val elapsed = (Clock.System.now() - startTime).inWholeSeconds
-                    println(
-                        "📦 Processed ${idx + 1}/$total | ✅ $successCount | ❌ $errorCount | " +
-                                "⏱ ${elapsed}s elapsed | Last item ${itemTime}s"
-                    )
-                }
-
-                if ((idx + 1) % 10 == 0) {
-                    okOut.flush()
-                    errOut.flush()
-                }
-            }
-
-            safeEndArrays(okOut, errOut)
-        }
-    }
-
-    val totalElapsed = (Clock.System.now() - startTime)
-    val elapsedText = "%d min %.1f s".format(
-        totalElapsed.inWholeMinutes,
-        (totalElapsed - totalElapsed.inWholeMinutes.toDuration(DurationUnit.MINUTES)).inWholeSeconds.toDouble()
+    // Timestamped run folder under outputDir
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val timestamp = "%04d%02d%02d_%02d%02d%02d".format(
+        now.year, now.monthNumber, now.dayOfMonth, now.hour, now.minute, now.second
     )
 
-    println("✅ Completed $total targets in $elapsedText")
-    println("   - Successes: $successCount → ${resultsPath.toAbsolutePath()}")
-    println("   - Errors:    $errorCount → ${errorsPath.toAbsolutePath()}")
+    // Build history once if at least one strategy is history-based
+    if (strategies.any { it.isHistoryBased() }) {
+        HistoryFirstStrategy.buildHistory(targets)
+    }
+
+    // Run each strategy
+    for (strategy in strategies) {
+        runForStrategy(
+            strategy = strategy,
+            cfg = cfg,
+            baseOutputDir = baseOutputDir,
+            timestamp = timestamp,
+            targets = targets,
+            json = json,
+            topK = topK
+        )
+    }
 }
 
 /* ---------- Small helpers to stream a JSON array inside an object ---------- */
@@ -213,6 +150,146 @@ private fun parseArgs(args: Array<String>): Map<String, String> {
         }
     }
     return map
+}
+
+private fun parseStrategies(opts: Map<String, String>): List<StrategyType> {
+    // Prefer --strategies (comma-separated). Fallback to single --strategy.
+    val raw = opts["strategies"] ?: opts["strategy"]
+
+    return if (raw.isNullOrBlank()) {
+        listOf(StrategyType.METHOD_LEVEL_LLM)
+    } else {
+        raw.split(',')
+            .mapNotNull { token ->
+                val trimmed = token.trim()
+                if (trimmed.isEmpty()) return@mapNotNull null
+                StrategyType.valueOf(trimmed.uppercase())
+            }
+    }
+}
+
+private suspend fun runForStrategy(
+    strategy: StrategyType,
+    cfg: RRAssistConfig,
+    baseOutputDir: String,
+    timestamp: String,
+    targets: List<JavaVarTarget>,
+    json: Json,
+    topK: Int
+) {
+    val strategySuffix = strategy.name.lowercase()
+
+    // Strategy-specific run folder
+    val runDir: Path = Paths.get(baseOutputDir, "rrassist_${strategySuffix}_$timestamp")
+    Files.createDirectories(runDir)
+
+    val resultsPath = runDir.resolve("results_${strategySuffix}.json")
+    val errorsPath = runDir.resolve("errors_${strategySuffix}.json")
+
+    val total = targets.size
+    println("\n🚀 Running strategy: $strategy (suffix: $strategySuffix)")
+    println("   Output dir: ${runDir.toAbsolutePath()}")
+
+    val rename = RenameSuggestionService(strategy, cfg)
+
+    val startTime = Clock.System.now()
+    var successCount = 0
+    var errorCount = 0
+
+    resultsPath.toFile().bufferedWriter().use { okOut ->
+        errorsPath.toFile().bufferedWriter().use { errOut ->
+            registerShutdownHooks(okOut, errOut)
+
+            startJsonArray(okOut)
+            startJsonArray(errOut)
+
+            var firstOk = true
+            var firstErr = true
+
+            var lastCommitId: String? = null
+
+            for ((idx, t) in targets.withIndex()) {
+                val itemStart = Clock.System.now()
+                var ctx: RenameContext? = null
+                try {
+                    ctx = PsiContextExtractor.extractFromPathTarget(t)
+                    if (strategy.isHistoryBased()) {
+                        val commitId = t.commitId()
+
+                        // 🔹 Only print when commit id changes
+                        if (commitId != lastCommitId) {
+                            println()
+                            println("\n==== Commit $commitId ====")
+                            lastCommitId = commitId
+                        }
+
+                        HistoryFirstStrategy.useCommitHistory(commitId, ctx)
+                    }
+                    val envelope = rename.suggest(ctx, topK)
+
+                    val perTargetOk = PerTargetOutput(
+                        path = t.path,
+                        locators = t.locators,
+                        oldName = t.oldName,
+                        newName = t.newName,
+                        ctx = ctx,
+                        suggestions = envelope.suggestions.map {
+                            RenameSuggestion(
+                                name = it.name,
+                                rationale = it.rationale,
+                                confidence = it.confidence
+                            )
+                        },
+                        error = null
+                    )
+
+                    writeArrayItem(okOut, json.encodeToString(perTargetOk), firstOk)
+                    if (firstOk) firstOk = false
+                    successCount++
+                } catch (e: Exception) {
+                    val perTargetErr = PerTargetOutput(
+                        path = t.path,
+                        locators = t.locators,
+                        oldName = t.oldName,
+                        newName = t.newName,
+                        ctx = ctx,
+                        suggestions = null,
+                        error = e.message ?: e::class.java.name
+                    )
+                    writeArrayItem(errOut, json.encodeToString(perTargetErr), firstErr)
+                    if (firstErr) firstErr = false
+                    errorCount++
+                }
+
+                val itemTime = (Clock.System.now() - itemStart).inWholeSeconds
+                if ((idx + 1) % 10 == 0 || idx == total - 1) {
+                    val elapsed = (Clock.System.now() - startTime).inWholeSeconds
+                    println(
+                        "📦 [$strategySuffix] Processed ${idx + 1}/$total | ✅ $successCount | ❌ $errorCount | " +
+                                "⏱ ${elapsed}s elapsed | Last item ${itemTime}s"
+                    )
+                }
+
+                if ((idx + 1) % 10 == 0) {
+                    okOut.flush()
+                    errOut.flush()
+                }
+            }
+
+            safeEndArrays(okOut, errOut)
+        }
+    }
+
+    val totalElapsed = (Clock.System.now() - startTime)
+    val elapsedText = "%d min %.1f s".format(
+        totalElapsed.inWholeMinutes,
+        (totalElapsed - totalElapsed.inWholeMinutes.toDuration(DurationUnit.MINUTES))
+            .inWholeSeconds.toDouble()
+    )
+
+    println("✅ [$strategySuffix] Completed $total targets in $elapsedText")
+    println("   - Successes: $successCount → ${resultsPath.toAbsolutePath()}")
+    println("   - Errors:    $errorCount → ${errorsPath.toAbsolutePath()}")
 }
 
 // -----------------------------
