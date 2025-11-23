@@ -87,7 +87,7 @@ object PsiContextExtractor {
         val javaPath = tempDir.resolve(fileName)
         Files.writeString(javaPath, text)
 
-        return extractFromLocalPath(JavaVarTarget(path = javaPath.toString(), locators = target.locators))
+        return extractFromLocalPath(target.copy(path = javaPath.toString()))
     }
 
     private fun extractFromLocalPath(target: JavaVarTarget, project: Project? = null): RenameContext {
@@ -107,6 +107,11 @@ object PsiContextExtractor {
                 val leaf = psiFile.findElementAt(offset) ?: continue
                 val decl = ascendToDeclaration(leaf) ?: continue
 
+                val name = getPsiElementName(decl)
+                if (name != target.oldName) {
+                    println("skip: decl=${decl.javaClass.simpleName}, name=$name, expected=${target.oldName}")
+                    continue
+                }
                 // If we successfully found a valid declaration, return immediately
                 return extractRenameContext(decl)
             }
