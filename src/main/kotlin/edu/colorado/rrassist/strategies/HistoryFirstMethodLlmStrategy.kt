@@ -165,7 +165,6 @@ open class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionS
     protected fun rankHistory(context: RenameContext) {
         val currentFile = context.filePath
         val currentType = context.type
-        val currentOffset = context.offset
 
         // 1) Split into histories from the same file vs other files
         val (inFileRS, outsideRS) = renameHistories.partition { it.filePath == currentFile }

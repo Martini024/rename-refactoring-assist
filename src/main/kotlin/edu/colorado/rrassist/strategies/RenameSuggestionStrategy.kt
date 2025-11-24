@@ -25,7 +25,6 @@ data class RenameContext(
     var type: String,  // e.g., "Int", "MutableList<String>"
     var scopeHint: String? = null, // e.g., "inside for-loop of fetchUsers()"
     var filePath: String,
-    var offset: Int = 0,
     var projectStyle: String? = null, // e.g., "lowerCamelCase for locals; UpperCamelCase for classes"
     var purposeHint: String? = null,  // short natural-language purpose, if known
     var codeSnippet: String? = null,  // small excerpt around the symbol

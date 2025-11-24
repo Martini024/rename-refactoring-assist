@@ -10,6 +10,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.psi.*
 import com.intellij.psi.augment.PsiAugmentProvider
+import com.intellij.psi.javadoc.PsiDocComment
 import com.intellij.psi.util.PsiTreeUtil
 import edu.colorado.rrassist.strategies.RenameContext
 import kotlinx.serialization.SerialName
@@ -282,11 +283,30 @@ object PsiContextExtractor {
         return names.toList()
     }
 
+    private fun methodWithLeadingComments(method: PsiMethod): String {
+        val file = method.containingFile ?: return method.text
+
+        var startOffset = method.textRange.startOffset
+        var prev: PsiElement? = method.prevSibling
+
+        // Walk backwards over comments + whitespace until we hit a blank line or non-comment
+        while (prev != null && (prev is PsiComment || prev is PsiWhiteSpace || prev is PsiDocComment)) {
+            if (prev is PsiWhiteSpace) {
+                // Stop at a blank line (2+ newlines means separation)
+                val newlines = prev.text.count { it == '\n' }
+                if (newlines >= 2) break
+            }
+            startOffset = prev.textRange.startOffset
+            prev = prev.prevSibling
+        }
+
+        val endOffset = method.textRange.endOffset
+        return file.text.substring(startOffset, endOffset)
+    }
 
     private fun makeContextFromLocal(file: PsiFile, v: PsiLocalVariable): RenameContext {
         val method = PsiTreeUtil.getParentOfType(v, PsiMethod::class.java)
         val scopeHint = method?.name?.let { "in $it(...)" } ?: "local"
-        val related = collectRelatedNames(v)
 
         return RenameContext(
             symbolName = v.name,
@@ -295,11 +315,9 @@ object PsiContextExtractor {
             type = v.type.presentableText,
             scopeHint = scopeHint,
             filePath = file.virtualFile?.path ?: file.name,
-            offset = v.textOffset,
             projectStyle = "lowerCamelCase",
             purposeHint = null,
-            codeSnippet = snippetAround(file, v, contextLines = 6),
-            relatedNames = related,
+            codeSnippet = method?.let { methodWithLeadingComments(it) },
             conflictNames = collectConflictsForLocal(v)
         )
     }
@@ -327,7 +345,6 @@ object PsiContextExtractor {
     private fun makeContextFromParameter(file: PsiFile, p: PsiParameter): RenameContext {
         val method = PsiTreeUtil.getParentOfType(p, PsiMethod::class.java)
         val methodName = method?.name ?: "method"
-        val related = collectRelatedNames(p)
 
         return RenameContext(
             symbolName = p.name,
@@ -336,11 +353,9 @@ object PsiContextExtractor {
             type = p.type.presentableText,
             scopeHint = "in $methodName(...)",
             filePath = file.virtualFile?.path ?: file.name,
-            offset = p.textOffset,
             projectStyle = "lowerCamelCase",
             purposeHint = null,
             codeSnippet = snippetAround(file, p, contextLines = 6),
-            relatedNames = related,
             conflictNames = collectConflictsForParameter(p)
         )
     }
@@ -358,7 +373,6 @@ object PsiContextExtractor {
 
     private fun makeContextFromField(file: PsiFile, f: PsiField): RenameContext {
         val clsName = f.containingClass?.name ?: "class"
-        val related = collectRelatedNames(f)
 
         return RenameContext(
             symbolName = f.name,
@@ -370,7 +384,6 @@ object PsiContextExtractor {
             projectStyle = "lowerCamelCase",
             purposeHint = null,
             codeSnippet = snippetAround(file, f, contextLines = 6),
-            relatedNames = related,
             conflictNames = collectConflictsForField(f)
         )
     }
@@ -396,28 +409,5 @@ object PsiContextExtractor {
         val s = max(0, r.startOffset - pad)
         val e = min(t.length, r.endOffset + pad)
         return t.substring(s, e)
-    }
-
-    /**
-     * Very lightweight "related names": sibling variables + method/class names nearby.
-     * Expand later if you want control/data-flow signals.
-     */
-    private fun collectRelatedNames(owner: PsiVariable): List<String> {
-        val names = LinkedHashSet<String>()
-
-        owner.nameIdentifier?.text?.let { if (it.isNotBlank()) names += it }
-
-        // Sibling variables in same declaration/context
-        owner.parent?.children?.forEach {
-            if (it is PsiVariable && it != owner) {
-                it.name?.let { n -> if (n.isNotBlank()) names += n }
-            }
-        }
-
-        // Nearby method and class
-        PsiTreeUtil.getParentOfType(owner, PsiMethod::class.java)?.name?.let { names += it }
-        PsiTreeUtil.getParentOfType(owner, PsiClass::class.java)?.name?.let { names += it }
-
-        return names.toList().take(12)
     }
 }
