@@ -110,6 +110,7 @@ suspend fun main(args: Array<String>) {
             json = json,
             topK = topK
         )
+        arraysClosed = false
     }
 }
 
