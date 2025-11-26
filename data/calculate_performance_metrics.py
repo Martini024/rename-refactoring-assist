@@ -337,7 +337,7 @@ def main():
             print("\n--- Aggregate Performance Metrics ---")
             print(json.dumps(averages, indent=4))
 
-            output_file_name = f"{json_file_path.stem}_with_performance_metrics.json"
+            output_file_name = f"performance_metrics_{json_file_path.stem}.json"
             output_file_path = json_file_path.with_name(output_file_name)
             
             with open(output_file_path, 'w', encoding='utf-8') as out_f:
