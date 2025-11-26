@@ -9,6 +9,7 @@ import dev.langchain4j.model.chat.request.json.JsonArraySchema
 import dev.langchain4j.model.chat.request.json.JsonObjectSchema
 import dev.langchain4j.model.chat.request.json.JsonSchema
 import edu.colorado.rrassist.llm.LlmClient
+import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestion
 import edu.colorado.rrassist.services.RenameSuggestionsEnvelope
 import kotlinx.serialization.Serializable
@@ -32,10 +33,15 @@ data class RenameContext(
     var conflictNames: List<String> = emptyList()
 )
 
-interface RenameSuggestionStrategy {
-    var llm: LlmClient
+abstract class RenameSuggestionStrategy(
+    var llm: LlmClient,
+    var snippetMode: PsiContextExtractor.CodeSnippetMode = PsiContextExtractor.CodeSnippetMode.METHOD_WITH_COMMENTS
+) {
+    init {
+        PsiContextExtractor.setSnippetMode(snippetMode)
+    }
 
-    fun buildSystemMessage(): String {
+    open fun buildSystemMessage(): String {
         return """
             You are a code rename assistant.
             Produce STRICT JSON conforming to the provided JSON Schema.
@@ -43,7 +49,7 @@ interface RenameSuggestionStrategy {
             """.trimIndent()
     }
 
-    fun buildUserPrompt(context: RenameContext, topK: Int): String {
+    open fun buildUserPrompt(context: RenameContext, topK: Int): String {
         val related = if (context.relatedNames.isNotEmpty())
             context.relatedNames.joinToString()
         else "(none)"
@@ -69,7 +75,7 @@ interface RenameSuggestionStrategy {
         """.trimIndent()
     }
 
-    suspend fun suggest(context: RenameContext, topK: Int = 5): RenameSuggestionsEnvelope {
+    open suspend fun suggest(context: RenameContext, topK: Int = 5): RenameSuggestionsEnvelope {
         return invokeLlm(context, topK)
     }
 

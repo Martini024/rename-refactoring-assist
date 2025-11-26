@@ -6,7 +6,6 @@ import edu.colorado.rrassist.psi.JavaVarTarget
 import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestion
 import edu.colorado.rrassist.services.RenameSuggestionsEnvelope
-import kotlin.math.abs
 
 enum class NamingConvention {
     CONSTANT_CASE, // SCREAMING_SNAKE_CASE: MY_VAR
@@ -88,7 +87,11 @@ data class RenameHistory(
 )
 
 
-open class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionStrategy {
+open class HistoryFirstStrategy(
+    llm: LlmClient,
+    snippetMode: PsiContextExtractor.CodeSnippetMode = PsiContextExtractor.CodeSnippetMode.METHOD_WITH_COMMENTS
+) :
+    RenameSuggestionStrategy(llm, snippetMode) {
 
     companion object {
         protected const val THRESHOLD_HIGH: Double = 0.75
@@ -110,6 +113,7 @@ open class HistoryFirstStrategy(override var llm: LlmClient) : RenameSuggestionS
             targets.forEach { t ->
                 // 1. Safe extraction of context
                 val ctx: RenameContext? = try {
+                    PsiContextExtractor.setSnippetMode(PsiContextExtractor.CodeSnippetMode.NONE)
                     PsiContextExtractor.extractFromPathTarget(t)
                 } catch (e: Throwable) {
                     // Log and skip this target

@@ -11,8 +11,7 @@
       <option name="taskNames">
         <list>
           <option value="runWithCompileClasspath" />
-          <option
-            value="--args=&quot;--input data/ground_truth/rename_variable_targets.json --outputDir data --strategies HISTORY_ONLY,HISTORY_FIRST_METHOD_LEVEL,METHOD_LEVEL_LLM&quot;" />
+          <option value="--args=&quot;--input data/ground_truth/rename_variable_targets.json --timeout 600 --outputDir data --strategies HISTORY_FIRST_FILE_LLM,FILE_LEVEL_LLM&quot;" />
         </list>
       </option>
       <option name="vmOptions" />

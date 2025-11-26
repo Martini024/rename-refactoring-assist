@@ -19,6 +19,7 @@ import java.io.BufferedWriter
 import kotlinx.datetime.Clock
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.SerialName
+import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -185,111 +186,129 @@ private suspend fun runForStrategy(
 
     val resultsPath = runDir.resolve("results_${strategySuffix}.json")
     val errorsPath = runDir.resolve("errors_${strategySuffix}.json")
+    val logsPath = runDir.resolve("console_${strategySuffix}.log")
 
-    val total = targets.size
-    println("\n🚀 Running strategy: $strategy (suffix: $strategySuffix)")
-    println("   Output dir: ${runDir.toAbsolutePath()}")
+    val originalOut = System.out
+    val logOut = PrintStream(logsPath.toFile())
+    System.setOut(TeePrintStream(originalOut, logOut))
 
-    val rename = RenameSuggestionService(strategy, cfg)
+    try {
+        val total = targets.size
+        println("\n🚀 Running strategy: $strategy (suffix: $strategySuffix)")
+        println("   Output dir: ${runDir.toAbsolutePath()}")
 
-    val startTime = Clock.System.now()
-    var successCount = 0
-    var errorCount = 0
+        val rename = RenameSuggestionService(strategy, cfg)
 
-    resultsPath.toFile().bufferedWriter().use { okOut ->
-        errorsPath.toFile().bufferedWriter().use { errOut ->
-            registerShutdownHooks(okOut, errOut)
+        val startTime = Clock.System.now()
+        var successCount = 0
+        var errorCount = 0
 
-            startJsonArray(okOut)
-            startJsonArray(errOut)
+        resultsPath.toFile().bufferedWriter().use { okOut ->
+            errorsPath.toFile().bufferedWriter().use { errOut ->
+                registerShutdownHooks(okOut, errOut) {
+                    rename.llmClient.printTotalUsage()
+                }
 
-            var firstOk = true
-            var firstErr = true
+                startJsonArray(okOut)
+                startJsonArray(errOut)
 
-            var lastCommitId: String? = null
+                var firstOk = true
+                var firstErr = true
 
-            for ((idx, t) in targets.withIndex()) {
-                val itemStart = Clock.System.now()
-                var ctx: RenameContext? = null
-                try {
-                    ctx = PsiContextExtractor.extractFromPathTarget(t)
-                    if (strategy.isHistoryBased()) {
-                        val commitId = t.commitId()
+                var lastCommitId: String? = null
 
-                        // 🔹 Only print when commit id changes
-                        if (commitId != lastCommitId) {
-                            println()
-                            println("\n==== Commit $commitId ====")
-                            lastCommitId = commitId
+                for ((idx, t) in targets.withIndex()) {
+                    val itemStart = Clock.System.now()
+                    var ctx: RenameContext? = null
+                    try {
+                        ctx = PsiContextExtractor.extractFromPathTarget(t)
+                        if (strategy.isHistoryBased()) {
+                            val commitId = t.commitId()
+
+                            // 🔹 Only print when commit id changes
+                            if (commitId != lastCommitId) {
+                                println()
+                                println("\n==== Commit $commitId ====")
+                                lastCommitId = commitId
+                            }
+
+                            HistoryFirstStrategy.useCommitHistory(commitId, ctx)
                         }
+                        val envelope = rename.suggest(ctx, topK)
+                        if (strategy.isFileBased()) {
+                            ctx.codeSnippet = "<<FULL_FILE_PLACEHOLDER>>"
+                        }
+                        val perTargetOk = PerTargetOutput(
+                            path = t.path,
+                            locators = t.locators,
+                            oldName = t.oldName,
+                            newName = t.newName,
+                            ctx = ctx,
+                            suggestions = envelope.suggestions.map {
+                                RenameSuggestion(
+                                    name = it.name,
+                                    rationale = it.rationale,
+                                    confidence = it.confidence
+                                )
+                            },
+                            error = null
+                        )
 
-                        HistoryFirstStrategy.useCommitHistory(commitId, ctx)
+                        writeArrayItem(okOut, json.encodeToString(perTargetOk), firstOk)
+                        if (firstOk) firstOk = false
+                        successCount++
+                    } catch (e: Exception) {
+                        val perTargetErr = PerTargetOutput(
+                            path = t.path,
+                            locators = t.locators,
+                            oldName = t.oldName,
+                            newName = t.newName,
+                            ctx = ctx,
+                            suggestions = null,
+                            error = e.message ?: e::class.java.name
+                        )
+                        writeArrayItem(errOut, json.encodeToString(perTargetErr), firstErr)
+                        if (firstErr) firstErr = false
+                        errorCount++
                     }
-                    val envelope = rename.suggest(ctx, topK)
 
-                    val perTargetOk = PerTargetOutput(
-                        path = t.path,
-                        locators = t.locators,
-                        oldName = t.oldName,
-                        newName = t.newName,
-                        ctx = ctx,
-                        suggestions = envelope.suggestions.map {
-                            RenameSuggestion(
-                                name = it.name,
-                                rationale = it.rationale,
-                                confidence = it.confidence
-                            )
-                        },
-                        error = null
-                    )
+                    val itemTime = (Clock.System.now() - itemStart).inWholeSeconds
+                    if ((idx + 1) % 10 == 0 || idx == total - 1) {
+                        val elapsed = (Clock.System.now() - startTime).inWholeSeconds
+                        println(
+                            "📦 [$strategySuffix] Processed ${idx + 1}/$total | ✅ $successCount | ❌ $errorCount | " +
+                                    "⏱ ${elapsed}s elapsed | Last item ${itemTime}s"
+                        )
+                    }
 
-                    writeArrayItem(okOut, json.encodeToString(perTargetOk), firstOk)
-                    if (firstOk) firstOk = false
-                    successCount++
-                } catch (e: Exception) {
-                    val perTargetErr = PerTargetOutput(
-                        path = t.path,
-                        locators = t.locators,
-                        oldName = t.oldName,
-                        newName = t.newName,
-                        ctx = ctx,
-                        suggestions = null,
-                        error = e.message ?: e::class.java.name
-                    )
-                    writeArrayItem(errOut, json.encodeToString(perTargetErr), firstErr)
-                    if (firstErr) firstErr = false
-                    errorCount++
+                    if ((idx + 1) % 10 == 0) {
+                        okOut.flush()
+                        errOut.flush()
+                        logOut.flush()
+                    }
                 }
 
-                val itemTime = (Clock.System.now() - itemStart).inWholeSeconds
-                if ((idx + 1) % 10 == 0 || idx == total - 1) {
-                    val elapsed = (Clock.System.now() - startTime).inWholeSeconds
-                    println(
-                        "📦 [$strategySuffix] Processed ${idx + 1}/$total | ✅ $successCount | ❌ $errorCount | " +
-                                "⏱ ${elapsed}s elapsed | Last item ${itemTime}s"
-                    )
-                }
-
-                if ((idx + 1) % 10 == 0) {
-                    okOut.flush()
-                    errOut.flush()
-                }
+                safeEndArrays(okOut, errOut)
             }
-
-            safeEndArrays(okOut, errOut)
         }
+
+        val totalElapsed = (Clock.System.now() - startTime)
+        val elapsedText = "%d min %.1f s".format(
+            totalElapsed.inWholeMinutes,
+            (totalElapsed - totalElapsed.inWholeMinutes.toDuration(DurationUnit.MINUTES))
+                .inWholeSeconds.toDouble()
+        )
+
+        rename.llmClient.printTotalUsage()
+
+        println("✅ [$strategySuffix] Completed $total targets in $elapsedText")
+        println("   - Successes: $successCount → ${resultsPath.toAbsolutePath()}")
+        println("   - Errors:    $errorCount → ${errorsPath.toAbsolutePath()}")
+    } finally {
+        System.setOut(originalOut)
+        logOut.flush()
+        logOut.close()
     }
-
-    val totalElapsed = (Clock.System.now() - startTime)
-    val elapsedText = "%d min %.1f s".format(
-        totalElapsed.inWholeMinutes,
-        (totalElapsed - totalElapsed.inWholeMinutes.toDuration(DurationUnit.MINUTES))
-            .inWholeSeconds.toDouble()
-    )
-
-    println("✅ [$strategySuffix] Completed $total targets in $elapsedText")
-    println("   - Successes: $successCount → ${resultsPath.toAbsolutePath()}")
-    println("   - Errors:    $errorCount → ${errorsPath.toAbsolutePath()}")
 }
 
 // -----------------------------
@@ -316,7 +335,9 @@ private fun safeEndArrays(okOut: BufferedWriter, errOut: BufferedWriter) {
     }
 }
 
-private fun registerShutdownHooks(okOut: BufferedWriter, errOut: BufferedWriter) {
+private fun registerShutdownHooks(
+    okOut: BufferedWriter, errOut: BufferedWriter, onShutdown: (() -> Unit)? = null
+) {
     Runtime.getRuntime().addShutdownHook(Thread {
         try {
             println("\n⚠️  Shutdown detected. Closing JSON arrays...")
@@ -332,6 +353,11 @@ private fun registerShutdownHooks(okOut: BufferedWriter, errOut: BufferedWriter)
             } catch (_: Exception) {
             }
             println("✅ JSON arrays closed.")
+            try {
+                onShutdown?.invoke()
+            } catch (cbEx: Exception) {
+                println("⚠️  Shutdown callback failed: ${cbEx.message}")
+            }
         } catch (ex: Exception) {
             println("⚠️  Failed to close JSON properly: ${ex.message}")
         }

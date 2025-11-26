@@ -47,7 +47,20 @@ data class JavaVarTarget(
 }
 
 object PsiContextExtractor {
+    enum class CodeSnippetMode {
+        METHOD_WITH_COMMENTS,
+        WHOLE_FILE,
+        NONE
+    }
 
+    @Volatile
+    @JvmStatic
+    private var codeSnippetMode: CodeSnippetMode = CodeSnippetMode.METHOD_WITH_COMMENTS
+
+    @JvmStatic
+    fun setSnippetMode(mode: CodeSnippetMode) {
+        codeSnippetMode = mode
+    }
     // --------------------------
     // Public API
     // --------------------------
@@ -308,6 +321,17 @@ object PsiContextExtractor {
         val method = PsiTreeUtil.getParentOfType(v, PsiMethod::class.java)
         val scopeHint = method?.name?.let { "in $it(...)" } ?: "local"
 
+        val codeSnippet: String? = when (codeSnippetMode) {
+            CodeSnippetMode.METHOD_WITH_COMMENTS ->
+                // Prefer method + leading comments; if we can’t find a method, fall back to whole file
+                method?.let { methodWithLeadingComments(it) }
+
+            CodeSnippetMode.WHOLE_FILE ->
+                file.text
+
+            CodeSnippetMode.NONE -> null
+        }
+
         return RenameContext(
             symbolName = v.name,
             symbolKind = "localVariable",
@@ -317,7 +341,7 @@ object PsiContextExtractor {
             filePath = file.virtualFile?.path ?: file.name,
             projectStyle = "lowerCamelCase",
             purposeHint = null,
-            codeSnippet = method?.let { methodWithLeadingComments(it) },
+            codeSnippet = codeSnippet,
             conflictNames = collectConflictsForLocal(v)
         )
     }

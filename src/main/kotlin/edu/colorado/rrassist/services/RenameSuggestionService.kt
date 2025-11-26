@@ -5,6 +5,8 @@ import com.intellij.openapi.components.service
 import edu.colorado.rrassist.llm.LlmFactory
 import edu.colorado.rrassist.settings.RRAssistAppSettings
 import edu.colorado.rrassist.settings.RRAssistConfig
+import edu.colorado.rrassist.strategies.FileLevelLlmStrategy
+import edu.colorado.rrassist.strategies.HistoryFirstFileLlmStrategy
 import edu.colorado.rrassist.strategies.MethodLevelLlmStrategy
 import edu.colorado.rrassist.strategies.HistoryFirstStrategy
 import edu.colorado.rrassist.strategies.HistoryOnlyStrategy
@@ -38,6 +40,14 @@ enum class StrategyType {
 
             else -> false
         }
+
+    fun isFileBased(): Boolean =
+        when (this) {
+            FILE_LEVEL_LLM,
+            HISTORY_FIRST_FILE_LLM -> true
+
+            else -> false
+        }
 }
 
 @Serializable
@@ -50,6 +60,7 @@ class RenameSuggestionService(
     strategyType: StrategyType = StrategyType.HISTORY_FIRST_METHOD_LEVEL, cfg: RRAssistConfig? = null
 ) {
     private var llm = LlmFactory.create(cfg ?: RRAssistAppSettings.getInstance().state)
+    val llmClient get() = llm
 
     private var strategy: RenameSuggestionStrategy = createStrategy(strategyType)
 
@@ -58,8 +69,8 @@ class RenameSuggestionService(
             StrategyType.METHOD_LEVEL_LLM -> MethodLevelLlmStrategy(llm)
             StrategyType.HISTORY_FIRST_METHOD_LEVEL -> HistoryFirstStrategy(llm)
             StrategyType.HISTORY_ONLY -> HistoryOnlyStrategy(llm)
-            StrategyType.FILE_LEVEL_LLM -> TODO()
-            StrategyType.HISTORY_FIRST_FILE_LLM -> TODO()
+            StrategyType.FILE_LEVEL_LLM -> FileLevelLlmStrategy(llm)
+            StrategyType.HISTORY_FIRST_FILE_LLM -> HistoryFirstFileLlmStrategy(llm)
         }
 
     fun setStrategy(strategy: StrategyType) {

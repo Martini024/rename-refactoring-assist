@@ -5,15 +5,15 @@ import dev.langchain4j.model.openai.OpenAiChatModel
 import edu.colorado.rrassist.settings.RRAssistConfig
 import java.time.Duration
 
-class OpenAiClient(private val cfg: RRAssistConfig) : LlmClient {
-    override val model: ChatModel by lazy {
+class OpenAiClient(private val cfg: RRAssistConfig) : LlmClient() {
+    override fun createModel(): ChatModel {
         val logRequests = System.getenv("LLM_LOG_REQUEST")?.toBoolean() ?: false
         val logResponses = System.getenv("LLM_LOG_RESPONSE")?.toBoolean() ?: false
 
         val key = (cfg.apiKey).trim()
         require(key.isNotEmpty()) { "OpenAI API key is required for OpenAiClient" }
 
-        OpenAiChatModel.builder()
+        return OpenAiChatModel.builder()
             .baseUrl(cfg.baseUrl)
             .apiKey(cfg.apiKey)
             .modelName(cfg.model)                     // e.g., "gpt-4o-mini"

@@ -1,9 +1,10 @@
 package edu.colorado.rrassist.strategies
 
 import edu.colorado.rrassist.llm.LlmClient
+import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestionsEnvelope
 
-class HistoryOnlyStrategy(llm: LlmClient) : HistoryFirstStrategy(llm) {
+class HistoryOnlyStrategy(llm: LlmClient) : HistoryFirstStrategy(llm, PsiContextExtractor.CodeSnippetMode.NONE) {
     override suspend fun suggest(context: RenameContext, topK: Int): RenameSuggestionsEnvelope {
         if (renameHistories.isNotEmpty()) {
             rankHistory(context)
