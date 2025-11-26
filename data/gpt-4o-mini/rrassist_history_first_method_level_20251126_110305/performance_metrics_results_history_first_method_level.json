@@ -1,0 +1,18 @@
+{
+    "aggregate_performance_metrics": {
+        "top_1_performance_metrics": {
+            "exact_match": 0.17198177676537585,
+            "edit_similarity": 0.4671392215981789,
+            "token_precision": 0.48018223234624124,
+            "token_recall": 0.4939472827855514,
+            "token_f1": 0.472213201882905
+        },
+        "top_5_performance_metrics": {
+            "exact_match": 0.1970387243735763,
+            "edit_similarity": 0.5610268058386729,
+            "token_precision": 0.5669893697798032,
+            "token_recall": 0.5908449940340605,
+            "token_f1": 0.5626677802076437
+        }
+    }
+}
