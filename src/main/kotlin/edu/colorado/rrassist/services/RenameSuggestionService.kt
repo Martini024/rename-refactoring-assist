@@ -11,6 +11,7 @@ import edu.colorado.rrassist.strategies.MethodLevelLlmStrategy
 import edu.colorado.rrassist.strategies.HistoryFirstStrategy
 import edu.colorado.rrassist.strategies.HistoryOnlyStrategy
 import edu.colorado.rrassist.strategies.RenameContext
+import edu.colorado.rrassist.strategies.RenameHistory
 import edu.colorado.rrassist.strategies.RenameSuggestionStrategy
 import kotlinx.serialization.Serializable
 
@@ -22,7 +23,8 @@ import kotlinx.serialization.Serializable
 data class RenameSuggestion(
     val name: String,
     val rationale: String? = null,
-    val confidence: Double? = null
+    val confidence: Double? = null,
+    val renameHistory: RenameHistory? = null,
 )
 
 enum class StrategyType {

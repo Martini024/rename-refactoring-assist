@@ -1,6 +1,6 @@
 
 🚀 Running strategy: HISTORY_ONLY (suffix: history_only)
-   Output dir: /Users/martini/Desktop/rename-refactoring-assist/data/gpt-4o-mini/rrassist_history_only_20251126_110305
+   Output dir: /Users/martini/Desktop/rename-refactoring-assist/data/rrassist_history_only_20251126_194131
 skip: decl=PsiFieldImpl, name=taskManagerTimeout, expected=taskManager
 skip: decl=PsiParameterImpl, name=taskManagerTimeout, expected=taskManager
 skip: decl=PsiParameterImpl, name=taskManagerResourceInfoProvider, expected=taskManager
@@ -30,7 +30,7 @@ skip: decl=PsiParameterImpl, name=assertions, expected=assertion
 skip: decl=PsiParameterImpl, name=operatorIDPair, expected=operatorID
 skip: decl=PsiLocalVariableImpl, name=operatorState, expected=operatorID
 HIGH MATCH for symbol='operatorID': suggestion='operatorIDPair', history=operatorID operatorIDPair, score=0.9,
-📦 [history_only] Processed 20/956 | ✅ 19 | ❌ 1 | ⏱ 1s elapsed | Last item 0s
+📦 [history_only] Processed 20/956 | ✅ 19 | ❌ 1 | ⏱ 0s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=operatorIDs, expected=operatorID
 HIGH MATCH for symbol='operatorID': suggestion='operatorIDPair', history=operatorID operatorIDPair, score=0.9,
 
@@ -54,7 +54,7 @@ HIGH MATCH for symbol='operatorID': suggestion='operatorIDPair', history=operato
 
 
 ==== Commit 04e6437dd4d06b59b3f87651e2043559f3df827e^1 ====
-📦 [history_only] Processed 30/956 | ✅ 29 | ❌ 1 | ⏱ 3s elapsed | Last item 0s
+📦 [history_only] Processed 30/956 | ✅ 29 | ❌ 1 | ⏱ 1s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=attributeMapping, expected=attr
 skip: decl=PsiLocalVariableImpl, name=attributeMapping, expected=attr
 skip: decl=PsiParameterImpl, name=attrRef, expected=attr
@@ -84,7 +84,7 @@ skip: decl=PsiLocalVariableImpl, name=newAggregateCall, expected=newAggregate
 
 ==== Commit 0a3e711ffe8c433d3881b20261446d4dd026827f^1 ====
 HIGH MATCH for symbol='alignmentTimeout': suggestion='alignedCheckpointTimeout', history=alignmentTimeout alignedCheckpointTimeout, score=0.9,
-📦 [history_only] Processed 40/956 | ✅ 38 | ❌ 2 | ⏱ 3s elapsed | Last item 0s
+📦 [history_only] Processed 40/956 | ✅ 38 | ❌ 2 | ⏱ 1s elapsed | Last item 0s
 HIGH MATCH for symbol='alignmentTimeout': suggestion='alignedCheckpointTimeout', history=alignmentTimeout alignedCheckpointTimeout, score=0.9,
 
 
@@ -99,7 +99,7 @@ skip: decl=PsiFieldImpl, name=timestampedCollector, expected=timestamp
 
 
 ==== Commit 0d11103b7bc88c6eb5e4fa598008591d332d8d30^1 ====
-📦 [history_only] Processed 50/956 | ✅ 47 | ❌ 3 | ⏱ 5s elapsed | Last item 0s
+📦 [history_only] Processed 50/956 | ✅ 47 | ❌ 3 | ⏱ 1s elapsed | Last item 0s
 
 
 ==== Commit 0e8b98088396a1f2cb77590b2b75c47c0258595b^1 ====
@@ -107,7 +107,7 @@ skip: decl=PsiParameterImpl, name=internalRegions, expected=internalRegion
 
 
 ==== Commit 0ef0dbd4077161d47b29cc6130a2da3bc2a8048b^1 ====
-📦 [history_only] Processed 60/956 | ✅ 57 | ❌ 3 | ⏱ 6s elapsed | Last item 0s
+📦 [history_only] Processed 60/956 | ✅ 57 | ❌ 3 | ⏱ 1s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=cachedFiles, expected=t
 skip: decl=PsiFieldImpl, name=cachedFiles, expected=t
 skip: decl=PsiFieldImpl, name=cachedFiles, expected=t
@@ -208,7 +208,7 @@ skip: decl=PsiLocalVariableImpl, name=actual, expected=t
 
 
 ==== Commit 133ffab4f19b91d5a5fba58684e2a30a6b8b31c7^1 ====
-📦 [history_only] Processed 70/956 | ✅ 64 | ❌ 6 | ⏱ 7s elapsed | Last item 0s
+📦 [history_only] Processed 70/956 | ✅ 64 | ❌ 6 | ⏱ 2s elapsed | Last item 0s
 
 
 ==== Commit 1389856a6412eca4fd738e4cd37c6ef157e4dee1^1 ====
@@ -230,7 +230,7 @@ skip: decl=PsiLocalVariableImpl, name=actual, expected=t
 
 
 ==== Commit 19577b0da7f42fe569084f0207bce93a9be08f57^1 ====
-📦 [history_only] Processed 80/956 | ✅ 73 | ❌ 7 | ⏱ 8s elapsed | Last item 0s
+📦 [history_only] Processed 80/956 | ✅ 73 | ❌ 7 | ⏱ 2s elapsed | Last item 0s
 HIGH MATCH for symbol='instanceBasePath': suggestion='childPath', history=instanceBasePath childPath, score=0.9,
 
 
@@ -246,7 +246,7 @@ skip: decl=PsiParameterImpl, name=expression, expected=expr
 
 ==== Commit 1b21e37d7c0848cf088be71815ecffb182c2915a^1 ====
 HIGH MATCH for symbol='builder': suggestion='grpcBuilder', history=builder grpcBuilder, score=0.8,
-📦 [history_only] Processed 90/956 | ✅ 82 | ❌ 8 | ⏱ 9s elapsed | Last item 0s
+📦 [history_only] Processed 90/956 | ✅ 82 | ❌ 8 | ⏱ 2s elapsed | Last item 0s
 HIGH MATCH for symbol='builder': suggestion='grpcBuilder', history=builder grpcBuilder, score=0.8,
 skip: decl=PsiFieldImpl, name=LOG, expected=st
 skip: decl=PsiFieldImpl, name=LOG, expected=st
@@ -314,7 +314,7 @@ skip: decl=PsiParameterImpl, name=inputSpecs, expected=inputSpec
 
 
 ==== Commit 1f303a218f47aa1a8eaf1323fc2a5debe914762d^1 ====
-📦 [history_only] Processed 100/956 | ✅ 91 | ❌ 9 | ⏱ 10s elapsed | Last item 0s
+📦 [history_only] Processed 100/956 | ✅ 91 | ❌ 9 | ⏱ 2s elapsed | Last item 0s
 
 
 ==== Commit 1f7622d4d23bfcb76f466469ec36585054864f04^1 ====
@@ -330,12 +330,12 @@ skip: decl=PsiLocalVariableImpl, name=portsConfig, expected=ports
 
 ==== Commit 21403e31f4761bdddf5e4e802e0e5eb9b4533202^1 ====
 HIGH MATCH for symbol='joinHintResolver': suggestion='resolver', history=joinHintResolver resolver, score=0.9,
-📦 [history_only] Processed 110/956 | ✅ 101 | ❌ 9 | ⏱ 11s elapsed | Last item 0s
+📦 [history_only] Processed 110/956 | ✅ 101 | ❌ 9 | ⏱ 3s elapsed | Last item 0s
 HIGH MATCH for symbol='joinHintResolver': suggestion='queryHintsResolver', history=joinHintResolver queryHintsResolver, score=0.9,
 
 
 ==== Commit 21b22c0829463136e556b1b4cf312d602d227d09^1 ====
-📦 [history_only] Processed 120/956 | ✅ 111 | ❌ 9 | ⏱ 12s elapsed | Last item 0s
+📦 [history_only] Processed 120/956 | ✅ 111 | ❌ 9 | ⏱ 3s elapsed | Last item 0s
 
 
 ==== Commit 23272f03f2925abaee3b37a6b33ea9f62ea5c8e1^1 ====
@@ -346,7 +346,7 @@ HIGH MATCH for symbol='joinHintResolver': suggestion='queryHintsResolver', histo
 
 ==== Commit 2432e5c7c9aa085d846e47cb7771e45a5dea3710^1 ====
 skip: decl=PsiFieldImpl, name=scopes, expected=from
-📦 [history_only] Processed 130/956 | ✅ 121 | ❌ 9 | ⏱ 13s elapsed | Last item 0s
+📦 [history_only] Processed 130/956 | ✅ 121 | ❌ 9 | ⏱ 3s elapsed | Last item 0s
 
 
 ==== Commit 24685395ccf19344e9331201ae0cd600b7722a89^1 ====
@@ -362,7 +362,7 @@ skip: decl=PsiFieldImpl, name=scopes, expected=from
 
 
 ==== Commit 263555c9adcca0abe194e9a6c1d85ec591c304e4^1 ====
-📦 [history_only] Processed 140/956 | ✅ 131 | ❌ 9 | ⏱ 14s elapsed | Last item 0s
+📦 [history_only] Processed 140/956 | ✅ 131 | ❌ 9 | ⏱ 3s elapsed | Last item 0s
 
 
 ==== Commit 268144c30fab7704e713ccfcda0c3e6be3857660^1 ====
@@ -376,7 +376,7 @@ skip: decl=PsiFieldImpl, name=scopes, expected=from
 
 ==== Commit 2839d06559ccf2a0b63a7f61276d7bb546abca3d^1 ====
 HIGH MATCH for symbol='channelIndex': suggestion='subpartition', history=channelIndex subpartition, score=0.9,
-📦 [history_only] Processed 150/956 | ✅ 141 | ❌ 9 | ⏱ 15s elapsed | Last item 0s
+📦 [history_only] Processed 150/956 | ✅ 141 | ❌ 9 | ⏱ 4s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=builders, expected=channel
 skip: decl=PsiFieldImpl, name=readOrderIndex, expected=channel
 HIGH MATCH for symbol='channel': suggestion='subpartition', history=channel subpartition, score=0.9,
@@ -389,7 +389,7 @@ skip: decl=PsiFieldImpl, name=readOrderIndex, expected=channel
 HIGH MATCH for symbol='channel': suggestion='subpartition', history=channel subpartition, score=0.9,
 HIGH MATCH for symbol='channelIndex': suggestion='subpartition', history=channelIndex subpartition, score=0.9,
 HIGH MATCH for symbol='channel': suggestion='subpartition', history=channel subpartition, score=0.9,
-📦 [history_only] Processed 160/956 | ✅ 151 | ❌ 9 | ⏱ 16s elapsed | Last item 0s
+📦 [history_only] Processed 160/956 | ✅ 151 | ❌ 9 | ⏱ 4s elapsed | Last item 0s
 HIGH MATCH for symbol='channel': suggestion='subpartition', history=channel subpartition, score=0.9,
 HIGH MATCH for symbol='channel': suggestion='subpartition', history=channel subpartition, score=0.9,
 skip: decl=PsiLocalVariableImpl, name=bufferWithChannels, expected=bufferWithChannel
@@ -399,13 +399,13 @@ skip: decl=PsiParameterImpl, name=bufferWithChannels, expected=bufferWithChannel
 
 ==== Commit 292d7f449db89c662c60b265ed99e33416dba614^1 ====
 HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=jobGraphStore executionPlanStore, score=0.9,
-📦 [history_only] Processed 170/956 | ✅ 160 | ❌ 10 | ⏱ 16s elapsed | Last item 0s
+📦 [history_only] Processed 170/956 | ✅ 160 | ❌ 10 | ⏱ 4s elapsed | Last item 0s
 HIGH MATCH for symbol='recoveredJobGraph': suggestion='recoveredExecutionPlan', history=recoveredJobGraph recoveredExecutionPlan, score=0.9,
 HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=jobGraphStore executionPlanStore, score=0.8,
 HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=jobGraphStore executionPlanStore, score=0.9,
 HIGH MATCH for symbol='otherJobGraph': suggestion='otherExecutionPlan', history=otherJobGraph otherExecutionPlan, score=0.9,
 HIGH MATCH for symbol='submittedJobGraphStore': suggestion='submittedExecutionPlanStore', history=submittedJobGraphStore submittedExecutionPlanStore, score=0.8,
-📦 [history_only] Processed 180/956 | ✅ 167 | ❌ 13 | ⏱ 17s elapsed | Last item 0s
+📦 [history_only] Processed 180/956 | ✅ 167 | ❌ 13 | ⏱ 4s elapsed | Last item 0s
 HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=jobGraphStore executionPlanStore, score=0.8,
 skip: decl=PsiFieldImpl, name=jobGraphStore, expected=jobGraph
 skip: decl=PsiParameterImpl, name=jobGraphStore, expected=jobGraph
@@ -418,7 +418,7 @@ HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=
 HIGH MATCH for symbol='jobGraphs': suggestion='executionPlans', history=jobGraphs executionPlans, score=0.8,
 skip: decl=PsiLocalVariableImpl, name=jobGraphs, expected=jobGraph
 HIGH MATCH for symbol='jobGraph': suggestion='executionPlan', history=jobGraph executionPlan, score=0.9,
-📦 [history_only] Processed 190/956 | ✅ 175 | ❌ 15 | ⏱ 18s elapsed | Last item 0s
+📦 [history_only] Processed 190/956 | ✅ 175 | ❌ 15 | ⏱ 5s elapsed | Last item 0s
 skip: decl=PsiParameterImpl, name=jobGraphListener, expected=jobGraph
 HIGH MATCH for symbol='jobGraph': suggestion='executionPlan', history=jobGraph executionPlan, score=0.9,
 skip: decl=PsiParameterImpl, name=initialJobGraphs, expected=initialJobGraph
@@ -435,7 +435,7 @@ HIGH MATCH for symbol='jobGraph': suggestion='executionPlan', history=jobGraph e
 HIGH MATCH for symbol='jobGraphStore': suggestion='executionPlanStore', history=jobGraphStore executionPlanStore, score=0.8,
 HIGH MATCH for symbol='recoveredJobGraph': suggestion='recoveredExecutionPlan', history=recoveredJobGraph recoveredExecutionPlan, score=0.9,
 HIGH MATCH for symbol='jobGraphs': suggestion='executionPlans', history=jobGraphs executionPlans, score=0.8,
-📦 [history_only] Processed 200/956 | ✅ 184 | ❌ 16 | ⏱ 19s elapsed | Last item 0s
+📦 [history_only] Processed 200/956 | ✅ 184 | ❌ 16 | ⏱ 5s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=otherJobGraphs, expected=otherJobGraph
 HIGH MATCH for symbol='otherJobGraph': suggestion='otherExecutionPlan', history=otherJobGraph otherExecutionPlan, score=0.9,
 HIGH MATCH for symbol='otherSubmittedJobGraphStore': suggestion='otherSubmittedExecutionPlanStore', history=submittedJobGraphStore submittedExecutionPlanStore, score=0.77,
@@ -454,7 +454,7 @@ HIGH MATCH for symbol='recoveredJobGraph': suggestion='recoveredExecutionPlan', 
 
 ==== Commit 2bcc308d3600b429416b01e95159c360dafcb0ab^1 ====
 HIGH MATCH for symbol='cp2StateHandle': suggestion='cp2StateHandle1', history=cp2StateHandle cp2StateHandle1, score=0.9,
-📦 [history_only] Processed 210/956 | ✅ 194 | ❌ 16 | ⏱ 20s elapsed | Last item 0s
+📦 [history_only] Processed 210/956 | ✅ 194 | ❌ 16 | ⏱ 5s elapsed | Last item 0s
 HIGH MATCH for symbol='cp3StateHandle': suggestion='cp3StateHandle1', history=cp3StateHandle cp3StateHandle1, score=0.9,
 HIGH MATCH for symbol='cp2StateHandle': suggestion='cp2StateHandle1', history=cp2StateHandle cp2StateHandle1, score=0.9,
 HIGH MATCH for symbol='cp3StateHandle': suggestion='cp3StateHandle1', history=cp3StateHandle cp3StateHandle1, score=0.9,
@@ -635,7 +635,7 @@ skip: decl=PsiLocalVariableImpl, name=tmpColumnFamilyHandles, expected=i
 skip: decl=PsiLocalVariableImpl, name=tmpColumnFamilyHandles, expected=i
 skip: decl=PsiLocalVariableImpl, name=tmpColumnFamilyHandles, expected=i
 skip: decl=PsiLocalVariableImpl, name=tmpColumnFamilyHandles, expected=i
-📦 [history_only] Processed 220/956 | ✅ 204 | ❌ 16 | ⏱ 21s elapsed | Last item 0s
+📦 [history_only] Processed 220/956 | ✅ 204 | ❌ 16 | ⏱ 5s elapsed | Last item 0s
 
 
 ==== Commit 309e3246e0232a0a363aa44ab6d5524133f8f548^1 ====
@@ -705,7 +705,7 @@ skip: decl=PsiFieldImpl, name=ARG0_TABLE_FUNCTION_WINDOWING, expected=field
 
 
 ==== Commit 356f5bb8e2e199e3e1c80ed3332d33816990d273^1 ====
-📦 [history_only] Processed 230/956 | ✅ 213 | ❌ 17 | ⏱ 23s elapsed | Last item 0s
+📦 [history_only] Processed 230/956 | ✅ 213 | ❌ 17 | ⏱ 6s elapsed | Last item 0s
 
 
 ==== Commit 35b2cae8cdbc8642ca51b922f62579357a47415b^1 ====
@@ -722,7 +722,7 @@ HIGH MATCH for symbol='prefix': suggestion='notPrefix', history=prefix notPrefix
 
 
 ==== Commit 36b9da50da9405b5b79f0d4da9393921982ab040^1 ====
-📦 [history_only] Processed 240/956 | ✅ 222 | ❌ 18 | ⏱ 24s elapsed | Last item 0s
+📦 [history_only] Processed 240/956 | ✅ 222 | ❌ 18 | ⏱ 6s elapsed | Last item 0s
 
 
 ==== Commit 36c3d778b4570e5445fcfe1d33ea79554a5011f1^1 ====
@@ -746,7 +746,7 @@ HIGH MATCH for symbol='executionConfig': suggestion='isObjectReused', history=ex
 
 
 ==== Commit 3bc4f4fc17de1de758be7aca094146dfec844a37^1 ====
-📦 [history_only] Processed 250/956 | ✅ 232 | ❌ 18 | ⏱ 25s elapsed | Last item 0s
+📦 [history_only] Processed 250/956 | ✅ 232 | ❌ 18 | ⏱ 6s elapsed | Last item 0s
 
 
 ==== Commit 3bc96001656cda6ccaeda22741c75e035505ec1b^1 ====
@@ -757,7 +757,7 @@ HIGH MATCH for symbol='executionConfig': suggestion='isObjectReused', history=ex
 
 ==== Commit 3d350485755e47d2b09ac1b2067b6119ef960b5a^1 ====
 HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema schema, score=0.9,
-📦 [history_only] Processed 260/956 | ✅ 242 | ❌ 18 | ⏱ 26s elapsed | Last item 0s
+📦 [history_only] Processed 260/956 | ✅ 242 | ❌ 18 | ⏱ 7s elapsed | Last item 0s
 HIGH MATCH for symbol='catalogTable': suggestion='resolveCatalogTable', history=catalogTable resolveCatalogTable, score=0.9,
 HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema schema, score=0.9,
 HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema schema, score=0.9,
@@ -767,7 +767,7 @@ HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema sc
 HIGH MATCH for symbol='catalogTable': suggestion='resolvedCatalogTable', history=catalogTable resolvedCatalogTable, score=0.9,
 HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema schema, score=0.9,
 HIGH MATCH for symbol='tableSchema': suggestion='schema', history=tableSchema schema, score=0.9,
-📦 [history_only] Processed 270/956 | ✅ 252 | ❌ 18 | ⏱ 27s elapsed | Last item 0s
+📦 [history_only] Processed 270/956 | ✅ 252 | ❌ 18 | ⏱ 7s elapsed | Last item 0s
 
 
 ==== Commit 3d676a355e910966fc878bde62d73c1721c79942^1 ====
@@ -794,7 +794,7 @@ skip: decl=PsiParameterImpl, name=projectRef, expected=project
 
 
 ==== Commit 3f5428ff1092ac0332c6712318f18a1483aed797^1 ====
-📦 [history_only] Processed 280/956 | ✅ 261 | ❌ 19 | ⏱ 29s elapsed | Last item 0s
+📦 [history_only] Processed 280/956 | ✅ 261 | ❌ 19 | ⏱ 7s elapsed | Last item 0s
 
 
 ==== Commit 3ff225c5f993282d6dfc7726fc08cc00058d9a7f^1 ====
@@ -958,7 +958,7 @@ skip: decl=PsiParameterImpl, name=containedJobVertices, expected=i
 skip: decl=PsiLocalVariableImpl, name=sharedSlotToVertexAssignment, expected=i
 skip: decl=PsiLocalVariableImpl, name=sharedSlotToVertexAssignment, expected=i
 skip: decl=PsiLocalVariableImpl, name=sharedSlotToVertexAssignment, expected=i
-📦 [history_only] Processed 290/956 | ✅ 271 | ❌ 19 | ⏱ 29s elapsed | Last item 0s
+📦 [history_only] Processed 290/956 | ✅ 271 | ❌ 19 | ⏱ 8s elapsed | Last item 0s
 
 
 ==== Commit 4217408576552fc929d9c8331495a9282064cd9c^1 ====
@@ -983,7 +983,7 @@ skip: decl=PsiLocalVariableImpl, name=sharedSlotToVertexAssignment, expected=i
 
 
 ==== Commit 4a2535cb8ab9f4ef807e98e8b92a6f921960c059^1 ====
-📦 [history_only] Processed 300/956 | ✅ 281 | ❌ 19 | ⏱ 30s elapsed | Last item 0s
+📦 [history_only] Processed 300/956 | ✅ 281 | ❌ 19 | ⏱ 8s elapsed | Last item 0s
 
 
 ==== Commit 4a8b8c03e3aa2677fe5ab94a09ee8ae754785938^1 ====
@@ -995,7 +995,7 @@ HIGH MATCH for symbol='url': suggestion='uri', history=url uri, score=0.9,
 
 
 ==== Commit 4d131705b19d06f55f94cc6e19728488fa5448f1^1 ====
-📦 [history_only] Processed 310/956 | ✅ 290 | ❌ 20 | ⏱ 31s elapsed | Last item 0s
+📦 [history_only] Processed 310/956 | ✅ 290 | ❌ 20 | ⏱ 8s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=LOG, expected=e
 skip: decl=PsiFieldImpl, name=LOG, expected=e
 skip: decl=PsiFieldImpl, name=LOG, expected=e
@@ -1100,7 +1100,7 @@ HIGH MATCH for symbol='conf': suggestion='streamConfig', history=conf streamConf
 
 
 ==== Commit 52bf14b0ba949e048c78862be2ed8ebfb58c780e^1 ====
-📦 [history_only] Processed 320/956 | ✅ 300 | ❌ 20 | ⏱ 33s elapsed | Last item 0s
+📦 [history_only] Processed 320/956 | ✅ 300 | ❌ 20 | ⏱ 9s elapsed | Last item 0s
 
 
 ==== Commit 5495a96a38663dc04753cb6db0c100aa2bc7d297^1 ====
@@ -1148,14 +1148,14 @@ skip: decl=PsiLocalVariableImpl, name=leaderElectionService2, expected=leaderEle
 skip: decl=PsiLocalVariableImpl, name=leaderElection1, expected=leaderElectionService
 skip: decl=PsiLocalVariableImpl, name=leaderElection2, expected=leaderElectionService
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.8,
-📦 [history_only] Processed 330/956 | ✅ 310 | ❌ 20 | ⏱ 34s elapsed | Last item 0s
+📦 [history_only] Processed 330/956 | ✅ 310 | ❌ 20 | ⏱ 9s elapsed | Last item 0s
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.9,
 skip: decl=PsiFieldImpl, name=shutdown, expected=service
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.9,
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.9,
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.9,
 HIGH MATCH for symbol='leaderElectionService': suggestion='leaderElection', history=leaderElectionService leaderElection, score=0.9,
-📦 [history_only] Processed 340/956 | ✅ 319 | ❌ 21 | ⏱ 35s elapsed | Last item 0s
+📦 [history_only] Processed 340/956 | ✅ 319 | ❌ 21 | ⏱ 9s elapsed | Last item 0s
 
 
 ==== Commit 55de8d683cc56733c03c11f927f511b2ba712851^1 ====
@@ -1179,7 +1179,7 @@ skip: decl=PsiLocalVariableImpl, name=fileKey, expected=file
 
 
 ==== Commit 583722e721a121fa7a6787fe5acb47949b30454a^1 ====
-📦 [history_only] Processed 350/956 | ✅ 329 | ❌ 21 | ⏱ 36s elapsed | Last item 0s
+📦 [history_only] Processed 350/956 | ✅ 329 | ❌ 21 | ⏱ 9s elapsed | Last item 0s
 
 
 ==== Commit 584dc46b45d951c916a696db2f7a8e17af893679^1 ====
@@ -1190,7 +1190,7 @@ skip: decl=PsiFieldImpl, name=bufferRequestTimeout, expected=exception
 
 
 ==== Commit 5a4e0ea31aef51dfc50b9c401c91c7b869a154c4^1 ====
-📦 [history_only] Processed 360/956 | ✅ 339 | ❌ 21 | ⏱ 37s elapsed | Last item 0s
+📦 [history_only] Processed 360/956 | ✅ 339 | ❌ 21 | ⏱ 10s elapsed | Last item 0s
 
 
 ==== Commit 5a63c56ca0b38ebae9fc475708917c35a4168844^1 ====
@@ -1204,7 +1204,7 @@ skip: decl=PsiParameterImpl, name=alterColumnPositions, expected=alterColumnPos
 
 
 ==== Commit 5dcfdf7ecf5c2efc5d4549fb30eb89d78a1a21fa^1 ====
-📦 [history_only] Processed 370/956 | ✅ 345 | ❌ 25 | ⏱ 38s elapsed | Last item 0s
+📦 [history_only] Processed 370/956 | ✅ 345 | ❌ 25 | ⏱ 10s elapsed | Last item 0s
 
 
 ==== Commit 615d19735b0691b57262a110e6078c3488349f5a^1 ====
@@ -1229,7 +1229,7 @@ skip: decl=PsiParameterImpl, name=schema, expected=c
 
 
 ==== Commit 63b92bd88ac32be5b3e70550ba90d828b7b655d1^1 ====
-📦 [history_only] Processed 380/956 | ✅ 353 | ❌ 27 | ⏱ 39s elapsed | Last item 0s
+📦 [history_only] Processed 380/956 | ✅ 353 | ❌ 27 | ⏱ 10s elapsed | Last item 0s
 
 
 ==== Commit 64cbcd2d4b360f03f7964edece6f3211d184fb06^1 ====
@@ -1237,7 +1237,7 @@ skip: decl=PsiParameterImpl, name=schema, expected=c
 
 ==== Commit 64e8c349c4ee04623f2c874314a763f9fc1a3054^1 ====
 skip: decl=PsiFieldImpl, name=representativeAttempts, expected=key
-📦 [history_only] Processed 390/956 | ✅ 359 | ❌ 31 | ⏱ 40s elapsed | Last item 0s
+📦 [history_only] Processed 390/956 | ✅ 359 | ❌ 31 | ⏱ 11s elapsed | Last item 0s
 
 
 ==== Commit 66913489fb380fa735e3511f5853314749445d8e^1 ====
@@ -1256,7 +1256,7 @@ skip: decl=PsiParameterImpl, name=checkpointId, expected=checkpoint
 
 
 ==== Commit 67be29a003dfcaa1caccee716e6860efc1ea194d^1 ====
-📦 [history_only] Processed 400/956 | ✅ 369 | ❌ 31 | ⏱ 42s elapsed | Last item 0s
+📦 [history_only] Processed 400/956 | ✅ 369 | ❌ 31 | ⏱ 11s elapsed | Last item 0s
 
 
 ==== Commit 67d23fc45be45c02341a9cbd7dddea18ba40bca2^1 ====
@@ -1265,7 +1265,7 @@ HIGH MATCH for symbol='maxBuffersPerGate': suggestion='targetTotalBuffersPerGate
 HIGH MATCH for symbol='minBuffersPerGate': suggestion='totalFloatingBuffers', history=minBuffersPerGate totalFloatingBuffers, score=0.9,
 HIGH MATCH for symbol='maxBuffersPerGate': suggestion='targetTotalBuffersPerGate', history=maxBuffersPerGate targetTotalBuffersPerGate, score=0.9,
 HIGH MATCH for symbol='expectedBuffersPerGate': suggestion='maxFloating', history=expectedBuffersPerGate maxFloating, score=0.9,
-📦 [history_only] Processed 410/956 | ✅ 379 | ❌ 31 | ⏱ 42s elapsed | Last item 0s
+📦 [history_only] Processed 410/956 | ✅ 379 | ❌ 31 | ⏱ 11s elapsed | Last item 0s
 HIGH MATCH for symbol='minBuffersPerGate': suggestion='minFloating', history=minBuffersPerGate minFloating, score=0.9,
 HIGH MATCH for symbol='maxBuffersPerGate': suggestion='targetTotalBuffersPerGate', history=maxBuffersPerGate targetTotalBuffersPerGate, score=0.9,
 HIGH MATCH for symbol='tuple': suggestion='pair', history=tuple pair, score=0.9,
@@ -1281,7 +1281,7 @@ skip: decl=PsiLocalVariableImpl, name=jsonUids, expected=json
 
 
 ==== Commit 6ab3c3d9881b833278e29d205c0bca1acf575be5^1 ====
-📦 [history_only] Processed 420/956 | ✅ 388 | ❌ 32 | ⏱ 43s elapsed | Last item 0s
+📦 [history_only] Processed 420/956 | ✅ 388 | ❌ 32 | ⏱ 11s elapsed | Last item 0s
 HIGH MATCH for symbol='scalingIntervalMin': suggestion='executingCooldownTimeout', history=scalingIntervalMin executingCooldownTimeout, score=0.9,
 HIGH MATCH for symbol='scalingIntervalMin': suggestion='executingCooldownTimeout', history=scalingIntervalMin executingCooldownTimeout, score=0.9,
 
@@ -1295,7 +1295,7 @@ HIGH MATCH for symbol='scalingIntervalMin': suggestion='executingCooldownTimeout
 ==== Commit 6dcb10abf319b9e5494a82bee71f1ae1a4e4b211^1 ====
 HIGH MATCH for symbol='entry': suggestion='handleAndLocalPath', history=entry handleAndLocalPath, score=0.9,
 HIGH MATCH for symbol='stateHandleEntry': suggestion='stateHandleAndLocalPath', history=handleEntry handleAndLocalPath, score=0.75,
-📦 [history_only] Processed 430/956 | ✅ 397 | ❌ 33 | ⏱ 44s elapsed | Last item 0s
+📦 [history_only] Processed 430/956 | ✅ 397 | ❌ 33 | ⏱ 12s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=checkpointId, expected=entry
 skip: decl=PsiLocalVariableImpl, name=checkpointId, expected=entry
 skip: decl=PsiLocalVariableImpl, name=it, expected=entry
@@ -1825,7 +1825,7 @@ skip: decl=PsiLocalVariableImpl, name=sharedState, expected=e
 skip: decl=PsiLocalVariableImpl, name=sharedState, expected=e
 skip: decl=PsiLocalVariableImpl, name=sharedState, expected=e
 skip: decl=PsiLocalVariableImpl, name=sharedState, expected=e
-📦 [history_only] Processed 440/956 | ✅ 407 | ❌ 33 | ⏱ 45s elapsed | Last item 0s
+📦 [history_only] Processed 440/956 | ✅ 407 | ❌ 33 | ⏱ 12s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=INITIAL_SCAN_INTERVAL_MS, expected=e
 skip: decl=PsiFieldImpl, name=INITIAL_SCAN_INTERVAL_MS, expected=e
 skip: decl=PsiFieldImpl, name=INITIAL_SCAN_INTERVAL_MS, expected=e
@@ -1956,7 +1956,7 @@ skip: decl=PsiFieldImpl, name=windowTimes, expected=windowTime
 
 
 ==== Commit 707bae0fb118cbe2b95bfad7a516bf19421f40d9^1 ====
-📦 [history_only] Processed 450/956 | ✅ 416 | ❌ 34 | ⏱ 45s elapsed | Last item 0s
+📦 [history_only] Processed 450/956 | ✅ 416 | ❌ 34 | ⏱ 12s elapsed | Last item 0s
 
 
 ==== Commit 72240726a936e38e4de3fdcae162af3bbec1fcfe^1 ====
@@ -1977,7 +1977,7 @@ skip: decl=PsiLocalVariableImpl, name=testInstance, expected=driver
 
 
 ==== Commit 734e736a429089f3cd4ff66c7e774e735c035555^1 ====
-📦 [history_only] Processed 460/956 | ✅ 426 | ❌ 34 | ⏱ 47s elapsed | Last item 0s
+📦 [history_only] Processed 460/956 | ✅ 426 | ❌ 34 | ⏱ 13s elapsed | Last item 0s
 
 
 ==== Commit 741ff29b67535427eedb7b8a757b6acbd12c40e5^1 ====
@@ -1994,7 +1994,7 @@ skip: decl=PsiLocalVariableImpl, name=testInstance, expected=driver
 
 ==== Commit 76ebeb93257369c136a9eeabd5bacb71a9699968^1 ====
 HIGH MATCH for symbol='producers': suggestion='consumedPartitionGroup', history=producers consumedPartitionGroup, score=0.8,
-📦 [history_only] Processed 470/956 | ✅ 436 | ❌ 34 | ⏱ 48s elapsed | Last item 0s
+📦 [history_only] Processed 470/956 | ✅ 436 | ❌ 34 | ⏱ 13s elapsed | Last item 0s
 skip: decl=PsiParameterImpl, name=producersToIgnore, expected=producers
 skip: decl=PsiParameterImpl, name=producersToIgnore, expected=producers
 HIGH MATCH for symbol='producers': suggestion='consumedPartitionGroup', history=producers consumedPartitionGroup, score=0.8,
@@ -2006,13 +2006,13 @@ HIGH MATCH for symbol='producers': suggestion='consumedPartitionGroup', history=
 ==== Commit 773feebbb2426ab1a8f7684f59b9a73db8f6a613^1 ====
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
-📦 [history_only] Processed 480/956 | ✅ 444 | ❌ 36 | ⏱ 48s elapsed | Last item 0s
+📦 [history_only] Processed 480/956 | ✅ 444 | ❌ 36 | ⏱ 13s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=confirmedLeaderInformation, expected=contenderID
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
 HIGH MATCH for symbol='contenderID': suggestion='componentId', history=contenderID componentId, score=0.9,
-📦 [history_only] Processed 490/956 | ✅ 453 | ❌ 37 | ⏱ 49s elapsed | Last item 0s
+📦 [history_only] Processed 490/956 | ✅ 453 | ❌ 37 | ⏱ 13s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=contenderIDRef, expected=contenderID
 skip: decl=PsiLocalVariableImpl, name=parentService, expected=contenderID
 skip: decl=PsiLocalVariableImpl, name=contenderIDRef, expected=contenderID
@@ -2027,7 +2027,7 @@ skip: decl=PsiLocalVariableImpl, name=keyFormatOption, expected=keyFormat
 
 
 ==== Commit 7a709bf323c1cce3440887fe937311bae119aab0^1 ====
-📦 [history_only] Processed 500/956 | ✅ 460 | ❌ 40 | ⏱ 50s elapsed | Last item 0s
+📦 [history_only] Processed 500/956 | ✅ 460 | ❌ 40 | ⏱ 14s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=SAVEPOINT_RESTORE_MODE, expected=restoreMode
 
 
@@ -2039,7 +2039,7 @@ HIGH MATCH for symbol='restoreMode': suggestion='recoveryClaimMode', history=res
 
 
 ==== Commit 7b35edeb3e343d9d35e432bb2c08f43055b96590^1 ====
-📦 [history_only] Processed 510/956 | ✅ 466 | ❌ 44 | ⏱ 51s elapsed | Last item 0s
+📦 [history_only] Processed 510/956 | ✅ 466 | ❌ 44 | ⏱ 14s elapsed | Last item 0s
 
 
 ==== Commit 7b9b4e53a59ab8f4f2a99a6e162a794d264f7daf^1 ====
@@ -2065,7 +2065,7 @@ skip: decl=PsiLocalVariableImpl, name=contents, expected=content
 
 
 ==== Commit 7f2818bea1c50d9a092c5360a3d4de3a86c411b2^1 ====
-📦 [history_only] Processed 520/956 | ✅ 476 | ❌ 44 | ⏱ 52s elapsed | Last item 0s
+📦 [history_only] Processed 520/956 | ✅ 476 | ❌ 44 | ⏱ 14s elapsed | Last item 0s
 
 
 ==== Commit 7f338e87a777abd102719dcb772b184770b62b88^1 ====
@@ -2082,7 +2082,7 @@ skip: decl=PsiLocalVariableImpl, name=currentQueue, expected=queueIndex
 
 
 ==== Commit 81aaff4581d98ab2fb762712ffa27c73539e5b9c^1 ====
-📦 [history_only] Processed 530/956 | ✅ 486 | ❌ 44 | ⏱ 53s elapsed | Last item 0s
+📦 [history_only] Processed 530/956 | ✅ 486 | ❌ 44 | ⏱ 14s elapsed | Last item 0s
 
 
 ==== Commit 81ed6c649e1a219c457628c54a7165d75b803474^1 ====
@@ -2098,7 +2098,7 @@ skip: decl=PsiFieldImpl, name=executionMode, expected=x
 
 
 ==== Commit 841f23c73e4399df91112dd11ddca74f45ea5b37^1 ====
-📦 [history_only] Processed 540/956 | ✅ 494 | ❌ 46 | ⏱ 55s elapsed | Last item 0s
+📦 [history_only] Processed 540/956 | ✅ 494 | ❌ 46 | ⏱ 15s elapsed | Last item 0s
 
 
 ==== Commit 8430068db0d9fdf6e37cffd61143e709d5ecfff5^1 ====
@@ -2111,7 +2111,7 @@ HIGH MATCH for symbol='newExecutionConfig': suggestion='newSerializerConfig', hi
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
-📦 [history_only] Processed 550/956 | ✅ 504 | ❌ 46 | ⏱ 56s elapsed | Last item 0s
+📦 [history_only] Processed 550/956 | ✅ 504 | ❌ 46 | ⏱ 15s elapsed | Last item 0s
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
 HIGH MATCH for symbol='executionConfig': suggestion='serializerConfigImpl', history=executionConfig serializerConfigImpl, score=0.9,
@@ -2130,7 +2130,7 @@ skip: decl=PsiResourceVariableImpl, name=bufferAccumulator, expected=buffer
 
 
 ==== Commit 8b5a1cff8551e66974e1009fd225d3f39b55f52d^1 ====
-📦 [history_only] Processed 560/956 | ✅ 513 | ❌ 47 | ⏱ 57s elapsed | Last item 0s
+📦 [history_only] Processed 560/956 | ✅ 513 | ❌ 47 | ⏱ 15s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=offsetAndSizesToRead, expected=offsetAndSize
 
 
@@ -2146,7 +2146,7 @@ HIGH MATCH for symbol='offsetAndSize2': suggestion='descriptor2', history=offset
 
 
 ==== Commit 8c899b02ab25a34e4d35c73a8fc0299894110aca^1 ====
-📦 [history_only] Processed 570/956 | ✅ 523 | ❌ 47 | ⏱ 58s elapsed | Last item 0s
+📦 [history_only] Processed 570/956 | ✅ 523 | ❌ 47 | ⏱ 16s elapsed | Last item 0s
 
 
 ==== Commit 8d1e043b0c4277582b8862c2bc3314631eec4a7b^1 ====
@@ -2170,7 +2170,7 @@ HIGH MATCH for symbol='result': suggestion='predecessors', history=result predec
 
 
 ==== Commit 8e5bdd9405b15b21e209518e3c5881984bd16ce9^1 ====
-📦 [history_only] Processed 580/956 | ✅ 533 | ❌ 47 | ⏱ 59s elapsed | Last item 0s
+📦 [history_only] Processed 580/956 | ✅ 533 | ❌ 47 | ⏱ 16s elapsed | Last item 0s
 
 
 ==== Commit 8ffe6d698fb4f37c68a3914e3903dc874dfcb999^1 ====
@@ -3149,7 +3149,7 @@ skip: decl=PsiParameterImpl, name=instanceID, expected=e
 ==== Commit 92951a05127f1e0e2ab0ea04ae022659fc5276ab^1 ====
 skip: decl=PsiLocalVariableImpl, name=globalCommitterNode, expected=globalCommitter
 skip: decl=PsiLocalVariableImpl, name=globalCommitterNode, expected=globalCommitter
-📦 [history_only] Processed 590/956 | ✅ 541 | ❌ 49 | ⏱ 60s elapsed | Last item 0s
+📦 [history_only] Processed 590/956 | ✅ 541 | ❌ 49 | ⏱ 16s elapsed | Last item 0s
 
 
 ==== Commit 929d96f2ee01624fdac6897664d4a02b59cef5ba^1 ====
@@ -3162,7 +3162,7 @@ skip: decl=PsiLocalVariableImpl, name=globalCommitterNode, expected=globalCommit
 
 
 ==== Commit 950fceb43e628d50fb9f96973badc05cff34afa0^1 ====
-📦 [history_only] Processed 600/956 | ✅ 551 | ❌ 49 | ⏱ 61s elapsed | Last item 0s
+📦 [history_only] Processed 600/956 | ✅ 551 | ❌ 49 | ⏱ 17s elapsed | Last item 0s
 
 
 ==== Commit 95869e0bc99f9703807a114a4240dbc443d970cb^1 ====
@@ -3186,7 +3186,7 @@ skip: decl=PsiParameterImpl, name=moduleName, expected=module
 
 
 ==== Commit 95cb47ef53c822161ca90cdca43ad95fd1332633^1 ====
-📦 [history_only] Processed 610/956 | ✅ 559 | ❌ 51 | ⏱ 62s elapsed | Last item 0s
+📦 [history_only] Processed 610/956 | ✅ 559 | ❌ 51 | ⏱ 17s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=resultSetModule, expected=resultSet
 
 
@@ -3200,7 +3200,7 @@ skip: decl=PsiLocalVariableImpl, name=resultSetModule, expected=resultSet
 
 
 ==== Commit 98284c4d24e61d12425c8d5f5fa17cfe40e816f9^1 ====
-📦 [history_only] Processed 620/956 | ✅ 569 | ❌ 51 | ⏱ 63s elapsed | Last item 0s
+📦 [history_only] Processed 620/956 | ✅ 569 | ❌ 51 | ⏱ 17s elapsed | Last item 0s
 
 
 ==== Commit 983764733ff43dacc084b841fc4956e09d8614a7^1 ====
@@ -3219,7 +3219,7 @@ skip: decl=PsiLocalVariableImpl, name=resultSetModule, expected=resultSet
 
 
 ==== Commit 9b3c5ef4a42fc1249affd9a3a86306369978d5cd^1 ====
-📦 [history_only] Processed 630/956 | ✅ 577 | ❌ 53 | ⏱ 64s elapsed | Last item 0s
+📦 [history_only] Processed 630/956 | ✅ 577 | ❌ 53 | ⏱ 18s elapsed | Last item 0s
 
 
 ==== Commit 9b51711d00a2e1bd93f5a474b9c99b542aaf27cf^1 ====
@@ -3229,7 +3229,7 @@ skip: decl=PsiLocalVariableImpl, name=resultSetModule, expected=resultSet
 
 
 ==== Commit 9c3b18b0320c7260f1fe6e9dbbf489423a729cb4^1 ====
-📦 [history_only] Processed 640/956 | ✅ 584 | ❌ 56 | ⏱ 65s elapsed | Last item 0s
+📦 [history_only] Processed 640/956 | ✅ 584 | ❌ 56 | ⏱ 18s elapsed | Last item 0s
 
 
 ==== Commit 9d0f9156f60329c19e5814e93505e4907adf1c92^1 ====
@@ -3247,7 +3247,7 @@ skip: decl=PsiLocalVariableImpl, name=chainedConfigs, expected=head
 
 
 ==== Commit 9f20bc41db85b0928cd98c172a85cb43076e0ec0^1 ====
-📦 [history_only] Processed 650/956 | ✅ 594 | ❌ 56 | ⏱ 65s elapsed | Last item 0s
+📦 [history_only] Processed 650/956 | ✅ 594 | ❌ 56 | ⏱ 18s elapsed | Last item 0s
 
 
 ==== Commit a0aa4813b9fe3db37cabe38fa47f1d1096c879dc^1 ====
@@ -3268,7 +3268,7 @@ skip: decl=PsiLocalVariableImpl, name=result, expected=read
 
 
 ==== Commit a2b402d66de9ecde75881796a6d7ee09fc4d6963^1 ====
-📦 [history_only] Processed 660/956 | ✅ 604 | ❌ 56 | ⏱ 67s elapsed | Last item 0s
+📦 [history_only] Processed 660/956 | ✅ 604 | ❌ 56 | ⏱ 18s elapsed | Last item 0s
 
 
 ==== Commit a2cd64c7ea57db6137a86caa7e6f9f99c7f77743^1 ====
@@ -3306,7 +3306,7 @@ skip: decl=PsiParameterImpl, name=out, expected=o
 
 
 ==== Commit a70ca9c029bae9f1f4f11b989d257d8d1dc9408d^1 ====
-📦 [history_only] Processed 670/956 | ✅ 614 | ❌ 56 | ⏱ 68s elapsed | Last item 0s
+📦 [history_only] Processed 670/956 | ✅ 614 | ❌ 56 | ⏱ 19s elapsed | Last item 0s
 
 
 ==== Commit a85bcb47d853a30b78cb5f17cd53f5c033110a60^1 ====
@@ -3321,7 +3321,7 @@ skip: decl=PsiFieldImpl, name=nodeToTypeMap, expected=node
 
 ==== Commit ab8286e8b5c7895cc0d009521eb9c660eeb01609^1 ====
 skip: decl=PsiParameterImpl, name=signatureExtraction, expected=signature
-📦 [history_only] Processed 680/956 | ✅ 622 | ❌ 58 | ⏱ 69s elapsed | Last item 0s
+📦 [history_only] Processed 680/956 | ✅ 622 | ❌ 58 | ⏱ 19s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=methodName, expected=h
 skip: decl=PsiFieldImpl, name=verification, expected=h
 skip: decl=PsiParameterImpl, name=methodName, expected=h
@@ -3435,7 +3435,7 @@ skip: decl=PsiParameterImpl, name=buffers, expected=buffer
 skip: decl=PsiParameterImpl, name=buffers, expected=buffer
 skip: decl=PsiLocalVariableImpl, name=memorySegment, expected=buffer
 HIGH MATCH for symbol='buffer': suggestion='readBufferResult', history=buffer readBufferResult, score=0.9,
-📦 [history_only] Processed 690/956 | ✅ 631 | ❌ 59 | ⏱ 69s elapsed | Last item 0s
+📦 [history_only] Processed 690/956 | ✅ 631 | ❌ 59 | ⏱ 19s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=currentBufferIndexAndSegmentIds, expected=buffer
 skip: decl=PsiFieldImpl, name=currentBufferIndexAndSegmentIds, expected=buffer
 skip: decl=PsiFieldImpl, name=bufferSizeBytes, expected=buffer
@@ -3464,7 +3464,7 @@ skip: decl=PsiLocalVariableImpl, name=lookupKeys, expected=lookupKey
 
 
 ==== Commit b48cddf12a3171cf1b6ddaa675a6b81eea1254bf^1 ====
-📦 [history_only] Processed 700/956 | ✅ 640 | ❌ 60 | ⏱ 70s elapsed | Last item 0s
+📦 [history_only] Processed 700/956 | ✅ 640 | ❌ 60 | ⏱ 19s elapsed | Last item 0s
 
 
 ==== Commit b4eb8ac503f41fd793db1ac662fbedc46af92fd5^1 ====
@@ -3493,7 +3493,7 @@ skip: decl=PsiParameterImpl, name=srcDirs, expected=srcDir
 
 
 ==== Commit b9ffa7ac1ff5db3e9e9189d242149a01e543256d^1 ====
-📦 [history_only] Processed 710/956 | ✅ 649 | ❌ 61 | ⏱ 72s elapsed | Last item 0s
+📦 [history_only] Processed 710/956 | ✅ 649 | ❌ 61 | ⏱ 20s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=REQUEST_TIMEOUT, expected=t
 skip: decl=PsiFieldImpl, name=REQUEST_TIMEOUT, expected=t
 skip: decl=PsiFieldImpl, name=REQUEST_TIMEOUT, expected=t
@@ -3802,7 +3802,7 @@ skip: decl=PsiLocalVariableImpl, name=ret, expected=e
 
 
 ==== Commit bf6333cfa228defb1990459d77c775e2cc9f9f5c^1 ====
-📦 [history_only] Processed 720/956 | ✅ 654 | ❌ 66 | ⏱ 73s elapsed | Last item 0s
+📦 [history_only] Processed 720/956 | ✅ 654 | ❌ 66 | ⏱ 20s elapsed | Last item 0s
 
 
 ==== Commit c0176fd6794295dc3706ed7f536f3f70b6110923^1 ====
@@ -3833,7 +3833,7 @@ skip: decl=PsiFieldImpl, name=EXPECTED_STATE_HANDLE_CLASSES, expected=ex
 
 
 ==== Commit c418b57870aaf5b4f4f9d0f69a70366b583ae166^1 ====
-📦 [history_only] Processed 730/956 | ✅ 664 | ❌ 66 | ⏱ 74s elapsed | Last item 0s
+📦 [history_only] Processed 730/956 | ✅ 664 | ❌ 66 | ⏱ 20s elapsed | Last item 0s
 
 
 ==== Commit c4c633e843920bbf18b2ac2242ee48ada408f6ac^1 ====
@@ -3855,7 +3855,7 @@ skip: decl=PsiFieldImpl, name=EXPECTED_STATE_HANDLE_CLASSES, expected=ex
 
 
 ==== Commit c868d2273086ab9c9deafe5936127ce858e2b1cf^1 ====
-📦 [history_only] Processed 740/956 | ✅ 674 | ❌ 66 | ⏱ 75s elapsed | Last item 0s
+📦 [history_only] Processed 740/956 | ✅ 674 | ❌ 66 | ⏱ 20s elapsed | Last item 0s
 
 
 ==== Commit c869326d089705475481c2c2ea42a6efabb8c828^1 ====
@@ -3864,21 +3864,21 @@ skip: decl=PsiFieldImpl, name=EXPECTED_STATE_HANDLE_CLASSES, expected=ex
 ==== Commit c8ae39d4ac73f81873e1d8ac37e17c29ae330b23^1 ====
 skip: decl=PsiFieldImpl, name=registeredAkkaRpcActors, expected=registeredAkkaRpcActor
 HIGH MATCH for symbol='serverAkkaRpcService': suggestion='serverPekkoRpcService', history=serverAkkaRpcService serverPekkoRpcService, score=0.9,
-📦 [history_only] Processed 750/956 | ✅ 684 | ❌ 66 | ⏱ 76s elapsed | Last item 0s
+📦 [history_only] Processed 750/956 | ✅ 684 | ❌ 66 | ⏱ 21s elapsed | Last item 0s
 HIGH MATCH for symbol='clientAkkaRpcService': suggestion='clientPekkoRpcService', history=clientAkkaRpcService clientPekkoRpcService, score=0.9,
 HIGH MATCH for symbol='akkaConfig': suggestion='config', history=akkaConfig config, score=0.9,
-📦 [history_only] Processed 760/956 | ✅ 694 | ❌ 66 | ⏱ 76s elapsed | Last item 0s
+📦 [history_only] Processed 760/956 | ✅ 694 | ❌ 66 | ⏱ 21s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=akkaConfigStr, expected=akkaConfig
 HIGH MATCH for symbol='akkaConfig': suggestion='config', history=akkaConfig config, score=0.9,
 HIGH MATCH for symbol='serverAkkaRpcService': suggestion='serverPekkoRpcService', history=serverAkkaRpcService serverPekkoRpcService, score=0.9,
 HIGH MATCH for symbol='clientAkkaRpcService': suggestion='clientPekkoRpcService', history=clientAkkaRpcService clientPekkoRpcService, score=0.9,
-📦 [history_only] Processed 770/956 | ✅ 704 | ❌ 66 | ⏱ 77s elapsed | Last item 0s
+📦 [history_only] Processed 770/956 | ✅ 704 | ❌ 66 | ⏱ 21s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=akkaEnableSSLConfig, expected=akkaEnableSSL
 HIGH MATCH for symbol='akkaSSLKeyStore': suggestion='sslKeyStore', history=akkaSSLKeyStorePassword sslKeyStorePassword, score=0.77,
 HIGH MATCH for symbol='akkaSSLKeyStorePassword': suggestion='sslKeyStorePassword', history=akkaSSLTrustStorePassword sslTrustStorePassword, score=0.75,
 HIGH MATCH for symbol='akkaSSLKeyPassword': suggestion='sslKeyPassword', history=akkaSSLKeyStorePassword sslKeyStorePassword, score=0.77,
 HIGH MATCH for symbol='akkaSSLTrustStore': suggestion='sslTrustStore', history=akkaSSLTrustStorePassword sslTrustStorePassword, score=0.77,
-📦 [history_only] Processed 780/956 | ✅ 714 | ❌ 66 | ⏱ 77s elapsed | Last item 0s
+📦 [history_only] Processed 780/956 | ✅ 714 | ❌ 66 | ⏱ 21s elapsed | Last item 0s
 HIGH MATCH for symbol='akkaSSLTrustStorePassword': suggestion='sslTrustStorePassword', history=akkaSSLTrustStore sslTrustStore, score=0.77,
 skip: decl=PsiLocalVariableImpl, name=akkaSSLAlgorithmsString, expected=akkaSSLAlgorithms
 HIGH MATCH for symbol='akkaSSLAlgorithms': suggestion='sslAlgorithms', history=akkaSSLAlgorithmsString sslAlgorithmsString, score=0.7625,
@@ -3887,7 +3887,7 @@ HIGH MATCH for symbol='akkaConfig': suggestion='config', history=akkaConfig conf
 
 
 ==== Commit c91500423151bae2c6cb75f9652dd9abf918982c^1 ====
-📦 [history_only] Processed 790/956 | ✅ 724 | ❌ 66 | ⏱ 78s elapsed | Last item 0s
+📦 [history_only] Processed 790/956 | ✅ 724 | ❌ 66 | ⏱ 22s elapsed | Last item 0s
 
 
 ==== Commit c942d0f61a044a327f5393f3752e04ee489d7d4a^1 ====
@@ -3919,7 +3919,7 @@ skip: decl=PsiLocalVariableImpl, name=checkpointConfig, expected=k
 
 
 ==== Commit cc9540cacc2d775cc190ee6534794ec33fd07828^1 ====
-📦 [history_only] Processed 800/956 | ✅ 732 | ❌ 68 | ⏱ 78s elapsed | Last item 0s
+📦 [history_only] Processed 800/956 | ✅ 732 | ❌ 68 | ⏱ 22s elapsed | Last item 0s
 
 
 ==== Commit cc9712bfe92de4a68e87baef8f6937dcdc8a8634^1 ====
@@ -3932,7 +3932,7 @@ skip: decl=PsiLocalVariableImpl, name=checkpointConfig, expected=k
 
 
 ==== Commit cf358d7d55ca48b9d25e5217006898e3070a85ad^1 ====
-📦 [history_only] Processed 810/956 | ✅ 741 | ❌ 69 | ⏱ 79s elapsed | Last item 0s
+📦 [history_only] Processed 810/956 | ✅ 741 | ❌ 69 | ⏱ 22s elapsed | Last item 0s
 
 
 ==== Commit cf4ccb73d945122ec2bb2392bde6fced039975c6^1 ====
@@ -3942,7 +3942,7 @@ skip: decl=PsiLocalVariableImpl, name=checkpointConfig, expected=k
 HIGH MATCH for symbol='freeSlotInfoTracker': suggestion='freeSlotTracker', history=freeSlotInfoTracker freeSlotTracker, score=0.9,
 HIGH MATCH for symbol='freeSlotInfoTracker': suggestion='freeSlotTracker', history=freeSlotInfoTracker freeSlotTracker, score=0.9,
 HIGH MATCH for symbol='freeSlotInfoTracker': suggestion='freeSlotTracker', history=freeSlotInfoTracker freeSlotTracker, score=0.9,
-📦 [history_only] Processed 820/956 | ✅ 751 | ❌ 69 | ⏱ 80s elapsed | Last item 0s
+📦 [history_only] Processed 820/956 | ✅ 751 | ❌ 69 | ⏱ 22s elapsed | Last item 0s
 
 
 ==== Commit d04405c0f6ef0c661909935a1a3fb0b1c79d2540^1 ====
@@ -3968,7 +3968,7 @@ skip: decl=PsiLocalVariableImpl, name=env, expected=in
 skip: decl=PsiLocalVariableImpl, name=source, expected=in
 skip: decl=PsiLocalVariableImpl, name=mapped, expected=in
 skip: decl=PsiLocalVariableImpl, name=mapped, expected=in
-📦 [history_only] Processed 830/956 | ✅ 760 | ❌ 70 | ⏱ 81s elapsed | Last item 0s
+📦 [history_only] Processed 830/956 | ✅ 760 | ❌ 70 | ⏱ 23s elapsed | Last item 0s
 
 
 ==== Commit d536b5a7d73bb0696291d6ea7c47544f4edd3e77^1 ====
@@ -4060,7 +4060,7 @@ skip: decl=PsiLocalVariableImpl, name=consumerVertex, expected=consumer
 
 
 ==== Commit d853b7104c145f0c22b54511ee92e0d368a764f4^1 ====
-📦 [history_only] Processed 840/956 | ✅ 769 | ❌ 71 | ⏱ 82s elapsed | Last item 0s
+📦 [history_only] Processed 840/956 | ✅ 769 | ❌ 71 | ⏱ 23s elapsed | Last item 0s
 
 
 ==== Commit d9fc5ee03afe86e3d4c2fcee50616df2a7c095f2^1 ====
@@ -4133,7 +4133,7 @@ skip: decl=PsiParameterImpl, name=finishedBuffer, expected=e
 
 
 ==== Commit ddd65bd03749b740ea978570509f2286cda161db^1 ====
-📦 [history_only] Processed 850/956 | ✅ 779 | ❌ 71 | ⏱ 82s elapsed | Last item 0s
+📦 [history_only] Processed 850/956 | ✅ 779 | ❌ 71 | ⏱ 23s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=expectedChanges, expected=expectedChange
 skip: decl=PsiParameterImpl, name=expectedChanges, expected=expectedChange
 
@@ -4162,12 +4162,12 @@ skip: decl=PsiLocalVariableImpl, name=jobGraphFileFuture, expected=jobGraphFile
 
 ==== Commit e15126561dc42b5571d5f03b4ebd85499180d083^1 ====
 HIGH MATCH for symbol='jobGraphFile': suggestion='executionPlanFile', history=jobGraphFile executionPlanFile, score=0.9,
-📦 [history_only] Processed 860/956 | ✅ 789 | ❌ 71 | ⏱ 83s elapsed | Last item 0s
+📦 [history_only] Processed 860/956 | ✅ 789 | ❌ 71 | ⏱ 23s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=jobGraphFuture, expected=jobGraph
 skip: decl=PsiLocalVariableImpl, name=finalizedJobGraphFuture, expected=jobGraph
 HIGH MATCH for symbol='jobGraphFile': suggestion='executionPlanFile', history=jobGraphFile executionPlanFile, score=0.9,
 skip: decl=PsiLocalVariableImpl, name=submittedJobGraphFuture, expected=submittedJobGraph
-📦 [history_only] Processed 870/956 | ✅ 796 | ❌ 74 | ⏱ 84s elapsed | Last item 0s
+📦 [history_only] Processed 870/956 | ✅ 796 | ❌ 74 | ⏱ 24s elapsed | Last item 0s
 
 
 ==== Commit e2b6588ef39cbeb1825cacf553a80272ae7b9418^1 ====
@@ -4189,7 +4189,7 @@ skip: decl=PsiLocalVariableImpl, name=alterMaterializedTableChangeOperation, exp
 
 
 ==== Commit e9353319ad625baa5b2c20fa709ab5b23f83c0f4^1 ====
-📦 [history_only] Processed 880/956 | ✅ 806 | ❌ 74 | ⏱ 85s elapsed | Last item 0s
+📦 [history_only] Processed 880/956 | ✅ 806 | ❌ 74 | ⏱ 24s elapsed | Last item 0s
 
 
 ==== Commit e93b55aaea9b029079a2712ab5bc413ac5cba0ec^1 ====
@@ -4199,7 +4199,7 @@ skip: decl=PsiLocalVariableImpl, name=alterMaterializedTableChangeOperation, exp
 
 
 ==== Commit eb046b662fe22fada64874681c28dbb139f617fa^1 ====
-📦 [history_only] Processed 890/956 | ✅ 816 | ❌ 74 | ⏱ 85s elapsed | Last item 0s
+📦 [history_only] Processed 890/956 | ✅ 816 | ❌ 74 | ⏱ 24s elapsed | Last item 0s
 skip: decl=PsiLocalVariableImpl, name=configured, expected=config
 skip: decl=PsiLocalVariableImpl, name=configured, expected=config
 
@@ -4223,7 +4223,7 @@ skip: decl=PsiParameterImpl, name=configuration, expected=conf
 
 
 ==== Commit ed07a70e45a753a259287c9fdbdae73e3415cc21^1 ====
-📦 [history_only] Processed 900/956 | ✅ 825 | ❌ 75 | ⏱ 85s elapsed | Last item 0s
+📦 [history_only] Processed 900/956 | ✅ 825 | ❌ 75 | ⏱ 25s elapsed | Last item 0s
 
 
 ==== Commit ed36b2062dd04ccf5cdc7f9bdde239c41cc6cab2^1 ====
@@ -4335,7 +4335,7 @@ skip: decl=PsiLocalVariableImpl, name=results, expected=i
 
 
 ==== Commit f1597d5b2184ddcdd8e2e94c5c081b5a85eabf40^1 ====
-📦 [history_only] Processed 910/956 | ✅ 835 | ❌ 75 | ⏱ 86s elapsed | Last item 0s
+📦 [history_only] Processed 910/956 | ✅ 835 | ❌ 75 | ⏱ 25s elapsed | Last item 0s
 
 
 ==== Commit f1a079f95e409d3a81ff5dd199ea3c0dc30470cc^1 ====
@@ -4352,7 +4352,7 @@ skip: decl=PsiFieldImpl, name=channelStatuses, expected=channelStatus
 
 
 ==== Commit f2568dee63138899cb80982a9659ab25f0d38c2c^1 ====
-📦 [history_only] Processed 920/956 | ✅ 844 | ❌ 76 | ⏱ 86s elapsed | Last item 0s
+📦 [history_only] Processed 920/956 | ✅ 844 | ❌ 76 | ⏱ 25s elapsed | Last item 0s
 
 
 ==== Commit f32b2a9e347d7539819a88252e4e32deba247515^1 ====
@@ -4379,7 +4379,7 @@ HIGH MATCH for symbol='leaderConnectionInfo': suggestion='leaderInformation', hi
 
 ==== Commit f68967a7c938f6258125c3221be74522965d1ff2^1 ====
 skip: decl=PsiFieldImpl, name=catalogStoreDirectory, expected=path
-📦 [history_only] Processed 930/956 | ✅ 854 | ❌ 76 | ⏱ 86s elapsed | Last item 0s
+📦 [history_only] Processed 930/956 | ✅ 854 | ❌ 76 | ⏱ 25s elapsed | Last item 0s
 skip: decl=PsiFieldImpl, name=LOG, expected=t
 skip: decl=PsiFieldImpl, name=LOG, expected=t
 skip: decl=PsiFieldImpl, name=LOG, expected=t
@@ -4516,7 +4516,7 @@ skip: decl=PsiParameterImpl, name=patternStream, expected=p
 
 ==== Commit f82556d06e3146c9e823ccb9736421088d7d81f9^1 ====
 HIGH MATCH for symbol='eventsWithWrongJobId': suggestion='eventsWithWrongKey', history=eventsWithMissingJobId eventsWithMissingKey, score=0.75,
-📦 [history_only] Processed 940/956 | ✅ 863 | ❌ 77 | ⏱ 87s elapsed | Last item 0s
+📦 [history_only] Processed 940/956 | ✅ 863 | ❌ 77 | ⏱ 26s elapsed | Last item 0s
 HIGH MATCH for symbol='eventsWithMissingJobId': suggestion='eventsWithMissingValue', history=eventsWithWrongJobId eventsWithWrongValue, score=0.75,
 
 
@@ -4537,7 +4537,7 @@ HIGH MATCH for symbol='shuffleDescriptorAndIndices': suggestion='shuffleDescript
 
 
 ==== Commit fbc7d0a66e35f4c167c688c95d3e19bf3b567952^1 ====
-📦 [history_only] Processed 950/956 | ✅ 873 | ❌ 77 | ⏱ 87s elapsed | Last item 0s
+📦 [history_only] Processed 950/956 | ✅ 873 | ❌ 77 | ⏱ 26s elapsed | Last item 0s
 
 
 ==== Commit fc51d4e09b45064e180d48fb3cfcc68865d950d0^1 ====
@@ -4547,11 +4547,11 @@ HIGH MATCH for symbol='shuffleDescriptorAndIndices': suggestion='shuffleDescript
 
 
 ==== Commit fd673a2f46206ff65978f05fcb96b525696aead2^1 ====
-📦 [history_only] Processed 956/956 | ✅ 878 | ❌ 78 | ⏱ 87s elapsed | Last item 0s
+📦 [history_only] Processed 956/956 | ✅ 878 | ❌ 78 | ⏱ 26s elapsed | Last item 0s
 === Total Token Usage ===
 Prompt tokens:     0
 Completion tokens: 0
 Total tokens:      0
-✅ [history_only] Completed 956 targets in 1 min 27.0 s
-   - Successes: 878 → /Users/martini/Desktop/rename-refactoring-assist/data/gpt-4o-mini/rrassist_history_only_20251126_110305/results_history_only.json
-   - Errors:    78 → /Users/martini/Desktop/rename-refactoring-assist/data/gpt-4o-mini/rrassist_history_only_20251126_110305/errors_history_only.json
+✅ [history_only] Completed 956 targets in 0 min 26.0 s
+   - Successes: 878 → /Users/martini/Desktop/rename-refactoring-assist/data/rrassist_history_only_20251126_194131/results_history_only.json
+   - Errors:    78 → /Users/martini/Desktop/rename-refactoring-assist/data/rrassist_history_only_20251126_194131/errors_history_only.json

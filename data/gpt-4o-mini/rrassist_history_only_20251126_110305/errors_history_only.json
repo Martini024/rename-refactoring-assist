@@ -106,7 +106,7 @@
       ],
       "old_name": "taskManager",
       "new_name": "taskManagerInfo",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c1b}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@40b}"
   },
   {
       "path": "https://github.com/apache/flink/blob/04e6437dd4d06b59b3f87651e2043559f3df827e^1/flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/operators/join/stream/keyselector/AttributeBasedJoinKeyExtractor.java",
@@ -290,7 +290,7 @@
       ],
       "old_name": "attr",
       "new_name": "a",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c3c}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@42c}"
   },
   {
       "path": "https://github.com/apache/flink/blob/0aab2cd369e700f3ea4c753f31c70802e9017ffc^1/flink-streaming-java/src/main/java/org/apache/flink/streaming/api/operators/async/AsyncWaitOperator.java",
@@ -318,7 +318,7 @@
       ],
       "old_name": "timestamp",
       "new_name": "t",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c4a}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@43a}"
   },
   {
       "path": "https://github.com/apache/flink/blob/0f01a0e9a6856781d5a0e33b26172bb913ec1928^1/flink-python/src/test/java/org/apache/flink/python/util/PythonDependencyUtilsTest.java",
@@ -2614,7 +2614,7 @@
       ],
       "old_name": "t",
       "new_name": "m",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c5a}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@44a}"
   },
   {
       "path": "https://github.com/apache/flink/blob/1360064d747258dba88b3f5a2c3193f4e18cd429^1/flink-datastream/src/test/java/org/apache/flink/datastream/impl/context/DefaultNonPartitionedContextTest.java",
@@ -2650,7 +2650,7 @@
       ],
       "old_name": "key",
       "new_name": "k",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c63}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@453}"
   },
   {
       "path": "https://github.com/apache/flink/blob/1360064d747258dba88b3f5a2c3193f4e18cd429^1/flink-datastream/src/test/java/org/apache/flink/datastream/impl/context/DefaultTwoOutputNonPartitionedContextTest.java",
@@ -2690,7 +2690,7 @@
       ],
       "old_name": "key",
       "new_name": "k",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c65}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@455}"
   },
   {
       "path": "https://github.com/apache/flink/blob/1534ea751613772d93699e1916e38f3af3dac7f9^1/flink-table/flink-sql-gateway/src/main/java/org/apache/flink/table/gateway/service/operation/OperationExecutor.java",
@@ -2714,7 +2714,7 @@
       ],
       "old_name": "entry",
       "new_name": "key",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c6a}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@45a}"
   },
   {
       "path": "https://github.com/apache/flink/blob/1a63d6872bfc05cffeb9877b6159ec9a5cc65d31^1/flink-table/flink-table-api-java/src/main/java/org/apache/flink/table/expressions/resolver/rules/StarReferenceFlatteningRule.java",
@@ -2770,7 +2770,7 @@
       ],
       "old_name": "expr",
       "new_name": "e",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c79}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@469}"
   },
   {
       "path": "https://github.com/apache/flink/blob/1b95b191922829fd8e7a76e5c9d8de68bb57ae7d^1/flink-runtime/src/test/java/org/apache/flink/runtime/testutils/CommonTestUtils.java",
@@ -3166,7 +3166,7 @@
       ],
       "old_name": "st",
       "new_name": "checkpointStatsSnapshot",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@c7e}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@46e}"
   },
   {
       "path": "https://github.com/apache/flink/blob/2839d06559ccf2a0b63a7f61276d7bb546abca3d^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/partition/SortMergeResultPartitionTest.java",
@@ -3202,7 +3202,7 @@
       ],
       "old_name": "bufferWithChannel",
       "new_name": "bufferWithSubpartition",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ccc}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4bc}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/runner/SessionDispatcherLeaderProcessTest.java",
@@ -3226,7 +3226,7 @@
       ],
       "old_name": "ignoredJobGraphWriter",
       "new_name": "ignoredExecutionPlanWriter",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@cd2}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4c2}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/runner/SessionDispatcherLeaderProcessTest.java",
@@ -3266,7 +3266,7 @@
       ],
       "old_name": "actualRecoveredJobGraphs",
       "new_name": "actualRecoveredExecutionPlans",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@cd4}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4c4}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/runner/SessionDispatcherLeaderProcessTest.java",
@@ -3282,7 +3282,7 @@
       ],
       "old_name": "recoverJobGraphs",
       "new_name": "recoverExecutionPlans",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@cd8}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4c8}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/main/java/org/apache/flink/runtime/dispatcher/Dispatcher.java",
@@ -3298,7 +3298,7 @@
       ],
       "old_name": "recoveredJobGraph",
       "new_name": "recoveredExecutionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@cde}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4ce}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/main/java/org/apache/flink/runtime/dispatcher/runner/SessionDispatcherLeaderProcess.java",
@@ -3314,7 +3314,7 @@
       ],
       "old_name": "optionalJobGraph",
       "new_name": "optionalExecutionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ce3}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4d3}"
   },
   {
       "path": "https://github.com/apache/flink/blob/292d7f449db89c662c60b265ed99e33416dba614^1/flink-runtime/src/test/java/org/apache/flink/runtime/jobmanager/ZooKeeperJobGraphsStoreITCase.java",
@@ -3546,7 +3546,7 @@
       ],
       "old_name": "jobGraph",
       "new_name": "executionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@cef}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4df}"
   },
   {
       "path": "https://github.com/apache/flink/blob/2f6b96d41a760087c03cdb6b9c5d2f2b57867b4b^1/flink-table/flink-table-api-java/src/main/java/org/apache/flink/table/api/internal/ShowCreateUtil.java",
@@ -3570,7 +3570,7 @@
       ],
       "old_name": "pk",
       "new_name": "s",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d08}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@4f8}"
   },
   {
       "path": "https://github.com/apache/flink/blob/360b97a710a9711bffbf320db2806c17557bb334^1/flink-table/flink-table-planner/src/main/java/org/apache/flink/table/planner/plan/optimize/StreamNonDeterministicUpdatePlanVisitor.java",
@@ -3654,7 +3654,7 @@
       ],
       "old_name": "condi",
       "new_name": "cond",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d14}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@504}"
   },
   {
       "path": "https://github.com/apache/flink/blob/3ef713271771f9367166bcb31a6c08075f1d9617^1/flink-runtime/src/test/java/org/apache/flink/runtime/blob/BlobCacheRetriesTest.java",
@@ -3890,7 +3890,7 @@
       ],
       "old_name": "input",
       "new_name": "i",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d5d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@54d}"
   },
   {
       "path": "https://github.com/apache/flink/blob/55630de18baf6345072113f587006dac94f61c78^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/DispatcherCleanupITCase.java",
@@ -3910,7 +3910,7 @@
       ],
       "old_name": "leaderConnectionInfo",
       "new_name": "leaderInformation",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d78}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@568}"
   },
   {
       "path": "https://github.com/apache/flink/blob/5e5d0d5d2cd322ae53ad909dd075f978ca85ccd2^1/flink-table/flink-table-planner/src/main/java/org/apache/flink/table/planner/functions/inference/TypeInferenceOperandChecker.java",
@@ -3982,7 +3982,7 @@
       ],
       "old_name": "types",
       "new_name": "args",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d9c}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@58c}"
   },
   {
       "path": "https://github.com/apache/flink/blob/5e5d0d5d2cd322ae53ad909dd075f978ca85ccd2^1/flink-table/flink-table-common/src/main/java/org/apache/flink/table/types/inference/TypeInferenceUtil.java",
@@ -4018,7 +4018,7 @@
       ],
       "old_name": "dataTypes",
       "new_name": "staticArgs",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@d9e}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@58e}"
   },
   {
       "path": "https://github.com/apache/flink/blob/5ff8d5de62e81cdeecca91f1617f0e05ecc8c6bc^1/flink-runtime/src/main/java/org/apache/flink/streaming/api/graph/StreamingJobGraphGenerator.java",
@@ -4070,7 +4070,7 @@
       ],
       "old_name": "operatorInfo",
       "new_name": "chainInfo",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@da0}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@590}"
   },
   {
       "path": "https://github.com/apache/flink/blob/608546e090f5d41c6a8b9af2c264467279181027^1/flink-kubernetes/src/test/java/org/apache/flink/kubernetes/highavailability/KubernetesTestFixture.java",
@@ -4102,7 +4102,7 @@
       ],
       "old_name": "labels",
       "new_name": "name",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@da2}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@592}"
   },
   {
       "path": "https://github.com/apache/flink/blob/62b792d58c4f8d5b494b50daad2e5fc5047af330^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionTest.java",
@@ -4166,7 +4166,7 @@
       ],
       "old_name": "leaderSessionID",
       "new_name": "actualLeaderSessionID",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@da9}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@599}"
   },
   {
       "path": "https://github.com/apache/flink/blob/63166226f65cc4da80cc7661d76eb90032ec2222^1/flink-table/flink-sql-jdbc-driver/src/main/java/org/apache/flink/table/jdbc/FlinkResultSetMetaData.java",
@@ -5238,7 +5238,7 @@
       ],
       "old_name": "c",
       "new_name": "i",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@dac}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@59c}"
   },
   {
       "path": "https://github.com/apache/flink/blob/64992471c5dd52fb4269f6de51c15e27c2a45b55^1/flink-runtime/src/main/java/org/apache/flink/runtime/taskexecutor/DefaultShuffleDescriptorsCache.java",
@@ -5262,7 +5262,7 @@
       ],
       "old_name": "permanentBlobKeys",
       "new_name": "keys",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@db0}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5a0}"
   },
   {
       "path": "https://github.com/apache/flink/blob/64992471c5dd52fb4269f6de51c15e27c2a45b55^1/flink-runtime/src/main/java/org/apache/flink/runtime/taskexecutor/DefaultShuffleDescriptorsCache.java",
@@ -5274,7 +5274,7 @@
       ],
       "old_name": "jobID",
       "new_name": "group",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@db2}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5a2}"
   },
   {
       "path": "https://github.com/apache/flink/blob/64c54e8776a3addb7ed9ba103ccadebce1a6c5e4^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/partition/hybrid/tiered/storage/SortBufferAccumulatorTest.java",
@@ -5294,7 +5294,7 @@
       ],
       "old_name": "buffers",
       "new_name": "buffer",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@db4}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5a4}"
   },
   {
       "path": "https://github.com/apache/flink/blob/65772142fda02bb000f4adfca3c8589907130402^1/flink-runtime/src/main/java/org/apache/flink/runtime/rest/handler/legacy/metrics/MetricStore.java",
@@ -5438,7 +5438,7 @@
       ],
       "old_name": "json",
       "new_name": "config",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@dd9}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5c9}"
   },
   {
       "path": "https://github.com/apache/flink/blob/6cf885f3aa477c80a7bc1ee5759613387062463f^1/flink-table/flink-table-planner/src/main/java/org/apache/flink/table/planner/plan/rules/physical/stream/WatermarkAssignerChangelogNormalizeTransposeRule.java",
@@ -5454,7 +5454,7 @@
       ],
       "old_name": "ukIdx",
       "new_name": "i",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@de1}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5d1}"
   },
   {
       "path": "https://github.com/apache/flink/blob/707bae0fb118cbe2b95bfad7a516bf19421f40d9^1/flink-state-backends/flink-statebackend-forst/src/test/java/org/apache/flink/state/forst/ForStAsyncAndSyncCompatibilityTest.java",
@@ -5470,7 +5470,7 @@
       ],
       "old_name": "value",
       "new_name": "mapValue",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@dfb}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@5eb}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionServiceTest.java",
@@ -5486,7 +5486,7 @@
       ],
       "old_name": "contenderIDs",
       "new_name": "componentIds",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e19}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@609}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionServiceTest.java",
@@ -5498,7 +5498,7 @@
       ],
       "old_name": "ignoredContenderIDs",
       "new_name": "ignoredComponentIds",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e1b}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@60b}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionTest.java",
@@ -5550,7 +5550,7 @@
       ],
       "old_name": "actualContenderID",
       "new_name": "actualComponentId",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e25}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@615}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionTest.java",
@@ -5650,7 +5650,7 @@
       ],
       "old_name": "contenderID",
       "new_name": "componentId",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e28}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@618}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/DefaultLeaderElectionTest.java",
@@ -5662,7 +5662,7 @@
       ],
       "old_name": "ignoredContenderID",
       "new_name": "ignoredComponentId",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e2a}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@61a}"
   },
   {
       "path": "https://github.com/apache/flink/blob/773feebbb2426ab1a8f7684f59b9a73db8f6a613^1/flink-runtime/src/test/java/org/apache/flink/runtime/leaderelection/TestingLeaderElectionDriver.java",
@@ -5678,7 +5678,7 @@
       ],
       "old_name": "ignoredContenderID",
       "new_name": "ignoredComponentId",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e2d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@61d}"
   },
   {
       "path": "https://github.com/apache/flink/blob/7adeecd3445947f42d3e3d1e2961b9464e910236^1/flink-runtime/src/main/java/org/apache/flink/runtime/checkpoint/PerJobCheckpointRecoveryFactory.java",
@@ -5702,7 +5702,7 @@
       ],
       "old_name": "restoreMode",
       "new_name": "recoveryClaimMode",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e39}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@629}"
   },
   {
       "path": "https://github.com/apache/flink/blob/7adeecd3445947f42d3e3d1e2961b9464e910236^1/flink-runtime/src/main/java/org/apache/flink/runtime/highavailability/nonha/embedded/EmbeddedHaServicesWithLeadershipControl.java",
@@ -5718,7 +5718,7 @@
       ],
       "old_name": "restoreMode",
       "new_name": "recoveryClaimMode",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e3b}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@62b}"
   },
   {
       "path": "https://github.com/apache/flink/blob/7adeecd3445947f42d3e3d1e2961b9464e910236^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/DispatcherCleanupITCase.java",
@@ -5734,7 +5734,7 @@
       ],
       "old_name": "restoreMode",
       "new_name": "recoveryClaimMode",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e3d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@62d}"
   },
   {
       "path": "https://github.com/apache/flink/blob/7adeecd3445947f42d3e3d1e2961b9464e910236^1/flink-runtime/src/main/java/org/apache/flink/runtime/state/SharedStateRegistry.java",
@@ -5750,7 +5750,7 @@
       ],
       "old_name": "restoreMode",
       "new_name": "recoveryClaimMode",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e3f}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@62f}"
   },
   {
       "path": "https://github.com/apache/flink/blob/82fb74e23b1dfa46fa98c89a58d7f3126aeaec6c^1/flink-tests/src/test/java/org/apache/flink/test/checkpointing/StatefulJobSnapshotMigrationITCase.java",
@@ -5978,7 +5978,7 @@
       ],
       "old_name": "x",
       "new_name": "v",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e5b}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@64b}"
   },
   {
       "path": "https://github.com/apache/flink/blob/82fb74e23b1dfa46fa98c89a58d7f3126aeaec6c^1/flink-tests/src/test/java/org/apache/flink/test/checkpointing/StatefulJobWBroadcastStateMigrationITCase.java",
@@ -6378,7 +6378,7 @@
       ],
       "old_name": "x",
       "new_name": "v",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e5d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@64d}"
   },
   {
       "path": "https://github.com/apache/flink/blob/88138d08e731d3084d59bf14cc2fb51bdf4afbd8^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/partition/hybrid/tiered/storage/SortBufferAccumulatorTest.java",
@@ -6522,7 +6522,7 @@
       ],
       "old_name": "buffer",
       "new_name": "buffers",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e74}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@664}"
   },
   {
       "path": "https://github.com/apache/flink/blob/90deccaf09eb31fc01d488c8fd6298ee9d362e3b^1/flink-runtime/src/test/java/org/apache/flink/runtime/resourcemanager/slotmanager/TaskExecutorManagerTest.java",
@@ -13178,7 +13178,7 @@
       ],
       "old_name": "e",
       "new_name": "resourceDeclarations",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e90}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@680}"
   },
   {
       "path": "https://github.com/apache/flink/blob/90deccaf09eb31fc01d488c8fd6298ee9d362e3b^1/flink-runtime/src/test/java/org/apache/flink/runtime/resourcemanager/slotmanager/FineGrainedSlotManagerTest.java",
@@ -25522,7 +25522,7 @@
       ],
       "old_name": "e",
       "new_name": "resourceDeclarations",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@e93}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@683}"
   },
   {
       "path": "https://github.com/apache/flink/blob/95869e0bc99f9703807a114a4240dbc443d970cb^1/flink-table/flink-sql-gateway/src/main/java/org/apache/flink/table/gateway/service/context/SessionContext.java",
@@ -25654,7 +25654,7 @@
       ],
       "old_name": "catalog",
       "new_name": "catalogCreator",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ea6}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@696}"
   },
   {
       "path": "https://github.com/apache/flink/blob/95869e0bc99f9703807a114a4240dbc443d970cb^1/flink-table/flink-sql-gateway/src/main/java/org/apache/flink/table/gateway/service/context/SessionContext.java",
@@ -25766,7 +25766,7 @@
       ],
       "old_name": "module",
       "new_name": "moduleCreator",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ea8}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@698}"
   },
   {
       "path": "https://github.com/apache/flink/blob/99cb5c7addc932aba517ea4481934ffe2b162052^1/flink-clients/src/main/java/org/apache/flink/client/deployment/executors/AbstractSessionClusterExecutor.java",
@@ -25778,7 +25778,7 @@
       ],
       "old_name": "ignored1",
       "new_name": "jobClient",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ebd}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6ad}"
   },
   {
       "path": "https://github.com/apache/flink/blob/99cb5c7addc932aba517ea4481934ffe2b162052^1/flink-clients/src/main/java/org/apache/flink/client/deployment/executors/AbstractSessionClusterExecutor.java",
@@ -25790,7 +25790,7 @@
       ],
       "old_name": "ignored2",
       "new_name": "throwable",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ebf}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6af}"
   },
   {
       "path": "https://github.com/apache/flink/blob/9c3b18b0320c7260f1fe6e9dbbf489423a729cb4^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/netty/CreditBasedSequenceNumberingViewReaderTest.java",
@@ -25802,7 +25802,7 @@
       ],
       "old_name": "ignored3",
       "new_name": "listener",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ec9}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6b9}"
   },
   {
       "path": "https://github.com/apache/flink/blob/9c3b18b0320c7260f1fe6e9dbbf489423a729cb4^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/netty/CreditBasedSequenceNumberingViewReaderTest.java",
@@ -25814,7 +25814,7 @@
       ],
       "old_name": "ignored1",
       "new_name": "index",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ecb}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6bb}"
   },
   {
       "path": "https://github.com/apache/flink/blob/9c3b18b0320c7260f1fe6e9dbbf489423a729cb4^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/netty/PartitionRequestQueueTest.java",
@@ -25854,7 +25854,7 @@
       ],
       "old_name": "availabilityListener",
       "new_name": "listener",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ecd}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6bd}"
   },
   {
       "path": "https://github.com/apache/flink/blob/ab8286e8b5c7895cc0d009521eb9c660eeb01609^1/flink-table/flink-table-common/src/main/java/org/apache/flink/table/types/extraction/FunctionTemplate.java",
@@ -25870,7 +25870,7 @@
       ],
       "old_name": "dataTypeHint",
       "new_name": "t",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ef6}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6e6}"
   },
   {
       "path": "https://github.com/apache/flink/blob/ab8286e8b5c7895cc0d009521eb9c660eeb01609^1/flink-table/flink-table-common/src/main/java/org/apache/flink/table/types/extraction/FunctionMappingExtractor.java",
@@ -25958,7 +25958,7 @@
       ],
       "old_name": "signature",
       "new_name": "arguments",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ef8}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6e8}"
   },
   {
       "path": "https://github.com/apache/flink/blob/ab8286e8b5c7895cc0d009521eb9c660eeb01609^1/flink-table/flink-table-common/src/main/java/org/apache/flink/table/types/extraction/BaseMappingExtractor.java",
@@ -27174,7 +27174,7 @@
       ],
       "old_name": "h",
       "new_name": "hint",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@efc}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6ec}"
   },
   {
       "path": "https://github.com/apache/flink/blob/b3998324b685afc779954f7e54cc0d8f281267ec^1/flink-runtime/src/test/java/org/apache/flink/runtime/scheduler/DefaultSchedulerBuilder.java",
@@ -27194,7 +27194,7 @@
       ],
       "old_name": "initialParallelism",
       "new_name": "vertexInitialParallelism",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f0d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@6fd}"
   },
   {
       "path": "https://github.com/apache/flink/blob/b71dd7695caca4beed63cb7fc9afe36ea8c83710^1/flink-table/flink-table-common/src/main/java/org/apache/flink/table/types/inference/SystemTypeInference.java",
@@ -27218,7 +27218,7 @@
       ],
       "old_name": "dataType",
       "new_name": "functionDataType",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f14}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@704}"
   },
   {
       "path": "https://github.com/apache/flink/blob/b9ffa7ac1ff5db3e9e9189d242149a01e543256d^1/flink-runtime/src/test/java/org/apache/flink/runtime/webmonitor/threadinfo/ThreadInfoRequestCoordinatorTest.java",
@@ -30362,7 +30362,7 @@
       ],
       "old_name": "t",
       "new_name": "task",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f1c}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@70c}"
   },
   {
       "path": "https://github.com/apache/flink/blob/baf74c0341307533b11763df8415623c08ec7ba9^1/flink-runtime/src/test/java/org/apache/flink/runtime/clusterframework/types/LocationPreferenceSlotSelectionStrategyTest.java",
@@ -30378,7 +30378,7 @@
       ],
       "old_name": "slotInfoAndResources",
       "new_name": "slotInfoWithUtilization",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f1f}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@70f}"
   },
   {
       "path": "https://github.com/apache/flink/blob/bbd5a7876eb1542ff89f05f5f5d82bb8bd41b7bd^1/flink-table/flink-sql-client/src/test/java/org/apache/flink/table/client/gateway/ExecutorImplITCase.java",
@@ -30394,7 +30394,7 @@
       ],
       "old_name": "stringData",
       "new_name": "path",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f22}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@712}"
   },
   {
       "path": "https://github.com/apache/flink/blob/be127310958841e5257c1a6bdcfa6086ed440b3e^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/partition/hybrid/tiered/storage/HashBufferAccumulatorTest.java",
@@ -30426,7 +30426,7 @@
       ],
       "old_name": "buffers",
       "new_name": "buffer",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f26}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@716}"
   },
   {
       "path": "https://github.com/apache/flink/blob/be127310958841e5257c1a6bdcfa6086ed440b3e^1/flink-runtime/src/test/java/org/apache/flink/runtime/io/network/partition/hybrid/tiered/storage/SortBufferAccumulatorTest.java",
@@ -30466,7 +30466,7 @@
       ],
       "old_name": "buffers",
       "new_name": "buffer",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f28}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@718}"
   },
   {
       "path": "https://github.com/apache/flink/blob/c91500423151bae2c6cb75f9652dd9abf918982c^1/flink-table/flink-table-planner/src/main/java/org/apache/flink/table/planner/operations/SqlNodeToOperationConversion.java",
@@ -30498,7 +30498,7 @@
       ],
       "old_name": "comment",
       "new_name": "viewComment",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f71}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@761}"
   },
   {
       "path": "https://github.com/apache/flink/blob/caa032236979bdd53cdbf78ff05cceb6ec2f4d93^1/flink-runtime/src/main/java/org/apache/flink/streaming/api/graph/StreamingJobGraphGenerator.java",
@@ -32106,7 +32106,7 @@
       ],
       "old_name": "k",
       "new_name": "key",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f78}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@768}"
   },
   {
       "path": "https://github.com/apache/flink/blob/cc9540cacc2d775cc190ee6534794ec33fd07828^1/flink-table/flink-table-planner/src/main/java/org/apache/flink/table/planner/operations/AlterSchemaConverter.java",
@@ -32126,7 +32126,7 @@
       ],
       "old_name": "pkName",
       "new_name": "pk",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f7d}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@76d}"
   },
   {
       "path": "https://github.com/apache/flink/blob/d351c5bd9c1f28a3e5ffe98fb549c1b94618485b^1/flink-tests/src/test/java/org/apache/flink/api/datastream/DataStreamBatchExecutionITCase.java",
@@ -33514,7 +33514,7 @@
       ],
       "old_name": "in",
       "new_name": "input",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@f9b}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@78b}"
   },
   {
       "path": "https://github.com/apache/flink/blob/d88f39c4486786d1b146ca71390400d9be3375a4^1/flink-runtime/src/test/java/org/apache/flink/runtime/dispatcher/runner/SessionDispatcherLeaderProcessTest.java",
@@ -33530,7 +33530,7 @@
       ],
       "old_name": "recovedJobGraphs",
       "new_name": "recoverJobGraphs",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@fa6}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@796}"
   },
   {
       "path": "https://github.com/apache/flink/blob/e15126561dc42b5571d5f03b4ebd85499180d083^1/flink-runtime-web/src/test/java/org/apache/flink/runtime/webmonitor/handlers/JarHandlerParameterTest.java",
@@ -33594,7 +33594,7 @@
       ],
       "old_name": "jobGraph",
       "new_name": "executionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@fbd}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7ad}"
   },
   {
       "path": "https://github.com/apache/flink/blob/e15126561dc42b5571d5f03b4ebd85499180d083^1/flink-runtime/src/main/java/org/apache/flink/runtime/rest/handler/job/JobSubmitHandler.java",
@@ -33682,7 +33682,7 @@
       ],
       "old_name": "jobGraph",
       "new_name": "executionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@fc1}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7b1}"
   },
   {
       "path": "https://github.com/apache/flink/blob/e15126561dc42b5571d5f03b4ebd85499180d083^1/flink-runtime/src/test/java/org/apache/flink/runtime/rest/handler/job/JobSubmitHandlerTest.java",
@@ -33730,7 +33730,7 @@
       ],
       "old_name": "submittedJobGraph",
       "new_name": "submittedExecutionPlan",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@fc6}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7b6}"
   },
   {
       "path": "https://github.com/apache/flink/blob/eb8af0c589ce46b091f403e848c7dc84b7e3ee8b^1/flink-streaming-java/src/main/java/org/apache/flink/streaming/api/environment/StreamExecutionEnvironment.java",
@@ -34502,7 +34502,7 @@
       ],
       "old_name": "conf",
       "new_name": "ignored",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@fe5}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7d5}"
   },
   {
       "path": "https://github.com/apache/flink/blob/f1a079f95e409d3a81ff5dd199ea3c0dc30470cc^1/flink-runtime/src/test/java/org/apache/flink/runtime/clusterframework/types/LocationPreferenceSlotSelectionStrategyTest.java",
@@ -34518,7 +34518,7 @@
       ],
       "old_name": "slotInfoWithUtilization",
       "new_name": "allocationId",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@ff2}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7e2}"
   },
   {
       "path": "https://github.com/apache/flink/blob/f82556d06e3146c9e823ccb9736421088d7d81f9^1/flink-tests/src/test/java/org/apache/flink/test/misc/JobIDLoggingITCase.java",
@@ -35446,7 +35446,7 @@
       ],
       "old_name": "p",
       "new_name": "pattern",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@100f}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@7ff}"
   },
   {
       "path": "https://github.com/apache/flink/blob/fc7defb14d11e270d539ee0d80a2076ae55a4ea2^1/flink-runtime/src/main/java/org/apache/flink/runtime/scheduler/SsgNetworkMemoryCalculationUtils.java",
@@ -35470,5 +35470,7 @@
       ],
       "old_name": "ds",
       "new_name": "producedDataSet",
-      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@101e}"
+      "error": "Missing extension point: com.intellij.java.elementFinder in container {ALL_SCOPE_KEY=com.intellij.psi.search.EverythingGlobalScope@80e}"
   }
+  ]
+}

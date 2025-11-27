@@ -6,7 +6,9 @@ import edu.colorado.rrassist.psi.JavaVarTarget
 import edu.colorado.rrassist.psi.PsiContextExtractor
 import edu.colorado.rrassist.services.RenameSuggestion
 import edu.colorado.rrassist.services.RenameSuggestionsEnvelope
+import kotlinx.serialization.Serializable
 
+@Serializable
 enum class NamingConvention {
     CONSTANT_CASE, // SCREAMING_SNAKE_CASE: MY_VAR
     SNAKE_CASE,    // snake_case: my_var
@@ -76,11 +78,12 @@ enum class NamingConvention {
     }
 }
 
+@Serializable
 data class RenameHistory(
     val beforeName: String,
     val afterName: String,
-    val beforeConventions: Enum<NamingConvention>,
-    val afterConventions: Enum<NamingConvention>,
+    val beforeConventions: NamingConvention,
+    val afterConventions: NamingConvention,
     val filePath: String,
     val type: String,
     val commitId: String? = null
@@ -257,6 +260,7 @@ open class HistoryFirstStrategy(
     protected fun suggestFromHistory(context: RenameContext): RenameSuggestion? {
         var bestSuggestionConf = 0.0
         var bestSuggestionName: String? = null
+        var bestSuggestionRenameHistory: RenameHistory? = null
         for (renameHistory in renameHistories) {
             val suggestionName = applyHistoryPattern(renameHistory, context)
             if (renameHistory.afterName == context.symbolName ||
@@ -270,15 +274,20 @@ open class HistoryFirstStrategy(
                     "HIGH MATCH for symbol='${context.symbolName}': " +
                             "suggestion='$suggestionName', history=${renameHistory.beforeName} ${renameHistory.afterName}, score=$score,"
                 )
-                return RenameSuggestion(name = suggestionName, confidence = score)
+                return RenameSuggestion(name = suggestionName, confidence = score, renameHistory = renameHistory)
             }
             if (score > bestSuggestionConf && score >= THRESHOLD_LOW) {
                 bestSuggestionConf = score
                 bestSuggestionName = suggestionName
+                bestSuggestionRenameHistory = renameHistory
             }
         }
         if (bestSuggestionName != null) {
-            return RenameSuggestion(name = bestSuggestionName, confidence = bestSuggestionConf)
+            return RenameSuggestion(
+                name = bestSuggestionName,
+                confidence = bestSuggestionConf,
+                renameHistory = bestSuggestionRenameHistory
+            )
         }
         return null
     }

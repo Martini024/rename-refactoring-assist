@@ -245,13 +245,7 @@ private suspend fun runForStrategy(
                             oldName = t.oldName,
                             newName = t.newName,
                             ctx = ctx,
-                            suggestions = envelope.suggestions.map {
-                                RenameSuggestion(
-                                    name = it.name,
-                                    rationale = it.rationale,
-                                    confidence = it.confidence
-                                )
-                            },
+                            suggestions = envelope.suggestions,
                             error = null
                         )
 
