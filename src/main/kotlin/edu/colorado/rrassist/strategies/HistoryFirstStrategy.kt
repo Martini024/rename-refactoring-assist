@@ -201,7 +201,7 @@ open class HistoryFirstStrategy(
         return pattern?.apply(context.symbolName)
     }
 
-    private fun scoreSuggestion(renameHistory: RenameHistory, context: RenameContext, suggestedName: String): Double {
+    private fun scoreSuggestion(renameHistory: RenameHistory, context: RenameContext): Double {
         fun tokenSimilarity(a: String, b: String): Double {
             val ta = NameUtil.nameToWords(a).map { it.lowercase() }.toSet()
             val tb = NameUtil.nameToWords(b).map { it.lowercase() }.toSet()
@@ -268,13 +268,18 @@ open class HistoryFirstStrategy(
                 context.conflictNames.contains(suggestionName) ||
                 suggestionName == context.symbolName
             ) continue
-            val score = scoreSuggestion(renameHistory, context, suggestionName)
+            val score = scoreSuggestion(renameHistory, context)
             if (score >= THRESHOLD_HIGH) {
                 println(
                     "HIGH MATCH for symbol='${context.symbolName}': " +
                             "suggestion='$suggestionName', history=${renameHistory.beforeName} ${renameHistory.afterName}, score=$score,"
                 )
-                return RenameSuggestion(name = suggestionName, confidence = score, renameHistory = renameHistory)
+                return RenameSuggestion(
+                    name = suggestionName,
+                    confidence = score,
+                    renameHistory = renameHistory,
+                    rationale = "High match since the user has previously renamed '${renameHistory.beforeName}' to '${renameHistory.afterName}', and this pattern generalizes cleanly to the current symbol."
+                )
             }
             if (score > bestSuggestionConf && score >= THRESHOLD_LOW) {
                 bestSuggestionConf = score
