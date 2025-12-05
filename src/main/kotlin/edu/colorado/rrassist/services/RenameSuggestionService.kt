@@ -6,6 +6,7 @@ import edu.colorado.rrassist.llm.LlmFactory
 import edu.colorado.rrassist.settings.RRAssistAppSettings
 import edu.colorado.rrassist.settings.RRAssistConfig
 import edu.colorado.rrassist.strategies.FileLevelLlmStrategy
+import edu.colorado.rrassist.strategies.HistoryAugmentedLlmStrategy
 import edu.colorado.rrassist.strategies.HistoryFirstFileLlmStrategy
 import edu.colorado.rrassist.strategies.MethodLevelLlmStrategy
 import edu.colorado.rrassist.strategies.HistoryFirstStrategy
@@ -32,13 +33,15 @@ enum class StrategyType {
     HISTORY_FIRST_METHOD_LEVEL,
     HISTORY_ONLY,
     FILE_LEVEL_LLM,
-    HISTORY_FIRST_FILE_LLM;
+    HISTORY_FIRST_FILE_LLM,
+    HISTORY_AUGMENTED_LLM;
 
     fun isHistoryBased(): Boolean =
         when (this) {
             HISTORY_FIRST_METHOD_LEVEL,
             HISTORY_ONLY,
-            HISTORY_FIRST_FILE_LLM -> true
+            HISTORY_FIRST_FILE_LLM,
+            HISTORY_AUGMENTED_LLM -> true
 
             else -> false
         }
@@ -73,6 +76,7 @@ class RenameSuggestionService(
             StrategyType.HISTORY_ONLY -> HistoryOnlyStrategy(llm)
             StrategyType.FILE_LEVEL_LLM -> FileLevelLlmStrategy(llm)
             StrategyType.HISTORY_FIRST_FILE_LLM -> HistoryFirstFileLlmStrategy(llm)
+            StrategyType.HISTORY_AUGMENTED_LLM -> HistoryAugmentedLlmStrategy(llm)
         }
 
     fun setStrategy(strategy: StrategyType) {

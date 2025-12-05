@@ -291,7 +291,8 @@ open class HistoryFirstStrategy(
             return RenameSuggestion(
                 name = bestSuggestionName,
                 confidence = bestSuggestionConf,
-                renameHistory = bestSuggestionRenameHistory
+                renameHistory = bestSuggestionRenameHistory,
+                rationale = "Chosen by aligning with a related historical rename pattern ('${bestSuggestionRenameHistory?.beforeName}' → '${bestSuggestionRenameHistory?.afterName}'), which provides a moderate but meaningful stylistic signal."
             )
         }
         return null
