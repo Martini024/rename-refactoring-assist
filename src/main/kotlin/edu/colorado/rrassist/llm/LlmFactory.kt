@@ -7,8 +7,9 @@ object LlmFactory {
     fun create(cfg: RRAssistConfig): LlmClient {
         cfg.provider.let { p ->
             return when (p) {
-                Provider.OPENAI  -> OpenAiClient(cfg)
+                Provider.OPENAI -> OpenAiClient(cfg)
                 Provider.OLLAMA -> OllamaClient(cfg)
+                Provider.GRAZIE -> GrazieClient(cfg)
             }
         }
     }

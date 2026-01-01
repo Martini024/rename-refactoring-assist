@@ -54,13 +54,15 @@ abstract class LlmClient {
         return response.aiMessage().text()
     }
 
-    fun <T : Any> chat(request: ChatRequest, type: Class<T>): T {
+    open fun <T : Any> chat(request: ChatRequest, type: Class<T>): T {
         val response = model.chat(request)
         val usage = response.tokenUsage()
         recordUsage(usage)
         val output = response.aiMessage().text()
         return JsonMapperProvider.mapper.readValue(output, type)
     }
+
+    protected fun recordTokenUsage(usage: TokenUsage?) = recordUsage(usage)
 
     private fun ChatMsg.toLc4j(): ChatMessage = when (role) {
         Role.System -> SystemMessage(content)

@@ -8,7 +8,8 @@ import com.intellij.util.xmlb.annotations.Transient
 
 enum class Provider(val displayName: String) {
     OPENAI("OpenAI"),
-    OLLAMA("Ollama");
+    OLLAMA("Ollama"),
+    GRAZIE("Grazie");
 
     override fun toString(): String = displayName
 }

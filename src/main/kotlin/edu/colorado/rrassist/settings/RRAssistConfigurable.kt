@@ -28,12 +28,12 @@ class RRAssistConfigurable : Configurable {
                 row("Base URL:") {
                     textField()
                         .bindText(local::baseUrl)
-                        .comment("OpenAI: https://api.openai.com/v1 · Ollama: http://localhost:11434/v1")
+                        .comment("OpenAI: https://api.openai.com/v1 · Ollama: http://localhost:11434/v1 · Grazie: http://localhost:8000/v1")
                 }
-                row("Model:") {
+                row("Model / Profile:") {
                     textField()
                         .bindText(local::model)
-                        .comment("Example: gpt-4o-mini (OpenAI) · llama3.1 (Ollama)")
+                        .comment("Example: gpt-4o-mini (OpenAI) · llama3.1 (Ollama) · openai-gpt-4o-mini (Grazie)")
                 }
                 row("API Key:") {
                     passwordField()
